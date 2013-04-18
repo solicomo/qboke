@@ -1,0 +1,49 @@
+{
+	"lang" : "zh_CN",
+	"tz"   : "+8",
+	"name" : "Another QBoke",
+	"desc" : "Blogging by your hands.",
+	"rss"  : "",
+	"theme": "default",
+	"opts" : {
+		"menu": [
+			{
+				"name": "Home",
+				"url": "/index.html"
+			},{
+				"name": "Album",
+				"url": "/tag/album.html"
+			},{
+				"name": "About",
+				"url" : "about.html"
+			}
+		],
+		"sidebar": [
+			{
+				"name": "",
+				"type": "text",
+				"content": "<center>Welcom to my blog.</center>"
+			},{
+				"name": "Tag Cloud",
+				"type": "tag_cloud"
+			},{
+				"name": "Tag List",
+				"type": "tag_list"
+			},{
+				"name": "Blogroll",
+				"type": "blogroll",
+				"content": [
+					{
+						"name": "QBoke",
+						"desc": "Blogging by your hands.",
+						"url" : "http://qboke.org"
+					},{
+						"name": "Kernel",
+						"desc": "Useful things for Chinese Linuxers.",
+						"url" : "http://kernel.cn"
+					}
+				]
+			}
+		]
+	}
+}

@@ -1,0 +1,15 @@
+<?php
+/**
+ * author: Soli <soli@qq.com>
+ * date  : 2013-04-18
+ * */
+
+require_once("../convertors/convertor.php");
+
+global $g_settings;
+global $g_indexes;
+global $g_convertors;
+global $g_convertor_none = new Convertor;
+global $g_hooks;
+
+?>

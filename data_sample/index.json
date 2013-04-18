@@ -1,0 +1,23 @@
+[
+	{
+		"lname" : "about.html",
+		"title" : "About",
+		"author": "QBoke",
+		"abstr" : "Want to know me? Go ahead!",
+		"date"  : "2013-03-17 23:00:33",
+		"file"  : "about.md",
+		"format": "markdown",
+		"tags"  : ["about", "QBoke"],
+		"opts"  : {}
+	},{
+		"lname" : "photo.html",
+		"title" : "My photo",
+		"author": "QBoke",
+		"abstr" : "",
+		"date"  : "2013-03-18 23:50:45",
+		"file"  : "photo.md",
+		"format": "markdown",
+		"tags"  : ["album", "photo", "QBoke"],
+		"opts"  : {}
+	}
+]
