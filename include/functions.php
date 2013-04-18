@@ -4,7 +4,7 @@
  * date  : 2013-04-05
  * */
 
-require_once("vars.php");
+require_once('vars.php');
 
 /**
  * Get data directory.
