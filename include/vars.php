@@ -7,7 +7,7 @@
 require_once(ABSPATH . '/convertors/convertor.php');
 
 global $g_settings;
-global $g_indexes;
+global $g_index;
 global $g_convertors;
 global $g_convertor_none = new Convertor;
 global $g_hooks;

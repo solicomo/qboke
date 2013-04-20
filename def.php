@@ -8,7 +8,7 @@
 define( 'ABSPATH', dirname(__FILE__) );
 
 /** Define INC_DIR */
-define( 'INC_DIR', ABSPATH . '/includes' );
+define( 'INC_DIR', ABSPATH . '/include' );
 
 /** Define LANG_DIR */
 define( 'LANG_DIR', ABSPATH . '/lang' );
@@ -24,6 +24,12 @@ define( 'PLUGINS_DIR', ABSPATH . '/plugins' );
 
 /** Define THEMES_DIR */
 define( 'THEMES_DIR', ABSPATH . '/themes' );
+
+/** Define CONVERTORS_DIR */
+define( 'CONVERTORS_DIR', ABSPATH . '/convertors' );
+
+/** Define CACHE_DIR */
+define( 'CACHE_DIR', ABSPATH . '/cache' );
 
 /** Define LANG */
 define('LANG', 'en_US');

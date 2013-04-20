@@ -35,7 +35,7 @@ function get_locale() {
 function get_translations_for_domain( $domain ) {
 	global $g_l10n;
 	if ( !isset( $g_l10n[$domain] ) ) {
-		$g_l10n[$domain] = new NOOP_Translations;
+		return false;
 	}
 	return $g_l10n[$domain];
 }
@@ -51,8 +51,11 @@ function get_translations_for_domain( $domain ) {
  * @return string Translated text
  */
 function translate( $text, $domain = 'default' ) { 
-	$translations = get_translations_for_domain( $domain );
-	return $translations->translate( $text );
+	$trans = get_translations_for_domain( $domain );
+	if( $trans === false ) {
+		return $text;
+	}
+	return $trans->translate( $text );
 }
 
 /**
@@ -132,8 +135,8 @@ function load_default_textdomain() {
 function load_plugin_textdomain( $plugin ) {
 	$locale = get_locale();
 	
-	$mofile = PLUGINS_DIR . '/'. $plugin . '/lang/' . $locale . '.mo';
-	load_textdomain( $plugin, $mofile );
+	$mofile = PLUGINS_DIR . "/$plugin/lang/$locale.mo";
+	load_textdomain( "plugin_$plugin", $mofile );
 }
 
 /**
@@ -144,8 +147,20 @@ function load_plugin_textdomain( $plugin ) {
 function load_theme_textdomain( $theme ) {
 	$locale = get_locale();
 	
-	$mofile = THEMES_DIR . '/'. $theme . '/lang/' . $locale . '.mo';
-	load_textdomain( $theme, $mofile );
+	$mofile = THEMES_DIR . "/$theme/lang/$locale.mo";
+	load_textdomain( "theme_$theme", $mofile );
+}
+
+/**
+ * Loads the convertor's translated strings.
+ *
+ * The translated (.mo) file is named based on the locale.
+ */
+function load_convertor_textdomain( $convertor ) {
+	$locale = get_locale();
+	
+	$mofile = CONVERTOR_DIR . "/$convertor/lang/$locale.mo";
+	load_textdomain( "convertor_$convertor", $mofile );
 }
 
 ?>

@@ -23,7 +23,7 @@ function get_data_path() {
 	return false;
 }
 
-function get_settings() {
+function load_settings() {
 	global $g_settings;
 	$spath = get_data_path();
 	if( false === $spath ) {
@@ -49,8 +49,8 @@ function get_settings() {
 	return false;
 }
 
-function get_index() {
-	global $g_indexes;
+function load_index() {
+	global $g_index;
 	$spath = get_data_path();
 	if( false === $spath ) {
 		return false;
@@ -66,29 +66,82 @@ function get_index() {
 		return false;
 	}
 
-	$g_indexes = json_decode( $index );
+	$g_index = json_decode( $index );
 
-	if( json_last_error() === JSON_ERROR_NONE) {
+	if( json_last_error() === JSON_ERROR_NONE ) {
 		return true;
 	}
 
 	return false;
 }
 
-function set_convertor($format, $convertor)
-{
+function load_plugins() {
+	foreach( get_subdirs( PLUGINS_DIR ) as $plugin ) {
+		load_plugin_textdomain( $plugin );
+		include_once( PLUGINS_DIR . "/$plugin/$plugin.php" );
+	}
+}
+
+function load_theme() {
+	$theme = $g_settings['theme'];
+	if( !is_readable( THEMES_DIR . "/$theme/$theme.php" ) ) {
+		$theme = 'default';
+	}
+
+	load_theme_textdomain( $theme );
+	require_once( THEMES_DIR . "/$theme/$theme.php" );
+
+	if( !isset( $g_theme ) ) {
+		load_theme_textdomain( 'default' );
+		require_once( THEMES_DIR . '/default/default.php' );
+	}
+}
+
+function load_convertors() {
+	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
+		load_convertor_textdomain( $cvt );
+		include_once( CONVERTORS_DIR . "/$cvt/$cvt.php" );
+	}
+}
+
+function get_subdirs($path) {
+	$subs = array();
+	if( !is_dir( $path ) ) {
+		return $subs;
+	}
+
+	if( ! $dh = opendir( $path ) ) {
+		return $subs;
+	}
+
+	while ( ( $sub = readdir( $dh ) ) !== false ) {
+		if ( $sub != '.' && $sub != '..' ) {
+			if( is_dir( "$path/$sub" ) ) {
+				$subs[] = $sub;
+			}
+		}
+	}
+
+	closedir( $dh );
+	return $subs;
+}
+
+function set_convertor($format, $convertor) {
 	global $g_convertors;
 	$g_convertors[$format] = $convertor;
 }
 
-function get_convertor($format)
-{
+function get_convertor($format) {
 	global $g_convertors;
-	if(array_key_exists($format, $g_convertors))
-	{
+	if(array_key_exists($format, $g_convertors)) {
 		return $g_convertors[$format];
 	}
 
 	return $g_convertor_none;
 }
+
+function parse_uri() {
+	//TODO:
+}
+
 ?>
