@@ -1,6 +1,6 @@
 <?php
 /**
- * author: Soli <soli@qq.com>
+ * author: Soli <soli@cbug.org>
  * date  : 2013-04-18
  * */
 
