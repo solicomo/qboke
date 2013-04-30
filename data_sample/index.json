@@ -1,6 +1,6 @@
 [
 	{
-		"lname" : "about.html",
+		"lname" : "about",
 		"title" : "About",
 		"author": "QBoke",
 		"abstr" : "Want to know me? Go ahead!",
@@ -10,7 +10,7 @@
 		"tags"  : ["about", "QBoke"],
 		"opts"  : {}
 	},{
-		"lname" : "photo.html",
+		"lname" : "photo",
 		"title" : "My photo",
 		"author": "QBoke",
 		"abstr" : "",

@@ -1,0 +1,118 @@
+/**
+ * author: Soli <soli@cbug.org>
+ * date  : 2013-04-30
+ * */
+/** global start */
+body{
+	color:#333333;
+	line-height:18px;
+	font-size:12px;
+	font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+}
+
+h1, h2{
+	font-family: Myriad Pro, "Lucida Grande","Lucida Sans Unicode",Trebuchet MS,Arial;
+}
+
+h3, h4, h5{
+	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+}
+
+a, a:hover, a:visited {text-decoration: none;}
+img {border: none;}
+
+/** global end */
+/** main frame start */
+#wrap{}
+
+#container{
+	width: 960px;
+	margin: 0px auto;
+	position: relative;
+	padding-bottom: 3em;
+}
+
+#header{
+	padding: 10px 0 3px;
+	position: relative;
+}
+
+#nav{
+	margin-bottom: 16px;
+	position: relative;
+}
+
+#content{}
+
+#main{
+	width: 640px;
+	float: left;
+}
+
+#sidebar{
+	width: 300px;
+	float: right;
+}
+
+#footer{
+	padding: 10px 0 5em;
+}
+
+/** main frame end */
+/** subitems start */
+#header h1{
+	//TODO
+}
+
+#menus{
+	//TODO
+}
+
+#menus li{
+	//TODO
+}
+
+.post-wrap{
+	//TODO
+}
+
+.post{
+	//TODO
+}
+
+.post-header{
+	//TODO
+}
+
+.post-title{
+	//TODO
+}
+
+.post-meta{
+	//TODO
+}
+
+.post-content{
+	//TODO
+}
+
+.post-footer{
+	//TODO
+}
+
+.post-tags{
+	//TODO
+}
+
+.widget{
+	//TODO
+}
+
+.wtitle{
+	//TODO
+}
+
+.wcontent{
+	//TODO
+}
+/** subitems end */

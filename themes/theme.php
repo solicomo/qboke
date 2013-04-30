@@ -6,8 +6,13 @@
 
 class Theme {
 	public function render() {
-		echo 'You are now naked.';
+		if ( is_post() ) {
+			require( 'post.php' );
+		} else if ( is_index() ) {
+			require( 'index.php' );
+		} else if ( is_tag() ) {
+			require( 'tag.php' );
+		}
 	}
 }
-
 ?>

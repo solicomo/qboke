@@ -34,12 +34,12 @@ function put_cache() {
 		return;
 	}
 
-	if( !touch( $g_cache_file ) {
+	if( !touch( $g_cache_file ) ) {
 		return;
 	}
 	///////////////////
 
-	$cache = file_get_contents( 'http://' . _SERVER['HTTP_HOST'] . _SERVER['REQUEST_URI'] );
+	$cache = file_get_contents( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 	if( $cache !== false ) {
 		if( file_put_contents( $g_cache_file, $cache ) === false ) {
 			unlink( $g_cache_file );

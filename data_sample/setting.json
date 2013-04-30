@@ -1,7 +1,9 @@
 {
+	"url"  " "http://www.qboke.org/blog/",
 	"lang" : "zh_CN",
 	"tz"   : "+8",
 	"name" : "Another QBoke",
+	"sub"  : "Blogging by your hands.",
 	"desc" : "Blogging by your hands.",
 	"rss"  : "",
 	"theme": "default",
@@ -24,8 +26,11 @@
 				"type": "text",
 				"content": "<center>Welcom to my blog.</center>"
 			},{
-				"name": "Tag Cloud",
-				"type": "tag_cloud"
+				"name": "Donate",
+				"type": "text",
+				"content": "<center><a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FJEEDWPYTCNBC\">
+							<img src=\"https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif\" /></a>
+							</center>"
 			},{
 				"name": "Tag List",
 				"type": "tag_list"

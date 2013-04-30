@@ -1,7 +1,7 @@
 <?php
 /**
- * author: Soli <soli@cbug.org>
- * date  : 2013-04-05
+ * @author: Soli <soli@cbug.org>
+ * @date  : 2013-04-05
  * */
 
 require_once('vars.php');
@@ -83,18 +83,29 @@ function load_plugins() {
 }
 
 function load_theme() {
-	$theme = $g_settings['theme'];
-	if( !is_readable( THEMES_DIR . "/$theme/$theme.php" ) ) {
-		$theme = 'default';
+	$name = $g_settings['theme'];
+	if( !is_readable( THEMES_DIR . "/$name/$name.php" ) ) {
+		$name = 'default';
 	}
 
-	load_theme_textdomain( $theme );
-	require_once( THEMES_DIR . "/$theme/$theme.php" );
+	load_theme_textdomain( $name );
+	require_once( THEMES_DIR . "/$name/$name.php" );
 
-	if( !isset( $g_theme ) ) {
+	$theme = get_theme();
+	if( !isset( $theme ) ) {
 		load_theme_textdomain( 'default' );
 		require_once( THEMES_DIR . '/default/default.php' );
 	}
+}
+
+function set_theme($theme) {
+	global $g_theme;
+	$g_theme = $theme;
+}
+
+function get_theme() {
+	global $g_theme;
+	return $g_theme;
 }
 
 function load_convertors() {
@@ -102,6 +113,20 @@ function load_convertors() {
 		load_convertor_textdomain( $cvt );
 		include_once( CONVERTORS_DIR . "/$cvt/$cvt.php" );
 	}
+}
+
+function set_convertor($format, $convertor) {
+	global $g_convertors;
+	$g_convertors[$format] = $convertor;
+}
+
+function get_convertor($format) {
+	global $g_convertors;
+	if(array_key_exists($format, $g_convertors)) {
+		return $g_convertors[$format];
+	}
+
+	return $g_convertor_none;
 }
 
 function get_subdirs($path) {
@@ -126,19 +151,6 @@ function get_subdirs($path) {
 	return $subs;
 }
 
-function set_convertor($format, $convertor) {
-	global $g_convertors;
-	$g_convertors[$format] = $convertor;
-}
-
-function get_convertor($format) {
-	global $g_convertors;
-	if(array_key_exists($format, $g_convertors)) {
-		return $g_convertors[$format];
-	}
-
-	return $g_convertor_none;
-}
 
 /**
  * /index.html
