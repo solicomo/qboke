@@ -10,7 +10,7 @@
  * */
 class Convertor
 {
-	public function &do(&$content)
+	public function go(&$content)
 	{
 		return $content;
 	}

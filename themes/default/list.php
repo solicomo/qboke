@@ -4,9 +4,9 @@
  * date  : 2013-04-29
  * */ 
 
-require_once 'INC_DIR' . '/functions.php';
+require_once INC_DIR . '/functions.php';
 
-require 'header.php';
+require __DIR__ . '/header.php';
 ?>
 <!-- main start -->
 <div id="main">
@@ -28,6 +28,6 @@ require 'header.php';
 </div>
 <!-- main end -->
 <?php
-require 'sidebar.php';
-require 'footer.php';
+require __DIR__ . '/sidebar.php';
+require __DIR__ . '/footer.php';
 ?>

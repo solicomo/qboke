@@ -151,6 +151,14 @@ function get_subdirs($path) {
 	return $subs;
 }
 
+function get_uri_root() {
+	global $g_uri_root;
+	if ( !isset($g_uri_root) ) {
+		$g_uri_root = dirname($_SERVER['SCRIPT_NAME']);
+	}
+
+	return $g_uri_root;
+}
 
 /**
  * /index.html
@@ -162,10 +170,18 @@ function get_subdirs($path) {
  *
  * */
 function parse_uri() {
-	$uri = $_SERVERE['REQUEST_URI'];
+	$uri = $_SERVER['REQUEST_URI'];
+	$uri_root = get_uri_root();
+
 	if ( ( $qp = strpos( $uri, '?' ) ) !== false ) {
 		$uri = substr( $uri, 0, $qp );
 	}
+
+	if ( strpos( $uri, $uri_root ) !== 0 ) {
+		return false;
+	}
+
+	$uri = substr( $uri, strlen( $uri_root ) );
 
 	if ( $uri === '/' ) {
 		$uri = '/index.html';
@@ -173,25 +189,30 @@ function parse_uri() {
 
 	$ext = substr($uri, -5);
 	if ( $ext !== '.html' ) {
-		return;
+		return false;
 	}
 
 	$uri = substr( $uri, 0, strlen($uri) - 5 );
 
 	$qs = explode( '/', $uri, 3 );
 	if ( $qs === false ) {
-		return;
+		return false;
 	}
 
-	if ( $qs[0] !== 'index' && $qs[0] !== 'tag' && $qs[0] !== 'post' ) {
-		return;
+	if ( $qs[1] !== 'index' && $qs[1] !== 'tag' && $qs[1] !== 'post' ) {
+		return false;
 	}
 
-	$g_req_type = $qs[0];
-	$g_req_value= $qs[1];
+	global $g_req_type;
+	global $g_req_value;
+	$g_req_type = $qs[1];
+	$g_req_value= $qs[2];
+
+	return true;
 }
 
 function get_req_type() {
+	global $g_req_type;
 	return $g_req_type;
 }
 
@@ -205,10 +226,10 @@ function is_index() {
 	return false;
 }
 
-function is_list() {
+function is_tag() {
 	$req_type = get_req_type();
 
-	if ( $req_type === 'index' || $req_type === 'tag') {
+	if ( $req_type === 'tag') {
 		return true;
 	}
 
