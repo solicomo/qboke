@@ -4,6 +4,8 @@
  * date  : 2013-04-20
  * */
 
+require_once INC_DIR. '/functions.php';
+
 class Theme {
 	public function render() {
 		if ( is_post() ) {

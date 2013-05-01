@@ -5,7 +5,6 @@
  * */
 
 require_once THEMES_DIR . '/theme.php';
-require_once INC_DIR. '/functions.php';
 
 class Theme_Default extends Theme {
 }

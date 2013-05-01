@@ -195,6 +195,16 @@ function get_req_type() {
 	return $g_req_type;
 }
 
+function is_index() {
+	$req_type = get_req_type();
+
+	if ( $req_type === 'index' ) {
+		return true;
+	}
+
+	return false;
+}
+
 function is_list() {
 	$req_type = get_req_type();
 
