@@ -48,7 +48,8 @@ img {border: none;}
 
 #nav{
 	margin-bottom: 16px;
-	font-size: 13px;
+	font-size: 18px;
+	height: 36px;
 	background: transparent url(../img/nav-bg.png) no-repeat 0px -1px;
 	position: relative;
 }
@@ -66,6 +67,7 @@ img {border: none;}
 }
 
 #footer{
+	border-top: 1px solid #ddd;
 	padding: 10px 0 5em;
 }
 
