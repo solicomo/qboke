@@ -9,7 +9,7 @@
 			<!-- footer start -->
 			<div id="footer">
 				<div id="copyright">
-				Copyright &copy; 2007-2012 <a href="<?php echo get_home_url(); ?>"><?php echo get_blog_name(); ?></a>
+				Copyright &copy; 2007-2012 <a href="<?php echo get_index_url(); ?>"><?php echo blog_name(); ?></a>
 				</div>
 				<div id="custom">
 				</div>

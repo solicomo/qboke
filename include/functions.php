@@ -86,6 +86,7 @@ function load_theme() {
 	$name = $g_settings['theme'];
 	if( !is_readable( THEMES_DIR . "/$name/$name.php" ) ) {
 		$name = 'default';
+		$g_settings['theme'] = $name;
 	}
 
 	load_theme_textdomain( $name );
@@ -93,9 +94,56 @@ function load_theme() {
 
 	$theme = get_theme();
 	if( !isset( $theme ) ) {
-		load_theme_textdomain( 'default' );
-		require_once( THEMES_DIR . '/default/default.php' );
+		$name = 'default';
+		$g_settings['theme'] = $name;
+		load_theme_textdomain( $name );
+		require_once( THEMES_DIR . "/$name/$name.php" );
 	}
+}
+
+function load_convertors() {
+	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
+		load_convertor_textdomain( $cvt );
+		include_once( CONVERTORS_DIR . "/$cvt/$cvt.php" );
+	}
+}
+
+function get_home_url() {
+	global $g_home_url;
+	if ( !isset($g_home_url) ) {
+		$g_home_url = dirname($_SERVER['SCRIPT_NAME']);
+	}
+
+	return $g_home_url;
+}
+
+function get_index_url() {
+	return get_home_url() . '/index.html';
+}
+
+function blog_name() {
+	global $g_settings;
+	return $g_settings['name'];
+}
+
+function blog_subhead() {
+	global $g_settings;
+	return $g_settings['sub'];
+}
+
+function blog_keywords() {
+	global $g_settings;
+	return $g_settings['keywords'];
+}
+
+function blog_description() {
+	global $g_settings;
+	return $g_settings['desc'];
+}
+
+function get_settings($name) {
+	global $g_settings;
+	return $g_settings['opts'][$name];
 }
 
 function set_theme($theme) {
@@ -108,11 +156,13 @@ function get_theme() {
 	return $g_theme;
 }
 
-function load_convertors() {
-	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
-		load_convertor_textdomain( $cvt );
-		include_once( CONVERTORS_DIR . "/$cvt/$cvt.php" );
-	}
+function get_theme_dir() {
+	global $g_settings;
+	return THEME_DIR . "/{$g_settings['theme']}";
+}
+
+function get_theme_url() {
+	return get_home_url() . "/themes/{$g_settings['theme']}";
 }
 
 function set_convertor($format, $convertor) {
@@ -151,15 +201,6 @@ function get_subdirs($path) {
 	return $subs;
 }
 
-function get_uri_root() {
-	global $g_uri_root;
-	if ( !isset($g_uri_root) ) {
-		$g_uri_root = dirname($_SERVER['SCRIPT_NAME']);
-	}
-
-	return $g_uri_root;
-}
-
 /**
  * /index.html
  * /tag/<tag>.html
@@ -171,7 +212,7 @@ function get_uri_root() {
  * */
 function parse_uri() {
 	$uri = $_SERVER['REQUEST_URI'];
-	$uri_root = get_uri_root();
+	$uri_root = get_home_url();
 
 	if ( ( $qp = strpos( $uri, '?' ) ) !== false ) {
 		$uri = substr( $uri, 0, $qp );

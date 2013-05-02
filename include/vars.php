@@ -13,6 +13,7 @@ global $g_convertor_none;
 $g_convertor_none = new Convertor;
 global $g_hooks;
 
+global $g_home_url;
 global $g_req_type;	// 'index', 'tag', 'post'
 global $g_posts;
 global $g_cur_post;
