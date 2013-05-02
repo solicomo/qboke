@@ -6,6 +6,7 @@
 ?>
 			</div>
 			<!-- content end -->
+			<div class="clear"></div>
 			<!-- footer start -->
 			<div id="footer">
 				<div id="copyright">
