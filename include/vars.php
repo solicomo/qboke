@@ -4,7 +4,7 @@
  * date  : 2013-04-18
  * */
 
-require_once(ABSPATH . '/convertors/convertor.php');
+require_once CONVERTORS_DIR . '/convertor.php';
 
 global $g_settings;
 global $g_index;

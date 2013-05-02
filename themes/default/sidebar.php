@@ -17,7 +17,7 @@ foreach ($sidebars as $sidebar) {
 	?>
 	<div id="sidebar<?php echo "-$sidx"; ?>" class="widget">
 		<?php if ($sidebar['name'] !== '') {
-			echo '<h3 class=\"wtitle\">', $sidebar['name'], "</h3>\n";
+			echo '<h3 class="wtitle">', $sidebar['name'], "</h3>\n";
 		}?>
 		<div class="wcontent">
 			<?php echo get_sidebar_content($sidebar); ?>
@@ -35,25 +35,26 @@ foreach ($sidebars as $sidebar) {
 
 /***********************/
 function get_tag_list() {
-	$content = '<ul>\n';
+	$content = "<ul>\n";
 
 	$home_url = blog_home_url();
-	foreach (blog_tags() as $tag) {
-		$content .= "<li class=\"taglist\"><a href=\"{$home_url}tag/{$tag['name']}\">{$tag['name']}</a> ({$tag['posts']})</li>\n"; 
+	$tags = blog_tags();
+	foreach (array_keys($tags) as $tag) {
+		$content .= "<li class=\"taglist\"><a href=\"{$home_url}tag/{$tag}\">{$tag}</a> ({$tags[$tag]})</li>\n"; 
 	}
 
-	$content .= '</ul>\n';
+	$content .= "</ul>\n";
 	return $content;
 }
 
 function get_blogroll(&$blogroll) {
-	$content = '<ul>\n';
+	$content = "<ul>\n";
 
-	foreach ($$blogroll as $blog) {
+	foreach ($blogroll as $blog) {
 		$content .= "<li class=\"taglist\"><a href=\"{$blog['url']}\" title=\"{$blog['desc']}\">{$blog['name']}</a></li>\n";
 	}
 
-	$content .= '</ul>\n';
+	$content .= "</ul>\n";
 	return $content;
 }
 

@@ -4,6 +4,8 @@
  * date  : 2013-04-05
  * */
 
+require_once __DIR__ . '/pomo/mo.php';
+
 /**
  * Gets the current locale.
  *
@@ -15,7 +17,7 @@ function get_locale() {
 
 	if( !isset( $g_locale ) ) {
 
-		if( isset( $g_settings ) && !empty( $g_settings['lang'] ) ) {
+		if( isset( $g_settings ) and !empty( $g_settings['lang'] ) ) {
 			$g_locale = $g_settings['lang'];
 		} else {
 			$g_locale = LANG;
@@ -159,7 +161,7 @@ function load_theme_textdomain( $theme ) {
 function load_convertor_textdomain( $convertor ) {
 	$locale = get_locale();
 	
-	$mofile = CONVERTOR_DIR . "/$convertor/lang/$locale.mo";
+	$mofile = CONVERTORS_DIR . "/$convertor/lang/$locale.mo";
 	load_textdomain( "convertor_$convertor", $mofile );
 }
 

@@ -4,7 +4,7 @@
  * @date  : 2013-04-05
  * */
 
-require_once('vars.php');
+require_once INC_DIR . '/vars.php';
 
 /**
  * Get data directory.
@@ -29,8 +29,7 @@ function load_settings() {
 	if( false === $spath ) {
 		return false;
 	}
-
-	$spath = $spath . '/settings.json';
+	$spath = $spath . '/setting.json';
 	if( !is_readable($spath) ) {
 		return false;
 	}
@@ -40,7 +39,7 @@ function load_settings() {
 		return false;
 	}
 
-	$g_settings = json_decode( $settings );
+	$g_settings = json_decode( $settings, true );
 
 	if( json_last_error() === JSON_ERROR_NONE) {
 		return true;
@@ -66,7 +65,7 @@ function load_index() {
 		return false;
 	}
 
-	$g_index = json_decode( $index );
+	$g_index = json_decode( $index, true );
 
 	if( json_last_error() === JSON_ERROR_NONE ) {
 		return true;
@@ -108,7 +107,7 @@ function load_convertors() {
 	}
 }
 
-function get_home_url() {
+function blog_home_url() {
 	global $g_home_url;
 	if ( !isset($g_home_url) ) {
 		$g_home_url = dirname($_SERVER['SCRIPT_NAME']);
@@ -117,8 +116,8 @@ function get_home_url() {
 	return $g_home_url;
 }
 
-function get_index_url() {
-	return get_home_url() . '/index.html';
+function blog_index_url() {
+	return blog_home_url() . '/index.html';
 }
 
 function blog_name() {
@@ -141,6 +140,23 @@ function blog_description() {
 	return $g_settings['desc'];
 }
 
+function blog_tags() {
+	global $g_index;
+	global $g_tags;
+
+	if ( isset($g_tags) ) {
+		return $g_tags;
+	}
+
+	foreach ( $g_index as $post ) {
+		foreach ( $post['tags'] as $tag ) {
+			$g_tags[$tag]++;
+		}
+	}
+
+	return $g_tags;
+}
+
 function get_settings($name) {
 	global $g_settings;
 	return $g_settings['opts'][$name];
@@ -158,11 +174,12 @@ function get_theme() {
 
 function get_theme_dir() {
 	global $g_settings;
-	return THEME_DIR . "/{$g_settings['theme']}";
+	return THEMES_DIR . "/{$g_settings['theme']}";
 }
 
 function get_theme_url() {
-	return get_home_url() . "/themes/{$g_settings['theme']}";
+	global $g_settings;
+	return blog_home_url() . "/themes/{$g_settings['theme']}";
 }
 
 function set_convertor($format, $convertor) {
@@ -212,7 +229,7 @@ function get_subdirs($path) {
  * */
 function parse_uri() {
 	$uri = $_SERVER['REQUEST_URI'];
-	$uri_root = get_home_url();
+	$uri_root = blog_home_url();
 
 	if ( ( $qp = strpos( $uri, '?' ) ) !== false ) {
 		$uri = substr( $uri, 0, $qp );

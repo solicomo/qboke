@@ -21,8 +21,8 @@
 		<div id="container">
 			<!-- header start -->
 			<div id="header">
-				<h1 id="blogname"><?php blog_name(); ?></h1>
-				<div id="blogsub"><?php blog_subhead(); ?></div>
+				<h1 id="blogname"><?php echo blog_name(); ?></h1>
+				<div id="blogsub"><?php echo blog_subhead(); ?></div>
 			</div>
 			<!-- header end -->
 			<!-- nav start -->

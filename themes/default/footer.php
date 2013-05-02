@@ -9,14 +9,14 @@
 			<!-- footer start -->
 			<div id="footer">
 				<div id="copyright">
-				Copyright &copy; 2007-2012 <a href="<?php echo get_index_url(); ?>"><?php echo blog_name(); ?></a>
+				Copyright &copy; 2013 <a href="<?php echo blog_index_url(); ?>"><?php echo blog_name(); ?></a>
 				</div>
 				<div id="custom">
 				</div>
-				<div id="powered>
+				<div id="powered">
 				Proudly powered by <a href="http://www.qboke.org" target="_blank">QBoke</a>.
 				</div>
-			</div
+			</div>
 			<!-- footer end -->
 		</div>
 		<!-- container end -->
