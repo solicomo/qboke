@@ -21,9 +21,10 @@
 		<div id="container">
 			<!-- header start -->
 			<div id="header">
-				<h1 id="blogname"><?php echo blog_name(); ?></h1>
+				<h1 id="blogname"><a href="<?php echo blog_index_url(); ?>"><?php echo blog_name(); ?></a></h1>
 				<div id="blogsub"><?php echo blog_subhead(); ?></div>
 			</div>
+			<div class="clear"></div>
 			<!-- header end -->
 			<!-- nav start -->
 			<div id="nav">

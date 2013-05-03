@@ -15,7 +15,7 @@ $sidx = 0;
 foreach ($sidebars as $sidebar) {
 	$sidx++;
 	?>
-	<div id="sidebar<?php echo "-$sidx"; ?>" class="widget">
+	<div id="sidebar<?php echo "-$sidx"; ?>" class="widget rcbox">
 		<?php if ($sidebar['name'] !== '') {
 			echo '<h3 class="wtitle">', $sidebar['name'], "</h3>\n";
 		}?>

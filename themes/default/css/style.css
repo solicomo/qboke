@@ -18,7 +18,9 @@ h3, h4, h5{
 	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
 }
 
-a, a:hover, a:visited {text-decoration: none;}
+a, a:visited {text-decoration: none; color: #0088cc;}
+a:hover {text-decoration: underline;}
+
 img {border: none;}
 
 .center, .textcenter {text-align: center;}
@@ -29,6 +31,22 @@ img {border: none;}
 .textright {text-align:right;}
 .clear {clear:both;}
 .block {display:block;}
+
+.rcbox{
+	/** round corners */
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	margin-bottom: 20px;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	background: #FFF;
+}
 
 /** global end */
 /** main frame start */
@@ -67,14 +85,28 @@ img {border: none;}
 }
 
 #footer{
-	border-top: 1px solid #ddd;
+	border-top: 1px solid #ccc;
 	padding: 10px 0 5em;
 }
 
 /** main frame end */
 /** subitems start */
-#header h1{
-	//TODO
+#blogname{
+	margin: 0px;
+	font-size: 39px;
+	float: left;
+	line-height: 47px;
+}
+
+#blogname a{
+	text-decoration: none;
+	color: #000;
+}
+
+#blogsub{
+	margin: 16px 5px 0px 20px;
+	font-size: 16px;
+	float: left;
 }
 
 #menus{
@@ -112,7 +144,7 @@ img {border: none;}
 }
 
 .post-wrap{
-	//TODO
+
 }
 
 .post{
@@ -143,15 +175,26 @@ img {border: none;}
 	//TODO
 }
 
+#sidebar a{
+ 	color: #000;
+}
+
 .widget{
-	//TODO
+
 }
 
 .wtitle{
-	//TODO
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 0px 0px 5px 0px;
 }
 
 .wcontent{
 	//TODO
 }
+
+#footer span{
+	margin: 5px;
+}
+
 /** subitems end */
