@@ -24,6 +24,7 @@ load_plugins();
 load_theme();
 load_convertors();
 parse_uri();
+prepare_posts();
 get_theme()->render();
 
 // cache

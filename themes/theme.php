@@ -26,6 +26,7 @@ class Theme {
 		} else if ( is_tag() ) {
 			require get_theme_dir() . '/tag.php';
 		} else {
+			header("Status: 404 Not Found");
 			require get_theme_dir() . '/404.php';
 		}
 	}

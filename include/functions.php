@@ -140,6 +140,11 @@ function blog_description() {
 	return $g_settings['desc'];
 }
 
+function blog_linage() {
+	global $g_settings;
+	return $g_settings['linage'];
+}
+
 function blog_tags() {
 	global $g_index;
 	global $g_tags;
@@ -223,8 +228,8 @@ function get_subdirs($path) {
  * /tag/<tag>.html
  * /post/<post>.html
  *
- * /index/page_1.html
- * /tag/<tag>/page_2.html
+ * /index/1.html
+ * /tag/<tag>/2.html
  *
  * */
 function parse_uri() {
@@ -241,7 +246,7 @@ function parse_uri() {
 
 	$uri = substr( $uri, strlen( $uri_root ) );
 
-	if ( $uri === '/' ) {
+	if ( $uri === '/' || $uri === '') {
 		$uri = '/index.html';
 	}
 
@@ -263,21 +268,25 @@ function parse_uri() {
 
 	global $g_req_type;
 	global $g_req_value;
+	global $g_req_page;
+
 	$g_req_type = $qs[1];
-	$g_req_value= $qs[2];
+	if ($g_req_type === 'index') {
+		$g_req_page = $qs[2];
+	} else {
+		$g_req_value= $qs[2];
+		$g_req_value= $qs[3];
+	}
+
+	if ( !isset($g_req_page) || $g_req_page < 1) {
+		$g_req_page = 1;
+	}
 
 	return true;
 }
 
-function get_req_type() {
-	global $g_req_type;
-	return $g_req_type;
-}
-
 function is_index() {
-	$req_type = get_req_type();
-
-	if ( $req_type === 'index' ) {
+	if ( get_req_type() === 'index' ) {
 		return true;
 	}
 
@@ -285,9 +294,7 @@ function is_index() {
 }
 
 function is_tag() {
-	$req_type = get_req_type();
-
-	if ( $req_type === 'tag') {
+	if ( get_req_type() === 'tag') {
 		return true;
 	}
 
@@ -302,20 +309,96 @@ function is_post() {
 	return false;
 }
 
-function next_post() {
-	//TODO:
+function prepare_posts() {
+	global $g_posts;
+	global $g_index;
+	
+	if( !isset($g_index) ) {
+		return false;
+	}
+
+	$posts = array();
+	$req = get_req_value();
+
+	if ( is_index() ) {
+		$posts = array_keys( $g_index );
+	} elseif ( is_post() ) {
+		foreach ( $g_index as $idx => $post ) {
+			if ( $post['lname'] === $req ) {
+				$posts[] = $idx;
+			}
+		}
+	} elseif ( is_tag() ) {
+		foreach ( $g_index as $idx => $post ) {
+			if ( array_search( $req, $post['tags'] ) !== false ) {
+				$posts[] = $idx;
+			}
+		}
+	}
+
+	//TODO: ·ÖÒ³
+	$cur = get_req_page();
+	$cnt = count($posts);
+	$linage = blog_linage();
+	
+	global $g_page_cnt;
+	$g_page_cnt = ceil( $cnt / $linage );
+
+	if ( $cur < 1 || $cur > $cnt ) {
+		//TODO: 404
+		return false;
+	}
+}
+
+function pre_page_url() {
+	$cur = get_cur_page();
+	if ( $cur < 2 ) {
+		return false;
+	}
+
+	$pre = $cur - 1;
+	$type = get_req_type();
+	$val = get_req_value();
+	if ( $pre <= 1 ) {
+		$url = blog_home_url() . "/$type/$val.html";;
+	} else {
+		$url = blog_home_url() . "/$type/$va/$pre.html";
+	}
+
+	return $url;
+}
+
+function next_page_url() {
+	$cur = get_cur_page();
+	$cnt = get_page_count();
+	if ( $cur >= $cnt ) {
+		return false;
+	}
+
+	$next = $cur + 1;
+	$type = get_req_type();
+	$val = get_req_value();
+
+	$url = blog_home_url() . "/$type/$va/$next.html";
+
+	return $url;
 }
 
 function the_post() {
-	if( ! is_post() ) {
+	global $g_posts;
+	global $g_index;
+
+	if( !isset($g_posts) or !isset($g_index) ) {
 		return false;
 	}
 
-	if( ! array_key_exists( $g_cur_post, $g_index ) ) {
+	$cur_post = array_shift($g_posts);
+	
+	if( ( !isset($cur_post) ) || ( !array_key_exists( $cur_post, $g_index ) ) ) {
 		return false;
 	}
 
-	return new Post( $g_index[$g_cur_post] );
+	return new Post( $g_index[$cur_post] );
 }
 
 ?>

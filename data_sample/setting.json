@@ -6,6 +6,7 @@
 	"desc" : "Blogging by your hands.",
 	"rss"  : "",
 	"theme": "default",
+	"linage": 20,
 	"opts" : {
 		"menu": [
 			{
