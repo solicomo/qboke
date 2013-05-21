@@ -309,10 +309,18 @@ function is_post() {
 	return false;
 }
 
+function is_404() {
+	if ( get_error() === 404 ) {
+		return true;
+	}
+
+	return false;
+}
+
 function prepare_posts() {
 	global $g_posts;
 	global $g_index;
-	
+
 	if( !isset($g_index) ) {
 		return false;
 	}
@@ -336,18 +344,20 @@ function prepare_posts() {
 		}
 	}
 
-	//TODO: ·ÖÒ³
+	// åˆ†é¡µ
 	$cur = get_req_page();
 	$cnt = count($posts);
 	$linage = blog_linage();
-	
+
 	global $g_page_cnt;
 	$g_page_cnt = ceil( $cnt / $linage );
 
 	if ( $cur < 1 || $cur > $cnt ) {
-		//TODO: 404
+		set_error(404);
 		return false;
 	}
+
+	$g_posts = array_slice($posts, ($cur - 1) * $linage, $linage);
 }
 
 function pre_page_url() {
@@ -393,7 +403,7 @@ function the_post() {
 	}
 
 	$cur_post = array_shift($g_posts);
-	
+
 	if( ( !isset($cur_post) ) || ( !array_key_exists( $cur_post, $g_index ) ) ) {
 		return false;
 	}

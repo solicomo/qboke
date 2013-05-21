@@ -17,6 +17,7 @@ global $g_home_url;
 global $g_req_type;	// 'index', 'tag', 'post'
 global $g_req_value;
 global $g_req_page;
+global $g_error;	// 404, 500, 503
 
 global $g_posts; // array of post index in $g_index
 global $g_page_cnt;
@@ -45,5 +46,15 @@ function get_req_page() {
 function get_page_count() {
 	global $g_page_cnt;
 	return $g_page_cnt;
+}
+
+function get_error() {
+	global $g_error;
+	return $g_error;
+}
+
+function set_error( $err ) {
+	global $g_error;
+	$g_error = $err;
 }
 ?>

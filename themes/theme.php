@@ -19,7 +19,10 @@ class Theme {
 	}
 
 	public function render() {
-		if ( is_post() ) {
+		if ( is_404() ) {
+			header("Status: 404 Not Found");
+			require get_theme_dir() . '/404.php';
+		} else if ( is_post() ) {
 			require get_theme_dir() . '/post.php';
 		} else if ( is_index() ) {
 			require get_theme_dir() . '/index.php';
