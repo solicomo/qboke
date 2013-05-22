@@ -5,7 +5,39 @@
  * */
 
 class Post {
-	//TODO:
+	var $post;
+	var $url;
+
+	function __construct($post_idx) {
+		global $g_index;
+
+		$this->post = $g_index[$post_idx];
+		$this->url = blog_home_url() . '/post/' . $this->post['lname'] . '.html';
+	}
+
+	function url() {
+		return $this->url;
+	}
+
+	function title() {
+		return $this->post['title'];
+	}
+
+	function date() {
+		return $this->post['date'];
+	}
+
+	function author() {
+		return $this->post['author'];
+	}
+
+	function abstr() {
+		return $this->post['abstr'];
+	}
+
+	function tags() {
+		return $this->post['tags'];
+	}
 }
 
 ?>

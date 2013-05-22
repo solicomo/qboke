@@ -5,6 +5,7 @@
  * */
 
 require_once INC_DIR . '/vars.php';
+require_once INC_DIR . '/post.php';
 
 /**
  * Get data directory.

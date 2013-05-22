@@ -15,7 +15,7 @@ $sidx = 0;
 foreach ($sidebars as $sidebar) {
 	$sidx++;
 	?>
-	<div id="sidebar<?php echo "-$sidx"; ?>" class="widget rcbox">
+	<div id="<?php echo "sidebar-$sidx"; ?>" class="widget rcbox">
 		<?php if ($sidebar['name'] !== '') {
 			echo '<h3 class="wtitle">', $sidebar['name'], "</h3>\n";
 		}?>
@@ -23,7 +23,7 @@ foreach ($sidebars as $sidebar) {
 			<?php echo get_sidebar_content($sidebar); ?>
 		</div>
 	</div>
-	<?php 
+	<?php
 }/*foreach end*/ ?>
 </div>
 <!-- sidebar end -->
@@ -40,7 +40,7 @@ function get_tag_list() {
 	$home_url = blog_home_url();
 	$tags = blog_tags();
 	foreach (array_keys($tags) as $tag) {
-		$content .= "<li class=\"taglist\"><a href=\"{$home_url}/tag/{$tag}\">{$tag}</a> ({$tags[$tag]})</li>\n"; 
+		$content .= "<li class=\"taglist\"><a href=\"{$home_url}/tag/{$tag}\">{$tag}</a> ({$tags[$tag]})</li>\n";
 	}
 
 	$content .= "</ul>\n";
