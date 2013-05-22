@@ -209,6 +209,7 @@ img {border: none;}
 
 .post-tags{
 	padding-top: 10px;
+	float: right;
 }
 
 .post-tags ul{
@@ -219,7 +220,6 @@ img {border: none;}
 
 .post-tags li{
 	float: left;
-	color: #ccc;
 	background: #fff;
 	padding: 2px 4px;
 	margin-right: 6px;
