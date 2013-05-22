@@ -156,12 +156,11 @@ img {border: none;}
 }
 
 .post{
-	padding-left: 18px;
-	padding-right: 18px;
+	padding: 0px;
 }
 
 .post-header{
-	//TODO
+	margin: 18px;
 }
 
 .post-title{
@@ -180,17 +179,21 @@ img {border: none;}
 	font-size: .9em;
 	font-style: normal;
 	padding: 5px 5px;
+	margin: 0px;
 	line-height: 2.4em;
 }
 
 .post-content{
-	//TODO
+	margin: 18px;
+}
+
+.post-more{
+	margin: 0px 10px;
 }
 
 .post-footer{
 	background: url(../img/box-bgr2.gif) #eee repeat-x top;
 	height: 40px;
-	margin: 0px -17px -9px -17px;
 	padding: 0 18px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
@@ -226,7 +229,7 @@ img {border: none;}
 
 .post-tags a {
 	font-weight: bold;
-	color: #000;
+	color: #aaa;
 	text-decoration: none;
 }
 

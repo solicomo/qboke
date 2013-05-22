@@ -22,16 +22,16 @@ while ($post = the_post() ) {
 					<?php echo $post->title() ?>
 				</a>
 			</h2>
-			<div class="post-meta rcbox">
+			<em class="post-meta rcbox">
 				On <?php echo $post->date(); ?>, by <?php echo $post->author(); ?>
-			</div>
+			</em>
 		</div>
 		<div class="post-content">
 			<?php
 			if ( get_fullcontent() ) {
 				echo $post->content();
 			} else {
-				echo $post->abstr();
+				echo $post->abstr() . '<span class="post-more"><a href="' . $post->url() . '">...</a></span>';
 			}
 			?>
 		</div>
