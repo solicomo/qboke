@@ -18,7 +18,7 @@ global $g_req_type;	// 'index', 'tag', 'post'
 global $g_req_value;
 global $g_req_page;
 global $g_error;	// 404, 500, 503
-
+global $g_fullcontent;
 global $g_posts; // array of post index in $g_index
 global $g_page_cnt;
 
@@ -56,5 +56,15 @@ function get_error() {
 function set_error( $err ) {
 	global $g_error;
 	$g_error = $err;
+}
+
+function get_fullcontent() {
+	global $g_fullcontent;
+	return $g_fullcontent;
+}
+
+function set_fullcontent($show) {
+	global $g_fullcontent;
+	$g_fullcontent = $show;
 }
 ?>
