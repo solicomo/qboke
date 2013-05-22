@@ -8,10 +8,8 @@ class Post {
 	var $post;
 	var $url;
 
-	function __construct($post_idx) {
-		global $g_index;
-
-		$this->post = $g_index[$post_idx];
+	function __construct($post) {
+		$this->post = $post;
 		$this->url = blog_home_url() . '/post/' . $this->post['lname'] . '.html';
 	}
 
