@@ -195,6 +195,7 @@ img {border: none;}
 	background: url(../img/box-bgr2.gif) #eee repeat-x top;
 	height: 40px;
 	padding: 0 18px;
+	margin: 0px 1px 1px 1px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	-moz-border-radius-bottomleft: 5px;
@@ -206,12 +207,13 @@ img {border: none;}
 }
 
 .post-tags{
-	height: 40px;
-	line-height:40px;
+	padding-top: 10px;
 }
 
 .post-tags ul{
 	list-style: none;
+	margin: 0px;
+	padding: 0px;
 }
 
 .post-tags li{
