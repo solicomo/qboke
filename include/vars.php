@@ -27,6 +27,30 @@ if ( !isset($g_convertor_none) ) {
 	$g_convertor_none = new Convertor;;
 }
 
+function set_theme($theme) {
+	global $g_theme;
+	$g_theme = $theme;
+}
+
+function get_theme() {
+	global $g_theme;
+	return $g_theme;
+}
+
+function set_convertor($format, $convertor) {
+	global $g_convertors;
+	$g_convertors[$format] = $convertor;
+}
+
+function get_convertor($format) {
+	global $g_convertors;
+	if(array_key_exists($format, $g_convertors)) {
+		return $g_convertors[$format];
+	}
+
+	return $g_convertor_none;
+}
+
 /** get and set */
 function get_req_type() {
 	global $g_req_type;

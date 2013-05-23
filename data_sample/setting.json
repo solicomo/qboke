@@ -11,13 +11,13 @@
 		"menu": [
 			{
 				"name": "Home",
-				"url": "/index.html"
+				"url": "/www/qboke/index.html"
 			},{
 				"name": "Album",
-				"url": "/tag/album.html"
+				"url": "/www/qboke/tag/album.html"
 			},{
 				"name": "About",
-				"url" : "about.html"
+				"url" : "/www/qboke/post/about.html"
 			}
 		],
 		"sidebar": [

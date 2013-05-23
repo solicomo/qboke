@@ -168,16 +168,6 @@ function get_settings($name) {
 	return $g_settings['opts'][$name];
 }
 
-function set_theme($theme) {
-	global $g_theme;
-	$g_theme = $theme;
-}
-
-function get_theme() {
-	global $g_theme;
-	return $g_theme;
-}
-
 function get_theme_dir() {
 	global $g_settings;
 	return THEMES_DIR . "/{$g_settings['theme']}";
@@ -186,20 +176,6 @@ function get_theme_dir() {
 function get_theme_url() {
 	global $g_settings;
 	return blog_home_url() . "/themes/{$g_settings['theme']}";
-}
-
-function set_convertor($format, $convertor) {
-	global $g_convertors;
-	$g_convertors[$format] = $convertor;
-}
-
-function get_convertor($format) {
-	global $g_convertors;
-	if(array_key_exists($format, $g_convertors)) {
-		return $g_convertors[$format];
-	}
-
-	return $g_convertor_none;
 }
 
 function get_subdirs($path) {
@@ -276,7 +252,7 @@ function parse_uri() {
 		$g_req_page = $qs[2];
 	} else {
 		$g_req_value= $qs[2];
-		$g_req_value= $qs[3];
+		$g_req_page= $qs[3];
 	}
 
 	if ( !isset($g_req_page) || $g_req_page < 1) {
@@ -353,7 +329,7 @@ function prepare_posts() {
 	global $g_page_cnt;
 	$g_page_cnt = ceil( $cnt / $linage );
 
-	if ( $cur < 1 || $cur > $cnt ) {
+	if ( $cur < 1 || $cur > $g_page_cnt ) {
 		set_error(404);
 		return false;
 	}
