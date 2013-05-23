@@ -50,7 +50,7 @@ class Post {
 	}
 
 	function content() {
-		if ( isset($this->url) ) {
+		if ( isset($this->content) ) {
 			return $this->content;
 		}
 
@@ -62,7 +62,7 @@ class Post {
 		}
 		$dpath = $dpath . '/' . $this->post['file'];
 		if( !is_readable($dpath) ) {
-			return false;
+			return $err;
 		}
 
 		$this->content = file_get_contents( $dpath );

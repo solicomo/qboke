@@ -44,7 +44,7 @@ function set_convertor($format, $convertor) {
 
 function get_convertor($format) {
 	global $g_convertors;
-	if(array_key_exists($format, $g_convertors)) {
+	if ( is_array($g_convertors) and array_key_exists($format, $g_convertors) ) {
 		return $g_convertors[$format];
 	}
 

@@ -4,6 +4,7 @@
  * date  : 2013-04-17
  * */
 
+include_once INC_DIR . '/var.php';
 include_once CONVERTORS_DIR . '/convertor.php';
 include_once CONVERTORS_DIR . '/markdownex/php-markdown/Michelf/Markdown.php';
 include_once CONVERTORS_DIR . '/markdownex/php-markdown/Michelf/MarkdownExtra.php';
@@ -20,4 +21,7 @@ class MarkdownExConvertor extends Convertor
 		return $content;
 	}
 }
+
+set_convertor('markdownex', new MarkdownExConvertor);
+
 ?>

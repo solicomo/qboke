@@ -6,7 +6,7 @@
 		"abstr" : "Want to know me? Go ahead!",
 		"date"  : "2013-03-17 23:00:33",
 		"file"  : "about.md",
-		"format": "markdown",
+		"format": "markdownex",
 		"tags"  : ["about", "QBoke"],
 		"opts"  : {}
 	},{
@@ -16,7 +16,7 @@
 		"abstr" : "",
 		"date"  : "2013-03-18 23:50:45",
 		"file"  : "photo.md",
-		"format": "markdown",
+		"format": "markdownex",
 		"tags"  : ["album", "photo", "QBoke"],
 		"opts"  : {}
 	}
