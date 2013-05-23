@@ -40,7 +40,7 @@ function get_tag_list() {
 	$home_url = blog_home_url();
 	$tags = blog_tags();
 	foreach (array_keys($tags) as $tag) {
-		$content .= "<li class=\"taglist\"><a href=\"{$home_url}/tag/{$tag}\">{$tag}</a> ({$tags[$tag]})</li>\n";
+		$content .= "<li class=\"taglist\"><a href=\"{$home_url}/tag/{$tag}.html\">{$tag}</a> ({$tags[$tag]})</li>\n";
 	}
 
 	$content .= "</ul>\n";

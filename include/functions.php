@@ -232,7 +232,7 @@ function parse_uri() {
 		$uri = substr( $uri, 0, strlen($uri) - 5 );
 	}
 
-	$qs = explode( '/', $uri, 3 );
+	$qs = explode( '/', $uri, 4 );
 	if ( $qs === false ) {
 		return false;
 	}
