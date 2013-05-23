@@ -54,8 +54,24 @@ class Post {
 			return $this->content;
 		}
 
+		$err = "File Not Found!";
+
+		$dpath = get_data_path();
+		if( false === $dpath ) {
+			return $err;
+		}
+		$dpath = $dpath . '/' . $this->post['file'];
+		if( !is_readable($dpath) ) {
+			return false;
+		}
+
+		$this->content = file_get_contents( $dpath );
+		if( false === $this->content ) {
+			return $err;
+		}
+
 		$convertor = get_convertor( $this->format() );
-		$convertor->go( $this->content );
+		$this->content = $convertor->go( $this->content );
 		return $this->content;
 	}
 }

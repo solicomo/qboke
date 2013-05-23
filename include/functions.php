@@ -228,11 +228,9 @@ function parse_uri() {
 	}
 
 	$ext = substr($uri, -5);
-	if ( $ext !== '.html' ) {
-		return false;
+	if ( $ext === '.html' ) {
+		$uri = substr( $uri, 0, strlen($uri) - 5 );
 	}
-
-	$uri = substr( $uri, 0, strlen($uri) - 5 );
 
 	$qs = explode( '/', $uri, 3 );
 	if ( $qs === false ) {
