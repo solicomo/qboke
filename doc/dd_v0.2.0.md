@@ -155,6 +155,14 @@ key 为标签名，value 为此标签下的文章编号（按时间逆序）。
 }
 </pre>
 
-### 3.3. 
+### 3.3. …
 
 
+4. Ockham's Razor
+-----------------
+
+Entities should not be multiplied unnecessarily.
+
+奥卡姆剃刀原理：如无必要，勿增实体。
+
+上面那些太过繁琐，先实现个简单的吧。
