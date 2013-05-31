@@ -3,7 +3,12 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-18
  * */
-date_default_timezone_set('UTC');
+
+/** Define VERSION */
+define( 'VERSION', '2' );
+
+/** Define VER_STR */
+define( 'VER_STR', '0.0.2' );
 
 /** Define ABSPATH as this file's directory */
 define( 'ABSPATH', dirname(__FILE__) );
@@ -34,5 +39,10 @@ define( 'CACHE_DIR', ABSPATH . '/cache' );
 
 /** Define LANG */
 define('LANG', 'en_US');
+
+/** Define TZ */
+define('TZ', 'UTC');
+
+date_default_timezone_set(TZ);
 
 ?>
