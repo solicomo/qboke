@@ -8,6 +8,7 @@ require_once INC_DIR . '/vars.php';
 class Post {
 	var $post;
 	var $url;
+	var $title;
 	var $content;
 
 	function __construct($post) {
@@ -26,7 +27,14 @@ class Post {
 	}
 
 	function title() {
-		return $this->post['title'];
+		if (isset($this->title)) {
+			return $this->title;
+		}
+
+		if (preg_match('@<h1[^>]*>([^<]*)</h1>@i', $this->content(), $matches)) {
+			$this->title = $mathches[1];
+		}
+		return $this->title;
 	}
 
 	function date() {
@@ -46,7 +54,11 @@ class Post {
 	}
 
 	function abstr() {
-		return $this->post['abstr'];
+		if ($this->post['abstr']) {
+			return $this->post['abstr'];
+		}
+
+		return $this->content();
 	}
 
 	function content() {

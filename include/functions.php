@@ -46,31 +46,50 @@ function load_settings() {
 		return true;
 	}
 
+	date_default_timezone_set($g_settings['tz']);
 	return false;
 }
 
 function load_index() {
 	global $g_index;
-	$spath = get_data_path();
-	if( false === $spath ) {
+	$dpath = get_data_path();
+	if( false === $dpath ) {
 		return false;
 	}
 
-	$spath = $spath . '/index.json';
-	if( !is_readable($spath) ) {
-		return false;
+	$flist = array();
+
+	foreach( glob($dpath . '/*.md') as $f ) {
+		if( !is_file($f) ) {
+			continue;
+		}
+
+		$fstat = stat($f);
+		if ($fstat === false) {
+			continue;
+		}
+
+		$finfo = array();
+		$finfo['file']		= $f;
+		$finfo['lname']		= basename($f, '.md');
+		$finfo['datetime']	= $fstat['ctime'];
+		$finfo['date']		= strftime('%Y-%m-%d %H:%M:%S');
+		$finfo['format']	= 'markdownex';
 	}
 
-	$index = file_get_contents( $spath );
-	if( false === $settings ) {
-		return false;
-	}
+	usort($flist, function($a, $b){
+		if ($a['datetime'] == $b['datetime']) {
+			return 0;
+		}
 
-	$g_index = json_decode( $index, true );
+		if ($a['datetime'] > $b['datetime']) {
+			return -1;
+		}
 
-	if( json_last_error() === JSON_ERROR_NONE ) {
-		return true;
-	}
+		return 1;
+	});
+
+	$g_index = $flist;
 
 	return false;
 }
