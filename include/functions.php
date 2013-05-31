@@ -75,6 +75,9 @@ function load_index() {
 		$finfo['datetime']	= $fstat['ctime'];
 		$finfo['date']		= strftime('%Y-%m-%d %H:%M:%S');
 		$finfo['format']	= 'markdownex';
+		$finfo['tags']		= array();
+
+		$flist[] = $finfo;
 	}
 
 	usort($flist, function($a, $b){
@@ -173,6 +176,7 @@ function blog_tags() {
 		return $g_tags;
 	}
 
+	$g_tags = array();
 	foreach ( $g_index as $post ) {
 		foreach ( $post['tags'] as $tag ) {
 			$g_tags[$tag]++;
@@ -346,12 +350,11 @@ function prepare_posts() {
 	global $g_page_cnt;
 	$g_page_cnt = ceil( $cnt / $linage );
 
-	if ( $cur < 1 || $cur > $g_page_cnt ) {
-		set_error(404);
-		return false;
-	}
+	$g_posts = array();
 
-	$g_posts = array_slice($posts, ($cur - 1) * $linage, $linage);
+	if ( $cur > 0 && $cur <= $g_page_cnt ) {
+		$g_posts = array_slice($posts, ($cur - 1) * $linage, $linage);
+	}
 }
 
 function pre_page_url() {

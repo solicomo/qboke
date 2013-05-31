@@ -32,7 +32,11 @@ class Post {
 		}
 
 		if (preg_match('@<h1[^>]*>([^<]*)</h1>@i', $this->content(), $matches)) {
-			$this->title = $mathches[1];
+			$this->title = $matches[1];
+		}
+
+		if (!isset($this->title)) {
+			$this->title = basename($this->post['file'], '.md');
 		}
 		return $this->title;
 	}
@@ -68,11 +72,7 @@ class Post {
 
 		$err = "File Not Found!";
 
-		$dpath = get_data_path();
-		if( false === $dpath ) {
-			return $err;
-		}
-		$dpath = $dpath . '/' . $this->post['file'];
+		$dpath = $this->post['file'];
 		if( !is_readable($dpath) ) {
 			return $err;
 		}

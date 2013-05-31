@@ -26,13 +26,13 @@ while ($post = the_post() ) {
 				<?php
 				$dt = $post->date();
 				if ( $dt ) {
-					echo 'On $dt ';
+					echo "On $dt ";
 				}
 				$author = $post->author();
 				if ($author) {
 					echo "By $author";
 				}
-				}?>
+				?>
 			</em>
 		</div>
 		<div class="post-content">

@@ -3,6 +3,7 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-18
  * */
+date_default_timezone_set('UTC');
 
 /** Define ABSPATH as this file's directory */
 define( 'ABSPATH', dirname(__FILE__) );
