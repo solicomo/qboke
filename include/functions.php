@@ -43,10 +43,10 @@ function load_settings() {
 	$g_settings = json_decode( $settings, true );
 
 	if( json_last_error() === JSON_ERROR_NONE) {
+		date_default_timezone_set($g_settings['tz']);
 		return true;
 	}
 
-	date_default_timezone_set($g_settings['tz']);
 	return false;
 }
 
@@ -73,7 +73,7 @@ function load_index() {
 		$finfo['file']		= $f;
 		$finfo['lname']		= basename($f, '.md');
 		$finfo['datetime']	= $fstat['ctime'];
-		$finfo['date']		= strftime('%Y-%m-%d %H:%M:%S');
+		$finfo['date']		= strftime('%Y-%m-%d %H:%M:%S', $finfo['datetime']);
 		$finfo['format']	= 'markdownex';
 		$finfo['tags']		= array();
 
@@ -134,6 +134,7 @@ function blog_home_url() {
 	global $g_home_url;
 	if ( !isset($g_home_url) ) {
 		$g_home_url = dirname($_SERVER['SCRIPT_NAME']);
+		$g_home_url = rtrim( $g_home_url, '/' );
 	}
 
 	return $g_home_url;
@@ -240,13 +241,15 @@ function parse_uri() {
 		$uri = substr( $uri, 0, $qp );
 	}
 
-	if ( strpos( $uri, $uri_root ) !== 0 ) {
-		return false;
+	if ( $uri_root !== '' ) {
+		if ( strpos( $uri, $uri_root ) !== 0 ) {
+			return false;
+		}
+
+		$uri = substr( $uri, strlen( $uri_root ) );
 	}
 
-	$uri = substr( $uri, strlen( $uri_root ) );
-
-	if ( $uri === '/' || $uri === '') {
+	if ( $uri === '/' || $uri === '' || $uri === false) {
 		$uri = '/index.html';
 	}
 

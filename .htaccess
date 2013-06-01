@@ -1,0 +1,16 @@
+# BEGIN WordPress
+#RewriteRule ^index\.php$ - [L]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . /index.php [L]
+if (!-d $request_filename){
+	set $fd nd;
+}
+if (!-f $request_filename){
+	set $fd nf$fd;
+}
+if ($fd = "nfnd"){
+	rewrite (.*) /index.php last;
+}
+
+# END WordPress
