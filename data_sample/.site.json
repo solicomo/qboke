@@ -1,13 +1,15 @@
 {
-	"lang" : "zh_CN",
-	"tz"   : "Asia/Shanghai",
-	"name" : "Another QBoke",
-	"sub"  : "Blogging by your hands.",
-	"desc" : "Blogging by your hands.",
-	"rss"  : "",
-	"theme": "default",
-	"linage": 20,
-	"opts" : {
+	"id"     : "unique_identifier_of_the_site",
+	"domains": ["qboke.org", "*.qboke.org"],
+	"lang"   : "zh_CN",
+	"tz"     : "Asia/Shanghai",
+	"name"   : "Another QBoke",
+	"sub"    : "Blogging by your hands.",
+	"desc"   : "Blogging by your hands.",
+	"rss"    : "",
+	"theme"  : "default",
+	"linage" : 20,
+	"opts"   : {
 		"menu": [
 			{
 				"name": "Home",

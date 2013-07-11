@@ -1,0 +1,21 @@
+[
+	{
+		"path" : "data",
+		"scm"  : "git",
+		"opts" : {
+		    "remote" : "",
+		    "user"   : "",
+		    "email"  : "",
+		    ""       : ""
+		}
+		}
+	},{
+		"path" : "/var/blogs/qboke",
+		"scm"  : "svn",
+		"opts" : {
+		    "url"  : "",
+		    "user" : "",
+		    "pass" : ""
+		}
+	}
+]

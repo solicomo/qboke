@@ -17,15 +17,24 @@ require_once INC_DIR . '/cache.php';
 require_once INC_DIR . '/functions.php';
 require_once INC_DIR . '/l10n.php';
 
-load_settings();
+load_config();
+load_scms();
+//sync_content();
 load_default_textdomain();
-load_index();
 load_plugins();
-load_theme();
+load_themes();
 load_convertors();
-parse_uri();
-prepare_posts();
-get_theme()->render();
+load_sites();
+
+$site = get_site($_SERVER['HTTP_HOST']);
+
+if ($site === false) {
+	header("Status: 500 Internal Server Error");
+	exit('Internal Server Error');
+}
+
+$site->load();
+$site->get($_SERVER['REQUEST_URI']);
 
 // cache
 //TODO:

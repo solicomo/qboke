@@ -6,11 +6,11 @@
 
 require_once THEMES_DIR . '/theme.php';
 
-class Theme_Default extends Theme {
-	protected $name = 'QBoke Default Theme';
-	protected $version = '0.0.1';
+class DefaultTheme extends Theme {
+	protected $name = 'default';
+	protected $full_name = 'QBoke Default Theme';
+	protected $version = '0.0.2';
 }
 
-$theme = new Theme_Default;
-set_theme($theme);
+set_theme('default', 'DefaultTheme');
 ?>

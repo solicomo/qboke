@@ -1,6 +1,6 @@
 <?php
 /**
- * author: Soli soli@cbug.org
+ * author: Soli <soli@cbug.org>
  * date  : 2013-04-29
  * */
 ?>
@@ -8,11 +8,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title><?php echo blog_name(); ?></title>
-	<meta name="keywords" content="<?php echo blog_keywords(); ?>" />
-	<meta name="description" content="<?php echo blog_description(); ?>" />
+	<title><?php echo $site->name(); ?></title>
+	<meta name="keywords" content="<?php echo $site->keywords(); ?>" />
+	<meta name="description" content="<?php echo $site->description(); ?>" />
 	<link rel="shortcut icon" href="/favicon.ico" />
-	<link rel="stylesheet" type="text/css" href="<?php echo get_theme_url(); ?>/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $theme->url(); ?>/css/style.css" />
 </head>
 <body>
 	<!-- wrap start -->
@@ -21,8 +21,8 @@
 		<div id="container">
 			<!-- header start -->
 			<div id="header">
-				<h1 id="blogname"><a href="<?php echo blog_index_url(); ?>"><?php echo blog_name(); ?></a></h1>
-				<div id="blogsub"><?php echo blog_subhead(); ?></div>
+				<h1 id="blogname"><a href="<?php echo $site->url(); ?>"><?php echo $site->name(); ?></a></h1>
+				<div id="blogsub"><?php echo $site->subhead(); ?></div>
 			</div>
 			<div class="clear"></div>
 			<!-- header end -->
@@ -30,7 +30,7 @@
 			<div id="nav">
 			<ul id="menus">
 			<?php
-			$menus = get_settings('menu');
+			$menus = $site->option('menu');
 			$midx = 0;
 			foreach ($menus as $menu) {
 				$midx++;

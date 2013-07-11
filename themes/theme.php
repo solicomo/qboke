@@ -7,30 +7,58 @@
 require_once INC_DIR. '/functions.php';
 
 class Theme {
-	protected $name = 'QBoke Theme Interface';
-	protected $version = '0.0.1';
+	protected $site;
+	protected $name = 'default';
+	protected $full_name = 'QBoke Theme Interface';
+	protected $version = '0.0.2';
 
-	public function name() {
+	function __construct($site) {
+		$this->site = $site;
+	}
+
+	function name() {
 		return $this->name;
 	}
 
-	public function version() {
+	function full_name() {
+		return $this->full_name;
+	}
+
+	function version() {
 		return $this->version;
 	}
 
-	public function render() {
-		if ( is_404() ) {
+	function dir() {
+		$ref = new ReflectionClass($this);
+		$dir = dirname($ref->getFileName());
+		return $dir;
+	}
+
+	function url() {
+		$url = $this->site->url() . substr($this->dir(), strlen(THEMES_DIR));
+		return $url;
+	}
+
+	function render() {
+
+		$path  =  $this->dir() . PATH_SEPARATOR;
+		$theme = $this;
+		$site  = $this->site;
+
+		if ( $site->is_404() ) {
 			header("Status: 404 Not Found");
-			require get_theme_dir() . '/404.php';
-		} else if ( is_post() ) {
-			require get_theme_dir() . '/post.php';
-		} else if ( is_index() ) {
-			require get_theme_dir() . '/index.php';
-		} else if ( is_tag() ) {
-			require get_theme_dir() . '/tag.php';
+			include $path . '404.php';
+		} else if ( $site->is_post() ) {
+			include $path . 'post.php';
+		} else if ( $site->is_index() ) {
+			include $path . 'index.php';
+		} else if ( $site->is_catalog() ) {
+			include $path . 'catalog.php';
+		} else if ( $site->is_tag() ) {
+			include $path . 'tag.php';
 		} else {
 			header("Status: 404 Not Found");
-			require get_theme_dir() . '/404.php';
+			include $path . '404.php';
 		}
 	}
 }

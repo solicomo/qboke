@@ -1,6 +1,6 @@
 <?php
 /**
- * author: Soli soli@cbug.org
+ * author: Soli <soli@cbug.org>
  * date  : 2013-04-29
  * */
 
@@ -10,7 +10,7 @@
 <!-- sidebar start -->
 <div id="sidebar">
 <?php
-$sidebars = get_settings('sidebar');
+$sidebars = $site->option('sidebar');
 $sidx = 0;
 foreach ($sidebars as $sidebar) {
 	$sidx++;
@@ -35,12 +35,14 @@ foreach ($sidebars as $sidebar) {
 
 /***********************/
 function get_tag_list() {
+	global $site;
 	$content = "<ul>\n";
 
-	$home_url = blog_home_url();
-	$tags = blog_tags();
-	foreach (array_keys($tags) as $tag) {
-		$content .= "<li class=\"taglist\"><a href=\"{$home_url}/tag/{$tag}.html\">{$tag}</a> ({$tags[$tag]})</li>\n";
+	$site_url = $site->url();
+	$tags = $site->tags();
+	foreach ($tags as $tag => $posts) {
+		$cnt = count($posts);
+		$content .= "<li class=\"taglist\"><a href=\"{$site_url}tag/{$tag}.html\">{$tag}</a> ({$cnt})</li>\n";
 	}
 
 	$content .= "</ul>\n";

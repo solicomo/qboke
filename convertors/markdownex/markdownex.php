@@ -6,8 +6,8 @@
 
 include_once INC_DIR . '/vars.php';
 include_once CONVERTORS_DIR . '/convertor.php';
-include_once CONVERTORS_DIR . '/markdownex/php-markdown/Michelf/Markdown.php';
-include_once CONVERTORS_DIR . '/markdownex/php-markdown/Michelf/MarkdownExtra.php';
+include_once __DIR__ . '/php-markdown/Michelf/Markdown.php';
+include_once __DIR__ . '/php-markdown/Michelf/MarkdownExtra.php';
 
 # Get Markdown class
 use \Michelf\MarkdownExtra;
@@ -21,7 +21,5 @@ class MarkdownExConvertor extends Convertor
 		return $content;
 	}
 }
-
-set_convertor('markdownex', new MarkdownExConvertor);
 
 ?>

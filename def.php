@@ -34,6 +34,9 @@ define( 'THEMES_DIR', ABSPATH . '/themes' );
 /** Define CONVERTORS_DIR */
 define( 'CONVERTORS_DIR', ABSPATH . '/convertors' );
 
+/** Define SCMS_DIR */
+define( 'SCMS_DIR', ABSPATH . '/scms' );
+
 /** Define CACHE_DIR */
 define( 'CACHE_DIR', ABSPATH . '/cache' );
 

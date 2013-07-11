@@ -7,6 +7,108 @@
 require_once INC_DIR . '/vars.php';
 require_once INC_DIR . '/post.php';
 
+function load_config() {
+	global $g_config;
+
+	$path = ABSPATH . '/config.json';
+	if( !is_readable($path) ) {
+		return false;
+	}
+
+	$config = file_get_contents( $path );
+	if( false === $config ) {
+		return false;
+	}
+
+	$g_config = json_decode( $config, true );
+
+	if( json_last_error() === JSON_ERROR_NONE) {
+		return true;
+	}
+
+	return false;
+}
+
+function load_themes() {
+	foreach( get_subdirs( PLUGINS_DIR ) as $theme ) {
+		include_once PLUGINS_DIR . "/$theme/_.php";
+	}
+}
+
+function load_plugins() {
+	foreach( get_subdirs( PLUGINS_DIR ) as $plugin ) {
+		include_once PLUGINS_DIR . "/$plugin/_.php";
+	}
+}
+
+function load_scms() {
+	foreach( get_subdirs( SCMS_DIR ) as $scm ) {
+		include_once SCMS_DIR . "/$scm/_.php";
+	}
+}
+
+function load_convertors() {
+	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
+		include_once CONVERTORS_DIR . "/$cvt/index.php";
+	}
+}
+
+function sync_content() {
+	global $g_config;
+	//TODO:
+}
+
+function load_sites() {
+	global $g_config;
+	global $g_sites;
+
+	$sites = array();
+
+	foreach ($g_config as $config) {
+		$path = $config['path'];
+
+		if (substr($path, 0, 1) !== '/') {
+			$path = get_data_path() . '/' . $path;
+		}
+
+		$sites = array_merge(find_sites($path));
+	}
+
+	$sites = array_unique($sites);
+
+	foreach( $sites as $sp ) {
+		$site = new QBSite($sp);
+
+		if ($site->load_config()) {
+			$id = $site->id();
+			$g_sites[$id] = $site;
+		}
+	}
+
+	ksort($g_sites);
+}
+
+function get_site($host) {
+	global $g_sites;
+	global $g_cur_site;
+
+	foreach ($g_sites as $site) {
+		$domains = $site->domains();
+
+		foreach ($domains as $domain) {
+			if (preg_match("^{$domain}$", $host)) {
+				$g_cur_site = $site;
+				return $site;
+			}
+		}
+	}
+
+	$g_cur_site = false;
+	return false;
+}
+
+/********************************/
+
 /**
  * Get data directory.
  *
@@ -22,184 +124,6 @@ function get_data_path() {
 	}
 
 	return false;
-}
-
-function load_settings() {
-	global $g_settings;
-	$spath = get_data_path();
-	if( false === $spath ) {
-		return false;
-	}
-	$spath = $spath . '/setting.json';
-	if( !is_readable($spath) ) {
-		return false;
-	}
-
-	$settings = file_get_contents( $spath );
-	if( false === $settings ) {
-		return false;
-	}
-
-	$g_settings = json_decode( $settings, true );
-
-	if( json_last_error() === JSON_ERROR_NONE) {
-		date_default_timezone_set($g_settings['tz']);
-		return true;
-	}
-
-	return false;
-}
-
-function load_index() {
-	global $g_index;
-	$dpath = get_data_path();
-	if( false === $dpath ) {
-		return false;
-	}
-
-	$flist = array();
-
-	foreach( glob($dpath . '/*.md') as $f ) {
-		if( !is_file($f) ) {
-			continue;
-		}
-
-		$fstat = stat($f);
-		if ($fstat === false) {
-			continue;
-		}
-
-		$finfo = array();
-		$finfo['file']		= $f;
-		$finfo['lname']		= basename($f, '.md');
-		$finfo['datetime']	= $fstat['ctime'];
-		$finfo['date']		= strftime('%Y-%m-%d %H:%M:%S', $finfo['datetime']);
-		$finfo['format']	= 'markdownex';
-		$finfo['tags']		= array();
-
-		$flist[] = $finfo;
-	}
-
-	usort($flist, function($a, $b){
-		if ($a['datetime'] == $b['datetime']) {
-			return 0;
-		}
-
-		if ($a['datetime'] > $b['datetime']) {
-			return -1;
-		}
-
-		return 1;
-	});
-
-	$g_index = $flist;
-
-	return false;
-}
-
-function load_plugins() {
-	foreach( get_subdirs( PLUGINS_DIR ) as $plugin ) {
-		load_plugin_textdomain( $plugin );
-		include_once( PLUGINS_DIR . "/$plugin/$plugin.php" );
-	}
-}
-
-function load_theme() {
-	$name = $g_settings['theme'];
-	if( !is_readable( THEMES_DIR . "/$name/$name.php" ) ) {
-		$name = 'default';
-		$g_settings['theme'] = $name;
-	}
-
-	load_theme_textdomain( $name );
-	require_once( THEMES_DIR . "/$name/$name.php" );
-
-	$theme = get_theme();
-	if( !isset( $theme ) ) {
-		$name = 'default';
-		$g_settings['theme'] = $name;
-		load_theme_textdomain( $name );
-		require_once( THEMES_DIR . "/$name/$name.php" );
-	}
-}
-
-function load_convertors() {
-	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
-		load_convertor_textdomain( $cvt );
-		include_once( CONVERTORS_DIR . "/$cvt/$cvt.php" );
-	}
-}
-
-function blog_home_url() {
-	global $g_home_url;
-	if ( !isset($g_home_url) ) {
-		$g_home_url = dirname($_SERVER['SCRIPT_NAME']);
-		$g_home_url = rtrim( $g_home_url, '/' );
-	}
-
-	return $g_home_url;
-}
-
-function blog_index_url() {
-	return blog_home_url() . '/index.html';
-}
-
-function blog_name() {
-	global $g_settings;
-	return $g_settings['name'];
-}
-
-function blog_subhead() {
-	global $g_settings;
-	return $g_settings['sub'];
-}
-
-function blog_keywords() {
-	global $g_settings;
-	return $g_settings['keywords'];
-}
-
-function blog_description() {
-	global $g_settings;
-	return $g_settings['desc'];
-}
-
-function blog_linage() {
-	global $g_settings;
-	return $g_settings['linage'];
-}
-
-function blog_tags() {
-	global $g_index;
-	global $g_tags;
-
-	if ( isset($g_tags) ) {
-		return $g_tags;
-	}
-
-	$g_tags = array();
-	foreach ( $g_index as $post ) {
-		foreach ( $post['tags'] as $tag ) {
-			$g_tags[$tag]++;
-		}
-	}
-
-	return $g_tags;
-}
-
-function get_settings($name) {
-	global $g_settings;
-	return $g_settings['opts'][$name];
-}
-
-function get_theme_dir() {
-	global $g_settings;
-	return THEMES_DIR . "/{$g_settings['theme']}";
-}
-
-function get_theme_url() {
-	global $g_settings;
-	return blog_home_url() . "/themes/{$g_settings['theme']}";
 }
 
 function get_subdirs($path) {
@@ -224,99 +148,41 @@ function get_subdirs($path) {
 	return $subs;
 }
 
-/**
- * /index.html
- * /tag/<tag>.html
- * /post/<post>.html
- *
- * /index/1.html
- * /tag/<tag>/2.html
- *
- * */
-function parse_uri() {
-	$uri = $_SERVER['REQUEST_URI'];
-	$uri_root = blog_home_url();
+function find_sites($path) {
+	$path = rtrim($path, '/\\');
+	$conf = $path . '/.site.json';
 
-	if ( ( $qp = strpos( $uri, '?' ) ) !== false ) {
-		$uri = substr( $uri, 0, $qp );
+	$sites = array();
+	if (is_file($conf) && is_readable($conf)) {
+		$sites[] = $path;
 	}
 
-	if ( $uri_root !== '' ) {
-		if ( strpos( $uri, $uri_root ) !== 0 ) {
-			return false;
+	if( ! $dh = opendir( $path ) ) {
+		return $sites;
+	}
+
+	while ( ( $sub = readdir( $dh ) ) !== false ) {
+		if ( substr($sub, 0, 1) === '.' ) {
+			continue;
 		}
 
-		$uri = substr( $uri, strlen( $uri_root ) );
+		if( is_dir( "$path/$sub" ) ) {
+			$sites = array_merge($sites, find_sites("$path/$sub"));
+		}
 	}
 
-	if ( $uri === '/' || $uri === '' || $uri === false) {
-		$uri = '/index.html';
-	}
+	closedir( $dh );
 
-	$ext = substr($uri, -5);
-	if ( $ext === '.html' ) {
-		$uri = substr( $uri, 0, strlen($uri) - 5 );
-	}
-
-	$qs = explode( '/', $uri, 4 );
-	if ( $qs === false ) {
-		return false;
-	}
-
-	if ( $qs[1] !== 'index' && $qs[1] !== 'tag' && $qs[1] !== 'post' ) {
-		return false;
-	}
-
-	global $g_req_type;
-	global $g_req_value;
-	global $g_req_page;
-
-	$g_req_type = $qs[1];
-	if ($g_req_type === 'index') {
-		$g_req_page = $qs[2];
-	} else {
-		$g_req_value= $qs[2];
-		$g_req_page= $qs[3];
-	}
-
-	if ( !isset($g_req_page) || $g_req_page < 1) {
-		$g_req_page = 1;
-	}
-
-	return true;
+	return array_unique($sites);
 }
 
-function is_index() {
-	if ( get_req_type() === 'index' ) {
-		return true;
-	}
 
-	return false;
-}
 
-function is_tag() {
-	if ( get_req_type() === 'tag') {
-		return true;
-	}
 
-	return false;
-}
 
-function is_post() {
-	if ( get_req_type() === 'post' ) {
-		return true;
-	}
 
-	return false;
-}
+//////////////////////
 
-function is_404() {
-	if ( get_error() === 404 ) {
-		return true;
-	}
-
-	return false;
-}
 
 function prepare_posts() {
 	global $g_posts;

@@ -7,13 +7,14 @@
 require_once CONVERTORS_DIR . '/convertor.php';
 
 /** declare */
-global $g_settings;
-global $g_index;
+global $g_config;
+global $g_sites;
+global $g_cur_site;
+global $g_scms;
+global $g_themes;
 global $g_convertors;
-global $g_convertor_none;
 global $g_hooks;
 
-global $g_home_url;
 global $g_req_type;	// 'index', 'tag', 'post'
 global $g_req_value;
 global $g_req_page;
@@ -23,18 +24,33 @@ global $g_posts; // array of post index in $g_index
 global $g_page_cnt;
 
 /** init */
-if ( !isset($g_convertor_none) ) {
-	$g_convertor_none = new Convertor;;
+
+/** set and get */
+function set_scm($name, $scm) {
+	global $g_scms;
+	$g_scms[$name] = $scm;
 }
 
-function set_theme($theme) {
-	global $g_theme;
-	$g_theme = $theme;
+function get_scm($name) {
+	global $g_scms;
+	if (array_key_exists($name, $g_themes) && isset($g_scms[$name])) {
+		return new $g_scms[$name];
+	}
+
+	return false;
 }
 
-function get_theme() {
-	global $g_theme;
-	return $g_theme;
+function set_theme($name, $theme) {
+	global $g_themes;
+	$g_themes[$name] = $theme;
+}
+
+function get_theme($name, $site) {
+	global $g_themes;
+	if (array_key_exists($name, $g_themes) && isset($g_themes[$name])) {
+		return new $g_themes[$name]($site);
+	}
+	return new $g_themes['default']($site);
 }
 
 function set_convertor($format, $convertor) {
@@ -44,51 +60,11 @@ function set_convertor($format, $convertor) {
 
 function get_convertor($format) {
 	global $g_convertors;
-	if ( is_array($g_convertors) and array_key_exists($format, $g_convertors) ) {
-		return $g_convertors[$format];
+	if ( array_key_exists($format, $g_convertors) && isset($g_convertors[$format]) ) {
+		return new $g_convertors[$format];
 	}
 
-	return $g_convertor_none;
+	return new $g_convertors['none'];
 }
 
-/** get and set */
-function get_req_type() {
-	global $g_req_type;
-	return $g_req_type;
-}
-
-function get_req_value() {
-	global $g_req_value;
-	return $g_req_value;
-}
-
-function get_req_page() {
-	global $g_req_page;
-	return $g_req_page;
-}
-
-function get_page_count() {
-	global $g_page_cnt;
-	return $g_page_cnt;
-}
-
-function get_error() {
-	global $g_error;
-	return $g_error;
-}
-
-function set_error( $err ) {
-	global $g_error;
-	$g_error = $err;
-}
-
-function get_fullcontent() {
-	global $g_fullcontent;
-	return $g_fullcontent;
-}
-
-function set_fullcontent($show) {
-	global $g_fullcontent;
-	$g_fullcontent = $show;
-}
 ?>
