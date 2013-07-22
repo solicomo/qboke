@@ -12,7 +12,7 @@ include __DIR__ . '/header.php';
 <div id="main">
 <?php
 $pidx = 0;
-while ($post = the_post() ) {
+foreach ($post as $response->posts()) {
 	$pidx++;
 	?>
 	<div id="<?php echo "post-$pidx"; ?>" class="post rcbox">
@@ -29,7 +29,7 @@ while ($post = the_post() ) {
 					echo "On $dt ";
 				}
 				$author = $post->author();
-				if ($author) {
+				if ( $author ) {
 					echo "By $author";
 				}
 				?>
@@ -55,7 +55,22 @@ while ($post = the_post() ) {
 		</div>
 	</div>
 	<?php
-}/*while end*/ ?>
+}/*foreach end*/ ?>
+<div id="main-nav">
+<?php
+if ($response->pre_url() && $response->pre_name()) {
+	?>
+	<a id="main-pre" href="<?php echo $response->pre_url(); ?>"><?php echo $response->pre_name(); ?></a>
+	<?php
+}
+
+if ($response->next_url() && $response->next_name()) {
+	?>
+	<a id="main-next" href="<?php echo $response->next_url(); ?>"><?php echo $response->next_name(); ?></a>
+	<?php
+}
+?>
+</div>
 </div>
 <!-- main end -->
 

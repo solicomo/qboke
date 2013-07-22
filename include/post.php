@@ -121,7 +121,7 @@ class QBPost {
 		$this->tags = array();
 
 		foreach ($this->config['tags'] as $tag) {
-			$this->tags[$tag][] = $this;
+			$this->tags[$tag][$this->url_path()] = $this;
 		}
 
 		return $this->tags;

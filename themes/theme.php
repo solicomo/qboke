@@ -39,27 +39,26 @@ class Theme {
 		return $url;
 	}
 
-	function render() {
+	function render($response) {
 
-		$path  =  $this->dir() . PATH_SEPARATOR;
+		$theme_path  = $this->dir() . PATH_SEPARATOR;
 		$theme = $this;
 		$site  = $this->site;
 
-		if ( $site->is_404() ) {
+		if ( $response->is_error() ) {
 			header("Status: 404 Not Found");
-			include $path . '404.php';
-		} else if ( $site->is_post() ) {
-			include $path . 'post.php';
-		} else if ( $site->is_index() ) {
-			include $path . 'index.php';
-		} else if ( $site->is_catalog() ) {
-			include $path . 'catalog.php';
-		} else if ( $site->is_tag() ) {
-			include $path . 'tag.php';
+			include $theme_path . '404.php';
+		} else if ( $response->is_post() ) {
+			include $theme_path . 'post.php';
+		} else if ( $response->is_index() ) {
+			include $theme_path . 'index.php';
+		} else if ( $response->is_catalog() ) {
+			include $theme_path . 'catalog.php';
+		} else if ( $response->is_tag() ) {
+			include $theme_path . 'tag.php';
 		} else {
 			header("Status: 404 Not Found");
-			include $path . '404.php';
+			include $theme_path . '404.php';
 		}
 	}
 }
-?>

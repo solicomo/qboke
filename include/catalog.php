@@ -83,7 +83,7 @@ class QBCatalog {
 		$site = $this->site();
 
 		if (intval($page) > 0) {
-			$url = $site->url() . 'catalog' . $this->url_path() . '/' . intval($page) . $site->url_suffix();
+			$url = $site->url() . 'catalog' . $this->url_path() . '/' . strval(intval($page)) . $site->url_suffix();
 		} else {
 			$url = $site->url() . 'catalog' . $this->url_path() . $site->url_suffix();
 		}
@@ -117,7 +117,13 @@ class QBCatalog {
 		$tags = array();
 
 		foreach ($this->posts as $post) {
-			$tags = array_merge_recursive($tags, $post->tags());
+			foreach ($post->tags() as $tag_name => $posts) {
+				if (array_key_exists($tag_name, $tags)) {
+					$tags[$tag_name] = array_merge($tags[$tag_name], $posts);
+				} else {
+					$tags[$tag_name] = $posts;
+				}
+			}
 		}
 
 		if (!$recursive) {
@@ -125,7 +131,13 @@ class QBCatalog {
 		}
 
 		foreach ($this->subs as $sub) {
-			$tags = array_merge_recursive($tags, $sub->tags(true));
+			foreach ($sub->tags(true) as $tag_name => $posts) {
+				if (array_key_exists($tag_name, $tags)) {
+					$tags[$tag_name] = array_merge($tags[$tag_name], $posts);
+				} else {
+					$tags[$tag_name] = $posts;
+				}
+			}
 		}
 
 		return $tags;

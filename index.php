@@ -40,4 +40,3 @@ $site->get($_SERVER['REQUEST_URI']);
 //TODO:
 //put_cache();
 
-?>
