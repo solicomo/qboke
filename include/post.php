@@ -6,6 +6,7 @@
 require_once INC_DIR . '/vars.php';
 
 class QBPost {
+	private $site;
 	private $parent;
 	private $name;
 	private $config = array();
@@ -22,6 +23,14 @@ class QBPost {
 	function load() {
 		$this->load_config();
 		return true;
+	}
+
+	function site() {
+		if (!isset($this->site)) {
+			$this->site = $this->parent->site();
+		}
+
+		return $this->site;
 	}
 
 	function path() {
@@ -134,7 +143,7 @@ class QBPost {
 			return $this->config['format'];
 		}
 
-		return false;
+		return 'none';
 	}
 
 	function excerpt() {

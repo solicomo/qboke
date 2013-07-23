@@ -60,7 +60,7 @@ function set_convertor($format, $convertor) {
 
 function get_convertor($format) {
 	global $g_convertors;
-	if ( array_key_exists($format, $g_convertors) && isset($g_convertors[$format]) ) {
+	if (is_array($g_convertors) && array_key_exists($format, $g_convertors) && isset($g_convertors[$format]) ) {
 		return new $g_convertors[$format];
 	}
 

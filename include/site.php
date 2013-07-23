@@ -380,7 +380,7 @@ class QBSite {
 		$catalog = $catalogs[$url];
 		$posts = $catalog->posts();
 
-		return prepare_list($request, $posts);
+		return $this->prepare_list($request, $posts);
 	}
 
 	private function prepare_tag($request) {
@@ -393,7 +393,7 @@ class QBSite {
 
 		$posts = $tags[$url];
 
-		return prepare_list($request, $posts);
+		return $this->prepare_list($request, $posts);
 	}
 
 	private function prepare_post($request) {
@@ -413,12 +413,12 @@ class QBSite {
 		next($posts);
 		$next_post = next($posts);
 
-		$pre  = false;
+		$prev = false;
 		$next = false;
-		if ($pre_post !== false) {
-			$pre = array();
-			$pre['name'] = $pre_post->title();
-			$pre['url']  = $pre_post->url();
+		if ($prev_post !== false) {
+			$prev = array();
+			$prev['name'] = $prev_post->title();
+			$prev['url']  = $prev_post->url();
 		}
 
 		if ($next_post !== false) {
