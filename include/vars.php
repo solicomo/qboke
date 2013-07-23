@@ -33,7 +33,7 @@ function set_scm($name, $scm) {
 
 function get_scm($name) {
 	global $g_scms;
-	if (array_key_exists($name, $g_themes) && isset($g_scms[$name])) {
+	if (array_key_exists($name, $g_scms) && isset($g_scms[$name])) {
 		return new $g_scms[$name];
 	}
 
@@ -47,7 +47,7 @@ function set_theme($name, $theme) {
 
 function get_theme($name, $site) {
 	global $g_themes;
-	if (array_key_exists($name, $g_themes) && isset($g_themes[$name])) {
+	if (is_array($g_themes) && array_key_exists($name, $g_themes) && isset($g_themes[$name])) {
 		return new $g_themes[$name]($site);
 	}
 	return new $g_themes['default']($site);

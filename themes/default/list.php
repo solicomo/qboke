@@ -12,14 +12,14 @@ include __DIR__ . '/header.php';
 <div id="main">
 <?php
 $pidx = 0;
-foreach ($post as $response->posts()) {
+foreach ($response->posts() as $post) {
 	$pidx++;
 	?>
 	<div id="<?php echo "post-$pidx"; ?>" class="post rcbox">
 		<div class="post-header">
 			<h2 class="post-title">
-				<a href="<?php echo $post->url(); ?>" title="<?php echo $post->title() ?>">
-					<?php echo $post->title() ?>
+				<a href="<?php echo $post->url(); ?>" title="<?php echo $post->title(); ?>">
+					<?php echo $post->title(); ?>
 				</a>
 			</h2>
 			<em class="post-meta rcbox">

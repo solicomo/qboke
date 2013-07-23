@@ -51,23 +51,23 @@ class QBResponse {
 	}
 
 	function is_post() {
-		return ($this->type === QBRequsetType::Post);
+		return ($this->type === QBRequestType::Post);
 	}
 
 	function is_index() {
-		return ($this->type === QBRequsetType::Index);
+		return ($this->type === QBRequestType::Index);
 	}
 
 	function is_catalog() {
-		return ($this->type === QBRequsetType::Catalog);
+		return ($this->type === QBRequestType::Catalog);
 	}
 
 	function is_tag() {
-		return ($this->type === QBRequsetType::Tag);
+		return ($this->type === QBRequestType::Tag);
 	}
 
 	function is_error() {
-		return ($this->type === QBRequsetType::Error);
+		return ($this->type === QBRequestType::Error);
 	}
 
 	function posts() {

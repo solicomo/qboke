@@ -17,7 +17,11 @@ require_once INC_DIR . '/cache.php';
 require_once INC_DIR . '/functions.php';
 require_once INC_DIR . '/l10n.php';
 
-load_config();
+if (!load_config()) {
+	header("Status: 500 Internal Server Error");
+	exit();
+}
+
 load_scms();
 //sync_content();
 load_default_textdomain();
@@ -25,14 +29,12 @@ load_plugins();
 load_themes();
 load_convertors();
 load_sites();
-
 $site = get_site($_SERVER['HTTP_HOST']);
 
 if ($site === false) {
 	header("Status: 500 Internal Server Error");
 	exit('Internal Server Error');
 }
-
 $site->load();
 $site->get($_SERVER['REQUEST_URI']);
 

@@ -4,7 +4,7 @@
  * date  : 2013-06-04
  */
 
-include_once SCM_DIR . 'scm.php';
+include_once SCMS_DIR . '/scm.php';
 
 class GitSCM extends SCM {
 

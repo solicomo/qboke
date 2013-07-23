@@ -5,6 +5,7 @@
  * */
 
 require_once INC_DIR . '/vars.php';
+require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
 
 function load_config() {
@@ -12,26 +13,29 @@ function load_config() {
 
 	$path = ABSPATH . '/config.json';
 	if( !is_readable($path) ) {
+		echo "[$path] is not readable.";
 		return false;
 	}
 
 	$config = file_get_contents( $path );
 	if( false === $config ) {
+		echo "reading [$path] failed.";
 		return false;
 	}
 
 	$g_config = json_decode( $config, true );
 
-	if( json_last_error() === JSON_ERROR_NONE) {
-		return true;
+	if( json_last_error() !== JSON_ERROR_NONE) {
+		echo 'json decode failed: ' . json_last_error();
+		return false;
 	}
 
-	return false;
+	return true;
 }
 
 function load_themes() {
-	foreach( get_subdirs( PLUGINS_DIR ) as $theme ) {
-		include_once PLUGINS_DIR . "/$theme/_.php";
+	foreach( get_subdirs( THEMES_DIR ) as $theme ) {
+		include_once THEMES_DIR . "/$theme/_.php";
 	}
 }
 
@@ -49,7 +53,7 @@ function load_scms() {
 
 function load_convertors() {
 	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
-		include_once CONVERTORS_DIR . "/$cvt/index.php";
+		include_once CONVERTORS_DIR . "/$cvt/_.php";
 	}
 }
 
@@ -71,7 +75,7 @@ function load_sites() {
 			$path = get_data_path() . '/' . $path;
 		}
 
-		$sites = array_merge(find_sites($path));
+		$sites = array_merge($sites, find_sites($path));
 	}
 
 	$sites = array_unique($sites);
@@ -96,7 +100,7 @@ function get_site($host) {
 		$domains = $site->domains();
 
 		foreach ($domains as $domain) {
-			if (preg_match("^{$domain}$", $host)) {
+			if (preg_match("@^{$domain}$@", $host)) {
 				$g_cur_site = $site;
 				return $site;
 			}

@@ -3,6 +3,8 @@
  * @author: Soli <soli@cbug.org>
  * @date  : 2013-06-04
  * */
+require_once INC_DIR. '/catalog.php';
+require_once INC_DIR. '/post.php';
 require_once INC_DIR. '/request.php';
 require_once INC_DIR. '/response.php';
 
@@ -73,7 +75,7 @@ class QBSite {
 			return $this->config['domains'];
 		}
 
-		return '.*';
+		return array('.*');
 	}
 
 	function lname() {
@@ -286,26 +288,26 @@ class QBSite {
 
 	private function prepare($request) {
 		if ($request->type() === QBRequestType::Index) {
-			return prepare_index($request);
+			return $this->prepare_index($request);
 		}
 
 		if ($request->type() === QBRequestType::Post) {
-			return prepare_post($request);
+			return $this->prepare_post($request);
 		}
 
 		if ($request->type() === QBRequestType::Tag) {
-			return prepare_tag($request);
+			return $this->prepare_tag($request);
 		}
 
 		if ($request->type() === QBRequestType::Catalog) {
-			return prepare_catalog($request);
+			return $this->prepare_catalog($request);
 		}
 
-		return prepare_error($request);
+		return $this->prepare_error($request);
 	}
 
 	private function prepare_list($request, $posts) {
-		if (inval($request->page()) < 1) {
+		if (intval($request->page()) < 1) {
 			return new QBResponse($request, QBRequestType::Error, 404);
 		}
 
@@ -364,7 +366,7 @@ class QBSite {
 
 	private function prepare_index($request) {
 		$posts = $this->posts();
-		return prepare_list($request, $posts);
+		return $this->prepare_list($request, $posts);
 	}
 
 	private function prepare_catalog($request) {

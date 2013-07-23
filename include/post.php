@@ -110,15 +110,17 @@ class QBPost {
 			return $this->tags;
 		}
 
-		if (isset($this->config) && isset($this->config['tags'])) {
-			if (!is_array($this->config['tags'])) {
-				$this->config['tags'] = explode(',', $this->config['tags']);
-			}
+		$this->tags = array();
 
-			$this->config['tags'] = array_unique($this->config['tags']);
+		if (!isset($this->config) || !isset($this->config['tags'])) {
+			return $this->tags;
 		}
 
-		$this->tags = array();
+		if (!is_array($this->config['tags'])) {
+			$this->config['tags'] = explode(',', $this->config['tags']);
+		}
+
+		$this->config['tags'] = array_unique($this->config['tags']);
 
 		foreach ($this->config['tags'] as $tag) {
 			$this->tags[$tag][$this->url_path()] = $this;
@@ -196,7 +198,7 @@ class QBPost {
 			$config .= $line;
 		}
 
-		fclose($handle);
+		fclose($fh);
 
 		$this->config = json_decode( $config, true );
 

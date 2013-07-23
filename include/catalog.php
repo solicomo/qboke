@@ -10,6 +10,7 @@ class QBCatalog {
 	private $config	= array();
 	private $subs	= array();
 	private $posts	= array();
+	private $tags;
 
 	function __construct($parent, $name) {
 		$this->parent = $parent;
@@ -30,6 +31,9 @@ class QBCatalog {
 			}
 
 			//TODO filter($sub, $path)
+			if ( substr($sub, 0, 1) === '.' ) {
+				continue;
+			}
 
 			if( is_dir( "$path/$sub" ) ) {
 				$catalog = new QBCatalog( $this, $sub );
@@ -48,10 +52,6 @@ class QBCatalog {
 				}
 
 				$this->posts[$post->url_path()] = $post;
-
-				foreach ($post->tags() as $tag) {
-					$this->tags[$tag][] = $post;
-				}
 			}
 		}
 
