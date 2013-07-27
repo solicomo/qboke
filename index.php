@@ -36,7 +36,7 @@ if ($site === false) {
 	exit('Internal Server Error');
 }
 $site->load();
-$site->get($_SERVER['REQUEST_URI']);
+$site->get(urldecode($_SERVER['REQUEST_URI']));
 
 // cache
 //TODO:

@@ -154,20 +154,6 @@ class QBCatalog {
 			$posts = array_merge($posts, $sub->posts(true));
 		}
 
-		// sort by time
-		uasort($posts, function($a, $b){
-			if ($a->timestamp() == $b->timestamp()) {
-				return 0;
-			}
-
-			if ($a->timestamp() > $b->timestamp()) {
-				return -1;
-			}
-
-			return 1;
-		});
-		//TODO: sort hook
-
 		return $posts;
 	}
 
