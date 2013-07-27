@@ -8,6 +8,25 @@ require_once INC_DIR . '/vars.php';
 require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
 
+function load_config() {
+
+	$path = ABSPATH . '/config.php';
+	if( is_readable($path) ) {
+		include_once $path;
+		return true;
+	}
+
+	$path = ABSPATH . '/config_sample.php';
+	if( is_readable($path) ) {
+		include_once $path;
+		return true;
+	}
+
+	echo "can not find config.php.";
+
+	return false;
+}
+
 function load_themes() {
 	foreach( get_subdirs( THEMES_DIR ) as $theme ) {
 		include_once THEMES_DIR . "/$theme/_.php";
