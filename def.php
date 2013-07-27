@@ -5,10 +5,10 @@
  * */
 
 /** Define VERSION */
-define( 'VERSION', '2' );
+define( 'VERSION', '3' );
 
 /** Define VER_STR */
-define( 'VER_STR', '0.0.2' );
+define( 'VER_STR', '0.0.3' );
 
 /** Define ABSPATH as this file's directory */
 define( 'ABSPATH', dirname(__FILE__) );

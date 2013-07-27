@@ -1,11 +1,12 @@
 {
 	"id"     : "unique_identifier_of_the_site",
-	"domains": ["qboke.org", "*.qboke.org"],
+	"domains": ["qboke.org", ".*\\.qboke.org", "qboke.net", ".*\\.qboke.net"],
 	"lang"   : "zh_CN",
 	"tz"     : "Asia/Shanghai",
 	"name"   : "Another QBoke",
-	"sub"    : "Blogging by your hands.",
-	"desc"   : "Blogging by your hands.",
+	"subhead"     : "Blogging by your hands.",
+	"keywords"    : "QBoke, Git, Markdown, Blog",
+	"description" : "Blogging by your hands.",
 	"rss"    : "",
 	"theme"  : "default",
 	"linage" : 20,
@@ -14,9 +15,6 @@
 			{
 				"name": "Home",
 				"url": "/index.html"
-			},{
-				"name": "Album",
-				"url": "/tag/album.html"
 			},{
 				"name": "About",
 				"url" : "/post/about.html"

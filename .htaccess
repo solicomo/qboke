@@ -1,8 +1,12 @@
-# BEGIN WordPress
+# BEGIN QBoke
+
+# For Apache
 #RewriteRule ^index\.php$ - [L]
 #RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_FILENAME} !-d
 #RewriteRule . /index.php [L]
+
+# For Nginx
 if (!-d $request_filename){
 	set $fd nd;
 }
@@ -13,4 +17,4 @@ if ($fd = "nfnd"){
 	rewrite (.*) /index.php last;
 }
 
-# END WordPress
+# END QBoke

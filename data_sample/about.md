@@ -1,11 +1,13 @@
 <!--
-Date: 2013-05-23 22:27:15
-Title: About QBoke
-Published: true
-Type: page
-Slug: about.html
-Tags: QBoke,About,Git,Markdown,Blog
-Excerpt: 
+{
+	"date"   : "2013-05-23 22:27:15",
+	"title"  : "About QBoke",
+	"lname"  : "about",
+	"author" : "Soli",
+	"format" : "markdownex",
+	"tags"   : ["QBoke","About","Git","Markdown","Blog"],
+	"excerpt": "Git is good. Markdown is good. Blog is good. So, QBoke is here."
+}
 -->
 QBoke
 =====
@@ -23,11 +25,11 @@ Keywords
 Versions
 --------
 
-* v0.0.0
+* v0.0.2
 
   Fly!
 
 Bugs
 ----
 
-Email to Soli <soli@qq.com>
+Email to Soli <soli@cbug.org>

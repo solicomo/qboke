@@ -14,13 +14,9 @@ require_once INC_DIR . '/cache.php';
 //}
 
 // re-generate
+require_once INC_DIR . '/config.php';
 require_once INC_DIR . '/functions.php';
 require_once INC_DIR . '/l10n.php';
-
-if (!load_config()) {
-	header("Status: 500 Internal Server Error");
-	exit();
-}
 
 load_scms();
 //sync_content();
