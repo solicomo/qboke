@@ -35,7 +35,7 @@ foreach ($response->posts() as $post) {
 				?>
 			</em>
 		</div>
-		<div class="post-content">
+		<article class="post-content">
 			<?php
 			if ( isset($fullcontent) && $fullcontent) {
 				echo $post->content();
@@ -43,7 +43,7 @@ foreach ($response->posts() as $post) {
 				echo $post->excerpt() . '<span class="post-more"><a href="' . $post->url() . '">...</a></span>';
 			}
 			?>
-		</div>
+		</article>
 		<div class="hl"></div>
 		<div class="post-footer">
 			<div class="post-tags">

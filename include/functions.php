@@ -66,6 +66,7 @@ function load_sites() {
 	global $g_config;
 	global $g_sites;
 
+	$g_sites = array();
 	$sites = array();
 
 	foreach ($g_config as $config) {
