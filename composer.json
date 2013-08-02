@@ -1,0 +1,28 @@
+{
+    "name": "soli/qboke",
+    "description": "Blogging with markdown, git and other awesome stuff.",
+    "keywords": ["blog", "markdown", "git", "vcs"],
+    "homepage": "https://bitbucket.org/soli/qboke",
+    "type": "project",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Soli",
+            "email": "soli@cbug.org",
+            "homepage": "http://www.cbug.org/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "klaussilveira/gitter": ">=0.2.0"
+    },
+    "require-dev": {
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "QBoke": "include/"
+        }
+    }
+}
