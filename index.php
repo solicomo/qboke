@@ -28,7 +28,7 @@ load_default_textdomain();
 load_plugins();
 load_themes();
 load_convertors();
-load_sites();
+load_sites(false);
 $site = get_site($_SERVER['HTTP_HOST']);
 
 if ($site === false) {

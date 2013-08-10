@@ -55,12 +55,23 @@ function load_convertors() {
 	}
 }
 
+function authorize() {
+	global $g_config;
+	if ($_GET['key'] === $g_config['key']) {
+		return true;
+	}
+	return false;
+}
+
 function sync_content() {
 	global $g_config;
 	//TODO:
+	$path = get_data_path() . '/sync.log';
+	$srv  = print_r($_SERVER, true);
+	file_put_contents($path, date('[Y-m-d H:i:s] ') . $srv, FILE_APPEND);
 }
 
-function load_sites() {
+function load_sites($complete = true) {
 	global $g_config;
 	global $g_sites;
 
@@ -88,7 +99,8 @@ function load_sites() {
 	foreach( $sites as $sp ) {
 		$site = new QBSite($sp);
 
-		if ($site->load_config()) {
+		$lr = $complete ? $site->load() : $site->load_config();
+		if ($lr) {
 			$id = $site->id();
 			$g_sites[$id] = $site;
 		}
