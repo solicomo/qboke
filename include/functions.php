@@ -9,20 +9,24 @@ require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
 
 function load_config() {
-
+	global $g_config;
 	$path = ABSPATH . '/config.php';
 	if( is_readable($path) ) {
 		include_once $path;
+		if ( $g_config === null) {
+			return false;
+		}
 		return true;
 	}
 
 	$path = ABSPATH . '/config_sample.php';
 	if( is_readable($path) ) {
 		include_once $path;
+		if ( $g_config === null) {
+			return false;
+		}
 		return true;
 	}
-
-	echo "can not find config.php.";
 
 	return false;
 }
