@@ -63,8 +63,8 @@ function load_sites() {
 	$g_sites = array();
 	$sites = array();
 
-	foreach ($g_config as $config) {
-		$path = $config['path'];
+	foreach ($g_config['repos'] as $repo) {
+		$path = $repo['path'];
 
 		if (substr($path, 0, 1) !== '/') {
 			$path = get_data_path() . '/' . $path;
