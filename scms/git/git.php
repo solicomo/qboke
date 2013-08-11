@@ -27,12 +27,8 @@ class GitSCM extends SCM {
 
 		//
 		try {
-			if (!mkdir($path, 0, true)) {
-				return false;
-			}
-
+			mkdir($path, 0, true);
 			$this->repo = new Repository($path, $this->cli);
-
 			$this->cli->run($this->repo, "clone {$opts['remote']} '{$path}'");
 			$this->repo->checkout($opts['branch']);
 

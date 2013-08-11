@@ -9,6 +9,7 @@
 ignore_user_abort(true);
 set_time_limit(0);
 
+require 'vendor/autoload.php';
 require_once 'def.php';
 require_once INC_DIR . '/cache.php';
 require_once INC_DIR . '/functions.php';

@@ -4,6 +4,7 @@
  * date  : 2013-04-05
  * */
 
+require 'vendor/autoload.php';
 require_once 'def.php';
 require_once INC_DIR . '/cache.php';
 
