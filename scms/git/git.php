@@ -6,30 +6,103 @@
 
 include_once SCMS_DIR . '/scm.php';
 
-class GitSCM extends SCM {
+use Gitter\Client;
+use Gitter\Repository;
 
-	function init($params) {
-		//TODO:
+class GitSCM extends SCM {
+	private $cli  = null;
+	private $repo = null;
+
+	function __construct() {
+	}
+
+	function init($path, $opts) {
+		$this->cli = new Client();
+
+		try {
+			$this->repo = $this->cli->getRepository($path);
+			return true;
+		} catch (Exception $e) {
+		}
+
+		//
+		try {
+			if (!mkdir($path, 0, true)) {
+				return false;
+			}
+
+			$this->repo = new Repository($path, $this->cli);
+
+			$this->cli->run($this->repo, "clone {$opts['remote']} '{$path}'");
+			$this->repo->checkout($opts['branch']);
+
+			return true;
+		} catch (Exception $e) {
+		}
+
+		return false;
 	}
 
 	function pull() {
-		//TODO: ;
+		if ($this->repo === null) {
+			return false;
+		}
+
+		try {
+			$this->repo->pull();
+			return true;
+		} catch (Exception $e) {
+		}
+		return false;
 	}
 
 	function add($param) {
-		//TODO: ;
+		if ($this->repo === null) {
+			return false;
+		}
+
+		try {
+			if ($param === true) {
+				$this->repo->addAll();
+				return true;
+			}
+
+			$this->repo->add($param);
+			return true;
+		} catch (Exception $e) {
+		}
+		return false;
 	}
 
 	function del($param) {
-		//TODO: ;
-	}
+		if ($this->repo === null) {
+			return false;
+		}
 
-	function update($param) {
-		//TODO: ;
+		try {
+			if (is_array($param)) {
+				$files = implode(' ', array_map('escapeshellarg', $param));
+			} else {
+				$files = escapeshellarg($param);
+			}
+
+			$this->cli->run($this->repo, "rm $files");
+			return true;
+		} catch (Exception $e) {
+		}
+		return false;
 	}
 
 	function push() {
-		//TODO: ;
+		if ($this->repo === null) {
+			return false;
+		}
+		try {
+			$this->repo->push();
+			return true;
+		} catch (Exception $e) {
+		}
+		return false;
 	}
 }
 ?>

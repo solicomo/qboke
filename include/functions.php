@@ -65,10 +65,29 @@ function authorize() {
 
 function sync_content() {
 	global $g_config;
+
 	//TODO:
 	$path = get_data_path() . '/sync.log';
 	$srv  = print_r($_SERVER, true);
 	file_put_contents($path, date('[Y-m-d H:i:s] ') . $srv, FILE_APPEND);
+
+	foreach ($g_config['repos'] as $repo) {
+		$name = $repo['scm'];
+		$path = $repo['path'];
+		$opts = $repo['opts'];
+
+		$scm = get_scm($name, $path, $opts);
+
+		if ($scm === false) {
+			continue;
+		}
+
+		if (!$scm->init($path, $opts)) {
+			continue;
+		}
+
+		$scm->pull();
+	}
 }
 
 function load_sites($complete = true) {

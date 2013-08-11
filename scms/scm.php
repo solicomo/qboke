@@ -6,8 +6,13 @@
 
 class SCM {
 
-	function init($params) {
+	function __construct() {
 		//TODO:
+	}
+
+	function init($path, $opts) {
+		//TODO:
+		return false;
 	}
 
 	function pull() {
@@ -22,12 +27,7 @@ class SCM {
 		//TODO: ;
 	}
 
-	function update($param) {
-		//TODO: ;
-	}
-
 	function push() {
 		//TODO: ;
 	}
 }
-?>
