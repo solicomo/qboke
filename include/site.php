@@ -55,7 +55,7 @@ class QBSite {
 
 	function url() {
 		$url  = $this->lname();
-		return rtrim($this->path, '/\\') . '/';
+		return rtrim($url, '/\\') . '/';
 	}
 
 	function root() {
