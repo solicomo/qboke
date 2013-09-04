@@ -55,7 +55,7 @@ class QBSite {
 
 	function url() {
 		$url  = $this->lname();
-		return rtrim($url, '/\\') . '/';
+		return rtrim($path, '/\\') . '/';
 	}
 
 	function root() {
@@ -336,7 +336,7 @@ class QBSite {
 
 		$cur_posts = array_slice($posts, ($page - 1) * $linage, $linage);
 
-		$pre  = false;
+		$prev  = false;
 		$next = false;
 		$url_prefix = $this->root();
 		$url_suffix = $this->url_suffix();
@@ -356,13 +356,13 @@ class QBSite {
 		}
 
 		if ($page > 1) {
-			$pre = array();
-			$pre['name'] = 'Previous';
-			$pre['url']  = $url_prefix;
+			$prev = array();
+			$prev['name'] = 'Previous';
+			$prev['url']  = $url_prefix;
 			if ($page > 2) {
-				$pre['url'] .= '/' . strval($page - 1);
+				$prev['url'] .= '/' . strval($page - 1);
 			}
-			$pre['url'] .= $url_suffix;
+			$prev['url'] .= $url_suffix;
 		}
 
 		if ($page < $page_max) {
@@ -373,7 +373,7 @@ class QBSite {
 
 		$response = new QBResponse($request, $request->type(), $request->url());
 		$response->set_posts($cur_posts);
-		$response->set_nav($pre, $next);
+		$response->set_nav($prev, $next);
 
 		return $response;
 	}
@@ -443,7 +443,7 @@ class QBSite {
 
 		$response = new QBResponse($request, $request->type(), $url);
 		$response->set_posts($cur_posts);
-		$response->set_nav($pre, $next);
+		$response->set_nav($prev, $next);
 
 		return $response;
 	}
