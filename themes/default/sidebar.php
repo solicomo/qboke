@@ -12,19 +12,21 @@
 <?php
 $sidebars = $site->option('sidebar');
 $sidx = 0;
-foreach ($sidebars as $sidebar) {
-	$sidx++;
-	?>
-	<div id="<?php echo "sidebar-$sidx"; ?>" class="widget rcbox">
-		<?php if ($sidebar['name'] !== '') {
-			echo '<h3 class="wtitle">', $sidebar['name'], "</h3>\n";
-		}?>
-		<div class="wcontent">
-			<?php echo get_sidebar_content($sidebar); ?>
+if (is_array($sidebars)) {
+	foreach ($sidebars as $sidebar) {
+		$sidx++;
+		?>
+		<div id="<?php echo "sidebar-$sidx"; ?>" class="widget rcbox">
+			<?php if ($sidebar['name'] !== '') {
+				echo '<h3 class="wtitle">', $sidebar['name'], "</h3>\n";
+			}?>
+			<div class="wcontent">
+				<?php echo get_sidebar_content($sidebar); ?>
+			</div>
 		</div>
-	</div>
-	<?php
-}/*foreach end*/ ?>
+		<?php
+	}/*foreach end*/
+} ?>
 </div>
 <!-- sidebar end -->
 <?php

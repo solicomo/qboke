@@ -75,7 +75,14 @@ class QBPost {
 			return $this->title;
 		}
 
-		$this->title = substr($this->name, strrpos($this->name, '.') + 1);
+		$dot_pos = strrpos($this->name, '.');
+
+		if ($dot_pos > 0) {
+			$this->title = substr($this->name, 0, $dot_pos);
+		} else {
+			$this->title = $this->name;
+		}
+
 		return $this->title;
 	}
 
@@ -97,7 +104,8 @@ class QBPost {
 			return $this->date;
 		}
 
-		$fstat = stat($f);
+		$path = $this->path();
+		$fstat = stat($path);
 		if ($fstat === false) {
 			$datetime = new DateTime();
 			$this->date = $datetime->format('Y-m-d H:i:s');

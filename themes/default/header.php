@@ -32,9 +32,11 @@
 			<?php
 			$menus = $site->option('menu');
 			$midx = 0;
-			foreach ($menus as $menu) {
-				$midx++;
-				echo "<li id=\"menu-{$midx}\"><a href=\"{$menu['url']}\">{$menu['name']}</a></li>";
+			if (is_array($menus)) {
+				foreach ($menus as $menu) {
+					$midx++;
+					echo "<li id=\"menu-{$midx}\"><a href=\"{$menu['url']}\">{$menu['name']}</a></li>";
+				}
 			}
 			?>
 			</ul>

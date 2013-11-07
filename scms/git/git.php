@@ -27,13 +27,14 @@ class GitSCM extends SCM {
 
 		//
 		try {
-			mkdir($path, 0, true);
+			//mkdir($path, 0, true);
 			$this->repo = new Repository($path, $this->cli);
 			$this->cli->run($this->repo, "clone {$opts['remote']} '{$path}'");
 			$this->repo->checkout($opts['branch']);
 
 			return true;
 		} catch (Exception $e) {
+			print_r($e);
 		}
 
 		return false;
@@ -48,6 +49,7 @@ class GitSCM extends SCM {
 			$this->repo->pull();
 			return true;
 		} catch (Exception $e) {
+			print_r($e);
 		}
 		return false;
 	}
