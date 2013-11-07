@@ -124,10 +124,17 @@ class QBSite {
 	}
 
 	function linage() {
-		if (isset($this->config) && isset($this->config['linage'])) {
-			return $this->config['linage'];
+		if (!isset($this->config) || !isset($this->config['linage'])) {
+			return 1;
 		}
-		return false;
+
+		$linage = intval($this->config['linage']);
+
+		if ( $linage < 1 ) {
+			return 1;
+		}
+
+		return $linage;
 	}
 
 	function catalogs($recursive = true) {

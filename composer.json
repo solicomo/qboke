@@ -2,7 +2,7 @@
     "name": "soli/qboke",
     "description": "Blogging with markdown, git and other awesome stuff.",
     "keywords": ["blog", "markdown", "git", "vcs"],
-    "homepage": "https://bitbucket.org/soli/qboke",
+    "homepage": "http://www.qboke.org",
     "type": "project",
     "license": "BSD-2-Clause",
     "authors": [
