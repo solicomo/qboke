@@ -4,6 +4,7 @@
  * @date  : 2013-04-05
  * */
 
+require_once INC_DIR . '/debug.php';
 require_once INC_DIR . '/vars.php';
 require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
@@ -215,3 +216,20 @@ function find_sites($path) {
 
 	return array_unique($sites);
 }
+
+function qb_error($msg) {
+	return trigger_error($msg, E_USER_ERROR);
+}
+
+function qb_warn($msg) {
+	return trigger_error($msg, E_USER_WARNING);
+}
+
+function qb_notice($msg) {
+	return trigger_error($msg, E_USER_NOTICE);
+}
+
+function qb_deprecated($msg) {
+	return trigger_error($msg, E_USER_DEPRECATED);
+}
+

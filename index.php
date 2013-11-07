@@ -23,6 +23,8 @@ if (!load_config()) {
 	exit('invalid config.php');
 }
 
+set_debug_mode(DEBUG_MODE, DEBUG_LOG);
+
 load_scms();
 //sync_content();
 load_default_textdomain();

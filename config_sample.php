@@ -2,6 +2,10 @@
 /**
  * change this for your site(s).
  * */
+
+define('DEBUG_MODE', 3);
+define('DEBUG_LOG', '/var/log/qboke.log');
+
 $config_json = <<<EOF
 {
 	"key": "your secret key",
