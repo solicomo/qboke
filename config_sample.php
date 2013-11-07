@@ -4,7 +4,7 @@
  * */
 
 define('DEBUG_MODE', 3);
-define('DEBUG_LOG', '/var/log/qboke.log');
+define('DEBUG_LOG', '/tmp/qboke.log');
 
 $config_json = <<<EOF
 {
