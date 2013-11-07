@@ -217,19 +217,3 @@ function find_sites($path) {
 	return array_unique($sites);
 }
 
-function qb_error($msg) {
-	return trigger_error($msg, E_USER_ERROR);
-}
-
-function qb_warn($msg) {
-	return trigger_error($msg, E_USER_WARNING);
-}
-
-function qb_notice($msg) {
-	return trigger_error($msg, E_USER_NOTICE);
-}
-
-function qb_deprecated($msg) {
-	return trigger_error($msg, E_USER_DEPRECATED);
-}
-
