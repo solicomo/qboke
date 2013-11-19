@@ -217,3 +217,19 @@ function find_sites($path) {
 	return array_unique($sites);
 }
 
+if ( ! function_exists('yaml_parse') ) {
+function yaml_parse($str) {
+
+	$yaml = null;
+
+	try {
+		$yaml = Symfony\Component\Yaml\Yaml::parse( $str );
+	} catch ( Symfony\Component\Yaml\Exception\ParseException $e ) {
+		$yaml = null;
+		qb_warn( print_r($e) );
+	}
+
+	return $yaml;
+}
+}
+

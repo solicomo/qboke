@@ -220,7 +220,7 @@ class QBPost {
 		//$this->config = json_decode( $config, true );
 		$this->config = yaml_parse( $config );
 
-		if( json_last_error() !== JSON_ERROR_NONE ) {
+		if( is_null( $this->config ) ) {
 			$this->config = array();
 			return false;
 		}
