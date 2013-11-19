@@ -217,7 +217,8 @@ class QBPost {
 
 		fclose($fh);
 
-		$this->config = json_decode( $config, true );
+		//$this->config = json_decode( $config, true );
+		$this->config = yaml_parse( $config );
 
 		if( json_last_error() !== JSON_ERROR_NONE ) {
 			$this->config = array();
@@ -229,4 +230,3 @@ class QBPost {
 
 }
 
-?>
