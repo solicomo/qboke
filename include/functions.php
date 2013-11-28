@@ -191,7 +191,7 @@ function get_subdirs($path) {
 
 function find_sites($path) {
 	$path = rtrim($path, '/\\');
-	$conf = $path . '/.site.json';
+	$conf = $path . '/.site';
 
 	$sites = array();
 	if (is_file($conf) && is_readable($conf)) {
