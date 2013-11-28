@@ -15,7 +15,7 @@ opts   :
           url  : /index.html
 
         - name : About
-          url" : /post/about.html
+          url  : /post/about.html
 
     sidebar :
         - name : ""

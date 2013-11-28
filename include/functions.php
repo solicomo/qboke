@@ -68,7 +68,8 @@ function sync_content() {
 	global $g_config;
 
 	//TODO:
-	$path = get_data_path() . '/sync.log';
+	//$path = get_data_path() . '/sync.log';
+	$path = '/tmp/qboke.sync.log';
 	$srv  = print_r($_SERVER, true);
 	file_put_contents($path, date('[Y-m-d H:i:s] ') . $srv, FILE_APPEND);
 
