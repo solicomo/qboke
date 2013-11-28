@@ -11,7 +11,7 @@ $config_json = <<<EOF
 	"key": "your secret key",
 	"repos": [
 		{
-			"path": ".",
+			"path": "./data_sample",
 			"scm" : "git",
 			"opts": {
 				"remote": "",
