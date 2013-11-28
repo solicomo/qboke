@@ -101,6 +101,13 @@ class QBPost {
 
 		if (isset($this->config) && isset($this->config['date'])) {
 			$this->date = $this->config['date'];
+
+			if ( ! is_string( $this->date ) ) {
+				$datetime = new DateTime();
+				$datetime->setTimestamp( $this->date );
+				$this->date = $datetime->format('Y-m-d H:i:s');
+			}
+
 			return $this->date;
 		}
 

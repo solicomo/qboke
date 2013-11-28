@@ -1,13 +1,12 @@
 <!--
-{
-	"date"   : "2013-05-23 22:27:15",
-	"title"  : "About QBoke",
-	"lname"  : "about",
-	"author" : "Soli",
-	"format" : "markdownex",
-	"tags"   : ["QBoke","About","Git","Markdown","Blog"],
-	"excerpt": "Git is good. Markdown is good. Blog is good. So, QBoke is here."
-}
+date   : 2013-05-23 22:27:15
+title  : About QBoke
+lname  : about
+author : Soli
+forma  : markdownex
+tags   : [QBoke, About, Git, Markdown, Blog]
+excerpt: |
+    Git is good. Markdown is good. Blog is good. So, QBoke is here.
 -->
 QBoke
 =====
