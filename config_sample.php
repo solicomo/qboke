@@ -1,27 +1,23 @@
 <?php
 /**
- * change this for your site(s).
+ * change this for your site.
  * */
 
-define('DEBUG_MODE', 3);
-define('DEBUG_LOG', '/tmp/qboke.log');
+define('DEBUG_MODE', true);
+define('LOG_FILE', '/tmp/qboke.log');
 
 $config_json = <<<EOF
 {
-	"key": "your secret key",
-	"repos": [
-		{
-			"path": "",
-			"scm" : "git",
-			"opts": {
-				"remote": "",
-				"branch": "",
-				"user"  : "",
-				"pass"  : "",
-				"email" : ""
-			}
-		}
-	]
+	"key": "your_secret_key_for_sync",
+	"public_path": "public",
+	"repo": {
+		"type"  : "git",
+		"remote": "",
+		"branch": "",
+		"user"  : "",
+		"pass"  : "",
+		"email" : ""
+	}
 }
 EOF;
 

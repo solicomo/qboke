@@ -4,8 +4,8 @@
  * date  : 2013-04-05
  * */
 
-require 'vendor/autoload.php';
-require_once 'def.php';
+require __DIR__ . 'vendor/autoload.php';
+require_once __DIR__ . 'def.php';
 require_once INC_DIR . '/cache.php';
 
 // cache
@@ -23,7 +23,7 @@ if (!load_config()) {
 	exit('invalid config.php');
 }
 
-set_debug_mode(DEBUG_MODE, DEBUG_LOG);
+set_debug_mode(DEBUG_MODE, LOG_FILE);
 
 load_scms();
 //sync_content();
@@ -31,14 +31,14 @@ load_default_textdomain();
 load_plugins();
 load_themes();
 load_convertors();
-load_sites(false);
-$site = get_site($_SERVER['HTTP_HOST']);
+
+$site = load_site();
 
 if ($site === false) {
 	header("Status: 500 Internal Server Error");
 	exit('Internal Server Error');
 }
-$site->load();
+
 $site->get(urldecode($_SERVER['REQUEST_URI']));
 
 // cache

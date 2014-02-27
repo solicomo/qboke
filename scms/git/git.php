@@ -23,7 +23,7 @@ class GitSCM extends SCM {
 			$this->repo = $this->cli->getRepository($path);
 			return true;
 		} catch (Exception $e) {
-			qb_warn( print_r($e) );
+			db_warn( print_r($e) );
 		}
 
 		//
@@ -35,7 +35,7 @@ class GitSCM extends SCM {
 
 			return true;
 		} catch (Exception $e) {
-			qb_error( print_r($e) );
+			db_error( print_r($e) );
 		}
 
 		return false;
@@ -50,7 +50,7 @@ class GitSCM extends SCM {
 			$this->repo->pull();
 			return true;
 		} catch (Exception $e) {
-			qb_error( print_r($e) );
+			db_error( print_r($e) );
 		}
 		return false;
 	}
@@ -69,7 +69,7 @@ class GitSCM extends SCM {
 			$this->repo->add($param);
 			return true;
 		} catch (Exception $e) {
-			qb_error( print_r($e) );
+			db_error( print_r($e) );
 		}
 		return false;
 	}
@@ -89,7 +89,7 @@ class GitSCM extends SCM {
 			$this->cli->run($this->repo, "rm $files");
 			return true;
 		} catch (Exception $e) {
-			qb_error( print_r($e) );
+			db_error( print_r($e) );
 		}
 		return false;
 	}
@@ -102,7 +102,7 @@ class GitSCM extends SCM {
 			$this->repo->push();
 			return true;
 		} catch (Exception $e) {
-			qb_error( print_r($e) );
+			db_error( print_r($e) );
 		}
 		return false;
 	}

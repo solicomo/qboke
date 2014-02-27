@@ -1,15 +1,13 @@
-id     : 1
-domains: [.*, .*\.qboke.org]
-lang   : zh_CN
-tz     : Asia/Shanghai
-name   : Another QBoke
+name        : Another QBoke
 subhead     : Blogging in a easy way.
 keywords    : [QBoke, Git, Markdown, Blog]
 description : Blogging by your hands.
-rss    : 
+timezone    : Asia/Shanghai
+lang   : zh_CN
+rss    :
 theme  : default
 linage : 20
-opts   : 
+opts   :
     menu :
         - name : Home
           url  : /index.html

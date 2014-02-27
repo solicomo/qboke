@@ -47,4 +47,3 @@ function put_cache() {
 	}
 }
 
-?>

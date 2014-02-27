@@ -13,12 +13,12 @@ require_once __DIR__ . '/pomo/mo.php';
  */
 function get_locale() {
 	global $g_locale;
-	global $g_settings;
+	global $g_config;
 
 	if( !isset( $g_locale ) ) {
 
-		if( isset( $g_settings ) and !empty( $g_settings['lang'] ) ) {
-			$g_locale = $g_settings['lang'];
+		if( isset( $g_config ) and !empty( $g_config['lang'] ) ) {
+			$g_locale = $g_config['lang'];
 		} else {
 			$g_locale = LANG;
 		}
@@ -52,7 +52,7 @@ function get_translations_for_domain( $domain ) {
  * @param string $domain Domain to retrieve the translated text.
  * @return string Translated text
  */
-function translate( $text, $domain = 'default' ) { 
+function translate( $text, $domain = 'default' ) {
 	$trans = get_translations_for_domain( $domain );
 	if( $trans === false ) {
 		return $text;
@@ -136,7 +136,7 @@ function load_default_textdomain() {
  */
 function load_plugin_textdomain( $plugin ) {
 	$locale = get_locale();
-	
+
 	$mofile = PLUGINS_DIR . "/$plugin/lang/$locale.mo";
 	load_textdomain( "plugin_$plugin", $mofile );
 }
@@ -148,7 +148,7 @@ function load_plugin_textdomain( $plugin ) {
  */
 function load_theme_textdomain( $theme ) {
 	$locale = get_locale();
-	
+
 	$mofile = THEMES_DIR . "/$theme/lang/$locale.mo";
 	load_textdomain( "theme_$theme", $mofile );
 }
@@ -160,9 +160,7 @@ function load_theme_textdomain( $theme ) {
  */
 function load_convertor_textdomain( $convertor ) {
 	$locale = get_locale();
-	
+
 	$mofile = CONVERTORS_DIR . "/$convertor/lang/$locale.mo";
 	load_textdomain( "convertor_$convertor", $mofile );
 }
-
-?>

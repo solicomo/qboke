@@ -8,12 +8,12 @@ require_once CONVERTORS_DIR . '/convertor.php';
 
 /** declare */
 global $g_config;
-global $g_sites;
-global $g_cur_site;
 global $g_scms;
 global $g_themes;
 global $g_convertors;
 global $g_hooks;
+global $g_locale;
+global $g_l10n;
 
 global $g_req_type;	// 'index', 'tag', 'post'
 global $g_req_value;
@@ -67,4 +67,3 @@ function get_convertor($format) {
 	return new $g_convertors['none'];
 }
 
-?>

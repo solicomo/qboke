@@ -67,85 +67,31 @@ function authorize() {
 function sync_content() {
 	global $g_config;
 
-	//TODO:
-	//$path = get_data_path() . '/sync.log';
-	$path = '/tmp/qboke.sync.log';
-	$srv  = print_r($_SERVER, true);
-	file_put_contents($path, date('[Y-m-d H:i:s] ') . $srv, FILE_APPEND);
+	$repo = $g_config['repo'];
+	$name = $repo['type'];
+	$path = get_data_path();
 
-	foreach ($g_config['repos'] as $repo) {
-		$name = $repo['scm'];
-		$path = $repo['path'];
-		$opts = $repo['opts'];
+	$scm = get_scm($name);
 
-		$scm = get_scm($name, $path, $opts);
-
-		if ($scm === false) {
-			continue;
-		}
-
-		if (!$scm->init($path, $opts)) {
-			continue;
-		}
-
-		$scm->pull();
+	if ($scm === false) {
+		continue;
 	}
+
+	if (!$scm->init($path, $repo)) {
+		continue;
+	}
+
+	$scm->pull();
 }
 
-function load_sites($complete = true) {
-	global $g_config;
-	global $g_sites;
+function load_site() {
+	$path = get_data_path();
+	$site = new QBSite($path);
 
-	$g_sites = array();
-	$sites = array();
-
-	foreach ($g_config['repos'] as $repo) {
-		$path = $repo['path'];
-
-		if (substr($path, 0, 1) !== '/') {
-			$path = get_data_path() . '/' . $path;
-		}
-
-		$path = realpath($path);
-
-		if (!$path) {
-			continue;
-		}
-
-		$sites = array_merge($sites, find_sites($path));
+	if ($site->load()) {
+		return $site;
 	}
 
-	$sites = array_unique($sites);
-
-	foreach( $sites as $sp ) {
-		$site = new QBSite($sp);
-
-		$lr = $complete ? $site->load() : $site->load_config();
-		if ($lr) {
-			$id = $site->id();
-			$g_sites[$id] = $site;
-		}
-	}
-
-	ksort($g_sites);
-}
-
-function get_site($host) {
-	global $g_sites;
-	global $g_cur_site;
-
-	foreach ($g_sites as $site) {
-		$domains = $site->domains();
-
-		foreach ($domains as $domain) {
-			if (preg_match("@^{$domain}$@", $host)) {
-				$g_cur_site = $site;
-				return $site;
-			}
-		}
-	}
-
-	$g_cur_site = false;
 	return false;
 }
 
@@ -190,34 +136,6 @@ function get_subdirs($path) {
 	return $subs;
 }
 
-function find_sites($path) {
-	$path = rtrim($path, '/\\');
-	$conf = $path . '/.site';
-
-	$sites = array();
-	if (is_file($conf) && is_readable($conf)) {
-		$sites[] = $path;
-	}
-
-	if( ! $dh = opendir( $path ) ) {
-		return $sites;
-	}
-
-	while ( ( $sub = readdir( $dh ) ) !== false ) {
-		if ( substr($sub, 0, 1) === '.' ) {
-			continue;
-		}
-
-		if( is_dir( "$path/$sub" ) ) {
-			$sites = array_merge($sites, find_sites("$path/$sub"));
-		}
-	}
-
-	closedir( $dh );
-
-	return array_unique($sites);
-}
-
 if ( ! function_exists('yaml_parse') ) {
 function yaml_parse($str) {
 
@@ -227,7 +145,7 @@ function yaml_parse($str) {
 		$yaml = Symfony\Component\Yaml\Yaml::parse( $str );
 	} catch ( Symfony\Component\Yaml\Exception\ParseException $e ) {
 		$yaml = null;
-		qb_warn( print_r($e) );
+		db_warn( print_r($e) );
 	}
 
 	return $yaml;

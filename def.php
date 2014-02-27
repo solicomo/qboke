@@ -5,10 +5,10 @@
  * */
 
 /** Define VERSION */
-define( 'VERSION', '3' );
+define( 'VERSION', '4' );
 
 /** Define VER_STR */
-define( 'VER_STR', '0.0.3' );
+define( 'VER_STR', '0.0.4' );
 
 /** Define ABSPATH as this file's directory */
 define( 'ABSPATH', dirname(__FILE__) );
@@ -48,4 +48,3 @@ define('TZ', 'UTC');
 
 date_default_timezone_set(TZ);
 
-?>
