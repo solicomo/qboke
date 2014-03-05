@@ -5,7 +5,6 @@
  * */
 
 require_once INC_DIR . '/debug.php';
-require_once INC_DIR . '/vars.php';
 require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
 
@@ -13,7 +12,7 @@ function load_config() {
 	global $g_config;
 	$path = ABSPATH . '/config.php';
 	if( is_readable($path) ) {
-		include_once $path;
+		$g_config = include_once $path;
 		if ( $g_config === null) {
 			return false;
 		}
@@ -22,7 +21,7 @@ function load_config() {
 
 	$path = ABSPATH . '/config_sample.php';
 	if( is_readable($path) ) {
-		include_once $path;
+		$g_config = include_once $path;
 		if ( $g_config === null) {
 			return false;
 		}
@@ -145,7 +144,7 @@ function yaml_parse($str) {
 		$yaml = Symfony\Component\Yaml\Yaml::parse( $str );
 	} catch ( Symfony\Component\Yaml\Exception\ParseException $e ) {
 		$yaml = null;
-		db_warn( print_r($e) );
+		qb_warn( print_r($e) );
 	}
 
 	return $yaml;

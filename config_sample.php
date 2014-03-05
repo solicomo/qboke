@@ -3,16 +3,13 @@
  * change this for your site.
  * */
 
-define('DEBUG_MODE', true);
-define('LOG_FILE', '/tmp/qboke.log');
-
 $config_json = <<<EOF
 {
 	"key": "your_secret_key_for_sync",
-	"public_path": "public",
+	"debug": "on",
 	"repo": {
 		"type"  : "git",
-		"remote": "",
+		"remote": "https://soli@bitbucket.org/soli/qboke.org.git",
 		"branch": "",
 		"user"  : "",
 		"pass"  : "",
@@ -21,5 +18,4 @@ $config_json = <<<EOF
 }
 EOF;
 
-global $g_config;
-$g_config = json_decode($config_json, true);
+return json_decode($config_json, true);

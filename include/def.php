@@ -10,9 +10,6 @@ define( 'VERSION', '4' );
 /** Define VER_STR */
 define( 'VER_STR', '0.0.4' );
 
-/** Define ABSPATH as this file's directory */
-define( 'ABSPATH', dirname(__FILE__) );
-
 /** Define INC_DIR */
 define( 'INC_DIR', ABSPATH . '/include' );
 
@@ -39,6 +36,9 @@ define( 'SCMS_DIR', ABSPATH . '/scms' );
 
 /** Define CACHE_DIR */
 define( 'CACHE_DIR', ABSPATH . '/cache' );
+
+/** Define PUBLIC_DIR */
+define( 'PUBLIC_DIR', ABSPATH . '/public' );
 
 /** Define LANG */
 define('LANG', 'en_US');

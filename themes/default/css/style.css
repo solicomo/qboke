@@ -87,6 +87,14 @@ img {border: none;}
 	float: left;
 }
 
+#main-pre{
+	float: left;
+}
+
+#main-next{
+	float: right;
+}
+
 #sidebar{
 	width: 300px;
 	float: right;
