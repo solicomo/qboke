@@ -4,7 +4,6 @@
  * @date  : 2013-04-05
  * */
 
-require_once INC_DIR . '/debug.php';
 require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
 
@@ -53,6 +52,20 @@ function load_convertors() {
 	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
 		include_once CONVERTORS_DIR . "/$cvt/_.php";
 	}
+}
+
+function set_debug_mode() {
+	global $g_config;
+	error_reporting( E_ALL );
+
+	if ($g_config['debug'] === 'on') {
+		ini_set( 'display_errors', 1 );
+	} else {
+		ini_set( 'display_errors', 0 );
+	}
+
+	ini_set( 'log_errors', 1 );
+	ini_set( 'error_log', CACHE_DIR . '/qboke.log' );
 }
 
 function authorize() {
@@ -144,7 +157,7 @@ function yaml_parse($str) {
 		$yaml = Symfony\Component\Yaml\Yaml::parse( $str );
 	} catch ( Symfony\Component\Yaml\Exception\ParseException $e ) {
 		$yaml = null;
-		qb_warn( print_r($e) );
+		trigger_error( print_r($e), E_USER_WARNING );
 	}
 
 	return $yaml;
