@@ -45,7 +45,7 @@ class QBCatalog {
 				$this->subs[$catalog->url_path()] = $catalog;
 
 			} elseif ( is_file("$path/$sub") ) {
-				if ( pathinfo($sub, PATHINFO_EXTENSION) !== '.md') {
+				if ( pathinfo($sub, PATHINFO_EXTENSION) !== 'md') {
 					continue;
 				}
 
