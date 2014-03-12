@@ -411,7 +411,7 @@ class QBSite {
 
 		if ($request->type() === QBRequestType::Tag) {
 			$url_prefix .= '/tag/' . $request->url();
-		} else {
+		} elseif ($request->type() !== QBRequestType::Index) {{
 			$url_prefix .= '/' . $request->url();
 		}
 
