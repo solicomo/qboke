@@ -164,3 +164,13 @@ function yaml_parse($str) {
 }
 }
 
+function mime($file) {
+	$ftype = 'application/octet-stream';
+	$finfo = @new finfo(FILEINFO_MIME);
+	$fres = @$finfo->file($file);
+	if (is_string($fres) && !empty($fres)) {
+		$ftype = $fres;
+	}
+
+	return ftype;
+}

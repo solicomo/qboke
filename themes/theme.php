@@ -61,6 +61,7 @@ class Theme {
 		} else if ( $response->is_file() ) {
 			$file = $response->path();
 			if ($file !== false && file_exists($file)) {
+				header('Content-Type: ' . mime($file));
 				header('Content-Length: ' . filesize($file));
 				ob_clean();
 				flush();
