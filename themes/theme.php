@@ -50,12 +50,25 @@ class Theme {
 			include $theme_path . '/404.php';
 		} else if ( $response->is_post() ) {
 			include $theme_path . '/post.php';
+		} else if ( $response->is_page() ) {
+			include $theme_path . '/page.php';
 		} else if ( $response->is_index() ) {
 			include $theme_path . '/index.php';
 		} else if ( $response->is_catalog() ) {
 			include $theme_path . '/catalog.php';
 		} else if ( $response->is_tag() ) {
 			include $theme_path . '/tag.php';
+		} else if ( $response->is_file() ) {
+			$file = $response->path();
+			if ($file !== false && file_exists($file)) {
+				header('Content-Length: ' . filesize($file));
+				ob_clean();
+				flush();
+				@readfile($file);
+			} else {
+				header("Status: 404 Not Found");
+				include $theme_path . '/404.php';
+			}
 		} else {
 			header("Status: 404 Not Found");
 			include $theme_path . '/404.php';

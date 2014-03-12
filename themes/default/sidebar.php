@@ -44,7 +44,7 @@ function get_tag_list() {
 	$tags = $site->tags();
 	foreach ($tags as $tag => $posts) {
 		$cnt = count($posts);
-		$content .= "<li class=\"taglist\"><a href=\"{$site_url}tag/{$tag}.html\">{$tag}</a> ({$cnt})</li>\n";
+		$content .= "<li class=\"taglist\"><a href=\"{$site_url}tag/{$tag}/1.html\">{$tag}</a> ({$cnt})</li>\n";
 	}
 
 	$content .= "</ul>\n";

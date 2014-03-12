@@ -47,7 +47,7 @@ class QBPost {
 
 	function url() {
 		$site = $this->site();
-		$url = $site->url() . 'post' . $this->url_path() . $site->url_suffix();
+		$url = $site->root() . $this->url_path() . $site->url_suffix();
 
 		return $url;
 	}
@@ -159,6 +159,14 @@ class QBPost {
 		}
 
 		return 'none';
+	}
+
+	function type() {
+		if (isset($this->config) && isset($this->config['type'])) {
+			return $this->config['type'];
+		}
+
+		return 'post';
 	}
 
 	function excerpt() {

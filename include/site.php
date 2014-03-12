@@ -13,6 +13,12 @@ class QBSite {
 	private $config	= array();
 	private $catalog;
 
+	private $catalogs;
+	private $posts;
+	private $pages;
+	private $files;
+	private $tags;
+
 	private $status;
 	private $theme;
 
@@ -137,28 +143,69 @@ class QBSite {
 		return $linage;
 	}
 
-	function catalogs($recursive = true) {
+	function catalogs() {
+		if (isset($this->catalogs)) {
+			return $this->catalogs;
+		}
+
 		if (!isset($this->catalog)) {
 			return false;
 		}
 
-		return $this->catalog->catalogs($recursive);
+		$this->catalogs = $this->catalog->catalogs(true);
+		return $this->catalogs;
 	}
 
-	function tags($recursive = true) {
+	function tags() {
+		if (isset($this->tags)) {
+			return $this->tags;
+		}
+
 		if (!isset($this->catalog)) {
 			return false;
 		}
 
-		return $this->catalog->tags($recursive);
+		$this->tags = $this->catalog->tags(true);
+		return $this->tags;
 	}
 
-	function posts($recursive = true) {
+	function posts() {
+		if (isset($this->posts)) {
+			return $this->posts;
+		}
+
 		if (!isset($this->catalog)) {
 			return false;
 		}
 
-		return $this->catalog->posts($recursive);
+		$this->posts = $this->catalog->posts(true);
+		return $this->posts;
+	}
+
+	function pages() {
+		if (isset($this->pages)) {
+			return $this->pages;
+		}
+
+		if (!isset($this->catalog)) {
+			return false;
+		}
+
+		$this->pages = $this->catalog->pages(true);
+		return $this->pages;
+	}
+
+	function files() {
+		if (isset($this->files)) {
+			return $this->files;
+		}
+
+		if (!isset($this->catalog)) {
+			return false;
+		}
+
+		$this->files = $this->catalog->files(true);
+		return $this->files;
 	}
 
 	function option($name) {
@@ -178,23 +225,24 @@ class QBSite {
 	/**
 	 * URL formats:
 	 *
-	 * /[page<url_suffix>]
-	 * /index[/page]<url_suffix>
-	 * /catalog/<catalog url>[/page]<url_suffix>
-	 * /tag/<tag>[/page]<url_suffix>
-	 * /post/<post url><url_suffix>
+	 * /<file url>
+	 * /<page url><url_suffix>
+	 * /<post url><url_suffix>
+	 * /[<page><url_suffix>]
+	 * /<catalog url>/<page><url_suffix>
+	 * /tag/<tag>/<page><url_suffix>
 	 *
 	 * excamples:
 	 *
+	 * /screen.jpg
+	 * /about.html
+	 * /life/food/sweet_and_sour_fish.html
 	 * /
 	 * /2.html
-	 * /index.html
-	 * /index/1.html
-	 * /catalog/life/food.html
-	 * /catalog/life/food/3.html
-	 * /tag/fish.html
+	 * /life/food/1.html
+	 * /life/food/3.html
+	 * /tag/fish/1.html
 	 * /tag/fish/2.html
-	 * /post/life/food/sweet_and_sour_fish.html
 	 *
 	 * */
 	function parse_uri($uri) {
@@ -205,9 +253,14 @@ class QBSite {
 			return new QBRequest( QBRequestType::Error, 404 );
 		}
 
-		$uri = $matches[1];
+		$uri = '/' . $matches[1];
 
-		if ($uri === '' || $uri === "index{$url_suffix}") {
+		$files = $this->files();
+		if (array_key_exists($uri, $files)) {
+			return new QBRequest(QBRequestType::File, $uri);
+		}
+
+		if ($uri === '/') {
 			return new QBRequest( QBRequestType::Index, null );
 		}
 
@@ -217,33 +270,33 @@ class QBSite {
 
 		$uri = $matches[1];
 
-		if (preg_match("@index/([\d]+)$@", $uri, $matches)) {
+		$pages = $this->pages();
+		if (array_key_exists($uri, $pages)) {
+			return new QBRequest(QBRequestType::Page, $uri);
+		}
+
+		$posts = $this->posts();
+		if (array_key_exists($uri, $posts)) {
+			return new QBRequest(QBRequestType::Post, $uri);
+		}
+
+		if (preg_match("@^/([\d]+)$@", $uri, $matches)) {
 			return new QBRequest( QBRequestType::Index, null, $matches[1] );
 		}
 
-		if (preg_match("@post/(.*)/([\d]+)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Post, '/' . $matches[1], $matches[2] );
+		if (preg_match("@^/tag/(.*)/([\d]+)$@", $uri, $matches)) {
+			$tags = $this->tags();
+			$tag  = $matches[1];
+			if (array_key_exists($tag, $tags)) {
+				return new QBRequest(QBRequestType::Tag, $tag, $matches[2]);
+			}
 		}
 
-		if (preg_match("@post/(.*)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Post, '/' . $matches[1], 1 );
-		}
-
-		if (preg_match("@tag/(.*)/([\d]+)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Tag, $matches[1], $matches[2] );
-		}
-
-		if (preg_match("@tag/(.*)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Tag, $matches[1], 1 );
-		}
-
-		if (preg_match("@catalog/(.*)/([\d]+)$@", $uri, $matches)) {
+		if (preg_match("@^(.*)/([\d]+)$@", $uri, $matches)) {
 			return new QBRequest( QBRequestType::Catalog, '/' . $matches[1], $matches[2] );
 		}
 
-		if (preg_match("@catalog/(.*)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Catalog, '/' . $matches[1], 1 );
-		}
+		return new QBRequest( QBRequestType::Error, 404 );
 	}
 
 	function theme() {
@@ -302,6 +355,14 @@ class QBSite {
 			return $this->prepare_post($request);
 		}
 
+		if ($request->type() === QBRequestType::Page) {
+			return $this->prepare_page($request);
+		}
+
+		if ($request->type() === QBRequestType::File) {
+			return $this->prepare_file($request);
+		}
+
 		if ($request->type() === QBRequestType::Tag) {
 			return $this->prepare_tag($request);
 		}
@@ -343,33 +404,22 @@ class QBSite {
 
 		$cur_posts = array_slice($posts, ($page - 1) * $linage, $linage);
 
-		$prev  = false;
+		$prev = false;
 		$next = false;
-		$url_prefix = $this->root();
 		$url_suffix = $this->url_suffix();
+		$url_prefix = $this->root();
 
-		switch ($request->type()) {
-			case QBRequestType::Index :
-				$url_prefix .= '/index';
-				break;
-			case QBRequestType::Tag :
-				$url_prefix .= '/tag/' . $request->url();
-				break;
-			case QBRequestType::Catalog :
-				$url_prefix .= '/catalog' . $request->url();
-				break;
-			default:
-				return new QBResponse($request, QBRequestType::Error, 404);
+		if ($request->type() === QBRequestType::Tag) {
+			$url_prefix .= '/tag/' . $request->url();
+		} else {
+			$url_prefix .= '/' . $request->url();
 		}
+
 
 		if ($page > 1) {
 			$prev = array();
 			$prev['name'] = 'Previous';
-			$prev['url']  = $url_prefix;
-			if ($page > 2) {
-				$prev['url'] .= '/' . strval($page - 1);
-			}
-			$prev['url'] .= $url_suffix;
+			$prev['url']  = $url_prefix . '/' . strval($page - 1) . $url_suffix;
 		}
 
 		if ($page < $page_max) {
@@ -451,6 +501,30 @@ class QBSite {
 		$response = new QBResponse($request, $request->type(), $url);
 		$response->set_posts($cur_posts);
 		$response->set_nav($prev, $next);
+
+		return $response;
+	}
+
+	private function prepare_page($request) {
+		$pages = $this->pages();
+		$url = $request->url();
+
+		$cur_pages[$url] = $pages[$url];
+
+		$response = new QBResponse($request, $request->type(), $url);
+		$response->set_posts($cur_pages);
+
+		return $response;
+	}
+
+	private function prepare_file($request) {
+		$files = $this->files();
+		$url = $request->url();
+
+		$cur_file = $files[$url];
+
+		$response = new QBResponse($request, $request->type(), $url);
+		$response->set_path($cur_file);
 
 		return $response;
 	}

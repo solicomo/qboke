@@ -10,10 +10,10 @@ linage : 20
 opts   :
     menu :
         - name : Home
-          url  : /index.html
+          url  : /
 
         - name : About
-          url  : /post/about.html
+          url  : /about.html
 
     sidebar :
         - name : ""

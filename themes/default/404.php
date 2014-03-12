@@ -13,8 +13,5 @@
 	<body>
 	<h1>Error 404 - Page Not Found</h1>
 	<p>Sorry, what you are looking for isn't here.</p>
-	<br />
-	<h2>Request Details</h2>
-	<p><?php print_r($_SERVER); ?></p>
 	</body>
 </html>

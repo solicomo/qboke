@@ -8,8 +8,11 @@ class QBCatalog {
 	private $parent;
 	private $name	= '';
 	private $config	= array();
+
 	private $subs	= array();
 	private $posts	= array();
+	private $pages	= array();
+	private $files	= array();
 	private $tags;
 
 	function __construct($parent, $name) {
@@ -30,7 +33,7 @@ class QBCatalog {
 				continue;
 			}
 
-			//TODO filter($sub, $path)
+			//TODO: filter($sub, $path)
 			if ( substr($sub, 0, 1) === '.' ) {
 				continue;
 			}
@@ -45,7 +48,9 @@ class QBCatalog {
 				$this->subs[$catalog->url_path()] = $catalog;
 
 			} elseif ( is_file("$path/$sub") ) {
+				//TODO: quick fix
 				if ( pathinfo($sub, PATHINFO_EXTENSION) !== 'md') {
+					$this->files[url_path() . "/$sub"] = "$path/$sub";
 					continue;
 				}
 
@@ -55,7 +60,11 @@ class QBCatalog {
 					continue;
 				}
 
-				$this->posts[$post->url_path()] = $post;
+				if ($post->type() === 'page') {
+					$this->pages[$post->url_path()] = $post;
+				} else {
+					$this->posts[$post->url_path()] = $post;
+				}
 			}
 		}
 
@@ -87,9 +96,9 @@ class QBCatalog {
 		$site = $this->site();
 
 		if (intval($page) > 0) {
-			$url = $site->url() . 'catalog' . $this->url_path() . '/' . strval(intval($page)) . $site->url_suffix();
+			$url = $site->root() . $this->url_path() . '/' . strval(intval($page)) . $site->url_suffix();
 		} else {
-			$url = $site->url() . 'catalog' . $this->url_path() . $site->url_suffix();
+			$url = $site->root() . $this->url_path() . '/1' . $site->url_suffix();
 		}
 
 		return $url;
@@ -118,8 +127,11 @@ class QBCatalog {
 	}
 
 	function tags($recursive = true) {
-		$tags = array();
+		if (!$recursive && isset($this->tags)) {
+			return $this->tags;
+		}
 
+		$tags = array();
 		foreach ($this->posts as $post) {
 			foreach ($post->tags() as $tag_name => $posts) {
 				if (array_key_exists($tag_name, $tags)) {
@@ -129,10 +141,7 @@ class QBCatalog {
 				}
 			}
 		}
-
-		if (!$recursive) {
-			return $tags;
-		}
+		$this->tags = $tags;
 
 		foreach ($this->subs as $sub) {
 			foreach ($sub->tags(true) as $tag_name => $posts) {
@@ -161,10 +170,38 @@ class QBCatalog {
 		return $posts;
 	}
 
+	function pages($recursive = true) {
+		if (!$recursive) {
+			return $this->pages;
+		}
+
+		$pages = $this->pages;
+
+		foreach ($this->subs as $sub) {
+			$pages = array_merge($pages, $sub->pages(true));
+		}
+
+		return $pages;
+	}
+
+	function files($recursive = true) {
+		if (!$recursive) {
+			return $this->files;
+		}
+
+		$files = $this->files;
+
+		foreach ($this->subs as $sub) {
+			$files = array_merge($files, $sub->files(true));
+		}
+
+		return $files;
+	}
+
 	/*************************************************/
 
 	private function load_config() {
-		$path = $this->path() . '/.meta.json';
+		$path = $this->path() . '/.meta';
 
 		if( !is_readable($path) ) {
 			return false;
@@ -175,9 +212,9 @@ class QBCatalog {
 			return false;
 		}
 
-		$this->config = json_decode( $config, true );
+		$this->config = yaml_parse( $config );
 
-		if( json_last_error() !== JSON_ERROR_NONE ) {
+		if( is_null( $this->config ) ) {
 			$this->config = array();
 			return false;
 		}

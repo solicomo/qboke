@@ -15,6 +15,7 @@ class QBResponse {
 	private $pre_url;
 	private $next_name;
 	private $next_url;
+	private $path;
 
 	function __construct($request, $type, $url) {
 		$this->request = $request;
@@ -32,10 +33,15 @@ class QBResponse {
 		$this->pre_url   = false;
 		$this->next_name = false;
 		$this->next_url  = false;
+		$this->path      = false;
 	}
 
 	function set_posts($posts) {
 		$this->posts = $posts;
+	}
+
+	function set_path($path) {
+		$this->path = $path;
 	}
 
 	function set_nav($pre, $next) {
@@ -52,6 +58,14 @@ class QBResponse {
 
 	function is_post() {
 		return ($this->type === QBRequestType::Post);
+	}
+
+	function is_page() {
+		return ($this->type === QBRequestType::Page);
+	}
+
+	function is_file() {
+		return ($this->type === QBRequestType::File);
 	}
 
 	function is_index() {
@@ -72,6 +86,10 @@ class QBResponse {
 
 	function posts() {
 		return $this->posts;
+	}
+
+	function path() {
+		return $this->path;
 	}
 
 	function pre_name() {

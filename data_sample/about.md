@@ -4,6 +4,7 @@ title  : About QBoke
 lname  : about
 author : Soli
 format : markdownex
+type   : page
 tags   : [QBoke, About, Git, Markdown, Blog]
 excerpt: |
     Git is good. Markdown is good. Blog is good. So, QBoke is here.
