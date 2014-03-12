@@ -50,7 +50,7 @@ class QBCatalog {
 			} elseif ( is_file("$path/$sub") ) {
 				//TODO: quick fix
 				if ( pathinfo($sub, PATHINFO_EXTENSION) !== 'md') {
-					$this->files[url_path() . "/$sub"] = "$path/$sub";
+					$this->files[$this->url_path() . "/$sub"] = "$path/$sub";
 					continue;
 				}
 
