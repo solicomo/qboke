@@ -172,5 +172,5 @@ function mime($file) {
 		$ftype = $fres;
 	}
 
-	return ftype;
+	return $ftype;
 }
