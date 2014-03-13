@@ -39,8 +39,20 @@ class Theme {
 		return $url;
 	}
 
-	function render($response) {
+	function render($response, $return = false) {
 
+		if ($return) {
+			ob_start();
+		}
+
+		$this->do_render($response);
+
+		if ($return) {
+			return ob_get_clean();
+		}
+	}
+
+	function do_render($response) {
 		$theme_path  = $this->dir();
 		$theme = $this;
 		$site  = $this->site;

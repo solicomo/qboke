@@ -20,7 +20,7 @@ if (!authorize()) {
 }
 
 load_scms();
-sync_content();
+//TODO:sync_content();
 load_default_textdomain();
 load_plugins();
 load_themes();

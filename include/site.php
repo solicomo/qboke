@@ -321,6 +321,17 @@ class QBSite {
 		$theme = $this->theme();
 		$theme->render($response);
 	}
+
+	function dump() {
+		$files = $this->files();
+
+		foreach ($files as $dst => $src) {
+			$dst = PUBLIC_DIR . $dst;
+
+			echo "copy($src, $dst)\n";
+			real_copy($src, $dst);
+		}
+	}
 	/*************************************************/
 
 //	private

@@ -174,3 +174,22 @@ function mime($file) {
 
 	return $ftype;
 }
+
+function return_include($file) {
+	ob_start();
+	include $file;
+	return ob_get_clean();
+}
+
+function real_copy($src, $dst) {
+	$ddir = dirname($dst);
+
+	if (!is_dir($ddir)) {
+		$oldumask = umask(0);
+		@mkdir($ddir, 0777, true);
+		umask($oldumask);
+	}
+
+	@copy($src, $dst);
+}
+
