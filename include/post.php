@@ -189,7 +189,30 @@ class QBPost {
 			return $err;
 		}
 
-		$this->content = file_get_contents( $path );
+		// get rid of YAML Front Matter
+		$offset = -1;
+		$fh = @fopen($path, 'r');
+
+		if (!$fh) {
+			return $err;
+		}
+
+		$fline = fgets($fh);
+
+		if ($fline !== false && trim($fline) === '<!--') {
+			while (($line = fgets($fh)) !== false) {
+				if (trim($line) === '-->') {
+					break;
+				}
+			}
+
+			$offset = ftell($fh);
+		}
+
+		fclose($fh);
+
+		// content without YAML Front Matter
+		$this->content = file_get_contents( $path, false, NULL, $offset );
 		if( false === $this->content ) {
 			return $err;
 		}
