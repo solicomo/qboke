@@ -316,13 +316,20 @@ class QBSite {
 	}
 
 	function get($uri) {
-		$request = $this->parse_uri($uri);
-		$response= $this->prepare($request);
-		$theme = $this->theme();
-		$theme->render($response);
+		global $g_request, $g_response, $g_theme;
+
+		$g_request  = $this->parse_uri($uri);
+		$g_response = $this->prepare($g_request);
+		$g_theme    = $this->theme();
+		$g_theme->render($g_response);
 	}
 
 	function dump() {
+		// index
+		// catalog
+		// tag
+
+		// files
 		$files = $this->files();
 
 		foreach ($files as $dst => $src) {
@@ -331,6 +338,9 @@ class QBSite {
 			echo "copy($src, $dst)\n";
 			real_copy($src, $dst);
 		}
+
+		// post
+		// page
 	}
 	/*************************************************/
 

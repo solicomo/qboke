@@ -43,5 +43,50 @@ opts   :
                 url  : http://kernel.cn
 
     footer : |
-      You are appreciated to <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FJEEDWPYTCNBC">help us</a>!
+        You are appreciated to <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FJEEDWPYTCNBC">help us</a>!
 
+    signature :
+        enable   : true
+        position : bottom # top | bottom
+        signature: |
+            <style type="text/css"><!--
+            	.cc-block {
+            		width: 100%;
+            		margin: 3px auto;
+            		padding: 4px;
+            		text-align: left;
+            		border: 1px solid #cccccc;
+            		color: #000000;
+            		background-color: #eef6e6;
+            		font-size: 0.8em;
+            		line-height: 1.3em;
+            		text-align: left !important;
+            		width: 100% !important;
+            	}
+
+            	.cc-button {
+            		float: left;
+            		margin-right: 10px;
+            	}
+            --></style>
+            <!-- Creative Commons License -->
+            <div class="cc-block">
+            	<div>
+            		<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+            			<img alt="Creative Commons License" src="http://i.creativecommons.org/l/by/4.0/88x31.png" class="cc-button" />
+            		</a>
+            		Except where otherwise noted, content on this site is licensed under a
+            		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+            			Creative Commons Attribution 4.0 International license
+            		</a>
+            		.
+            	</div>
+            </div>
+            <!-- /Creative Commons License -->
+
+    google-code-prettify :
+        enable   : true     # true | false
+        lang     : auto     # auto | css | erlang | go | lisp | lua | sql | wiki | yaml ...
+        skin     : default  # default | desert | doxy |sons-of-obsidian | sunburst
+        autoload : true     # true | false
+        callback :          #

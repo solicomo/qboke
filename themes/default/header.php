@@ -13,6 +13,14 @@
 	<meta name="description" content="<?php echo $site->description(); ?>" />
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $theme->url(); ?>/css/style.css" />
+	<?php
+	/* Always have qb_header() just before the closing </head>
+	 * tag of your theme, or you will break many plugins, which
+	 * generally use this hook to add elements to <head> such
+	 * as styles, scripts, and meta tags.
+	 */
+	qb_header();
+	?>
 </head>
 <body>
 	<!-- wrap start -->

@@ -6,8 +6,8 @@
 class QBRequestType {
 	const Error = 0;
 	const Index = 1;
-	const Tag   = 2;
-	const Catalog = 3;
+	const Catalog = 2;
+	const Tag   = 3;
 	const File  = 4;
 	const Post  = 5;
 	const Page  = 6;

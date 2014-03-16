@@ -8,4 +8,3 @@ include_once __DIR__ . '/default.php';
 
 set_scm('default', 'DefaultTheme');
 
-?>

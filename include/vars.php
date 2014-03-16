@@ -15,13 +15,10 @@ global $g_hooks;
 global $g_locale;
 global $g_l10n;
 
-global $g_req_type;	// 'index', 'tag', 'post'
-global $g_req_value;
-global $g_req_page;
-global $g_error;	// 404, 500, 503
-global $g_fullcontent;
-global $g_posts; // array of post index in $g_index
-global $g_page_cnt;
+global $g_site;
+global $g_request;
+global $g_response;
+global $g_theme;
 
 /** init */
 

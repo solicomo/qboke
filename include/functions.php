@@ -4,6 +4,8 @@
  * @date  : 2013-04-05
  * */
 
+require_once INC_DIR . '/hook.php';
+require_once INC_DIR . '/plugin.php';
 require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
 
@@ -97,17 +99,17 @@ function sync_content() {
 }
 
 function load_site() {
-	$path = get_data_path();
-	$site = new QBSite($path);
+	global $g_site;
 
-	if ($site->load()) {
-		return $site;
+	$path = get_data_path();
+	$g_site = new QBSite($path);
+
+	if ($g_site->load()) {
+		return $g_site;
 	}
 
 	return false;
 }
-
-/********************************/
 
 /**
  * Get data directory.
@@ -124,6 +126,11 @@ function get_data_path() {
 	}
 
 	return false;
+}
+
+function get_option($name) {
+	global $g_site;
+	return $g_site->option($name);
 }
 
 function get_subdirs($path) {

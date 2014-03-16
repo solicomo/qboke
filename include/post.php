@@ -33,6 +33,10 @@ class QBPost {
 		return $this->site;
 	}
 
+	function catalog() {
+		return $this->parent;
+	}
+
 	function path() {
 		$ppath = $this->parent->path();
 		$path  = $ppath . '/' . $this->name;
@@ -219,6 +223,8 @@ class QBPost {
 
 		$convertor = get_convertor( $this->format() );
 		$this->content = $convertor->go( $this->content );
+
+		$this->content = call_hooks('qb_get_content', $this->content);
 		return $this->content;
 	}
 
