@@ -157,15 +157,26 @@ class QBCatalog {
 	}
 
 	function posts($recursive = true) {
-		if (!$recursive) {
-			return $this->posts;
-		}
-
 		$posts = $this->posts;
 
-		foreach ($this->subs as $sub) {
-			$posts = array_merge($posts, $sub->posts(true));
+		if ($recursive) {
+			foreach ($this->subs as $sub) {
+				$posts = array_merge($posts, $sub->posts(true));
+			}
 		}
+
+		// sort by time
+		uasort($posts, function($a, $b){
+			if ($a->timestamp() == $b->timestamp()) {
+				return 0;
+			}
+
+			if ($a->timestamp() > $b->timestamp()) {
+				return -1;
+			}
+
+			return 1;
+		});
 
 		return $posts;
 	}

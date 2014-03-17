@@ -87,6 +87,10 @@ img {border: none;}
 	float: left;
 }
 
+#main img{
+	max-width: 600px;
+}
+
 #main-pre{
 	float: left;
 }

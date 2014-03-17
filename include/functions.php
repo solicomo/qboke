@@ -128,9 +128,21 @@ function get_data_path() {
 	return false;
 }
 
-function get_option($name) {
+function qb_options($name) {
 	global $g_site;
 	return $g_site->option($name);
+}
+
+function qb_site_root() {
+	global $g_site;
+
+	return $g_site->root();
+}
+
+function qb_site_url() {
+	global $g_site;
+
+	return $g_site->url();
 }
 
 function get_subdirs($path) {

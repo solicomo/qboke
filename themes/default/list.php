@@ -48,7 +48,7 @@ foreach ($response->posts() as $post) {
 		<div class="post-footer">
 			<div class="post-tags">
 				<ul><?php foreach (array_keys($post->tags()) as $tag) {
-					echo '<li><a href="' . $site->url() . 'tag/' . $tag . '.html">' . $tag .'</a></li>';
+					echo '<li><a href="' . $site->url() . 'tag/' . $tag . '/1.html">' . $tag .'</a></li>';
 				}?></ul>
 			</div>
 			<div class="post-reply"><?php /* TODO: */ ?></div>

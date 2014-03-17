@@ -5,7 +5,7 @@
  * */
 
 function qb_signature($content) {
-	$opts = get_option('signature');
+	$opts = qb_options('signature');
 
 	if (!isset($opts['enable']) ||
 		($opts['enable'] !== true && $opts['enable'] !== 'true') ||

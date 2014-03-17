@@ -409,18 +409,6 @@ class QBSite {
 			return new QBResponse($request, QBRequestType::Error, 404);
 		}
 
-		// sort by time
-		uasort($posts, function($a, $b){
-			if ($a->timestamp() == $b->timestamp()) {
-				return 0;
-			}
-
-			if ($a->timestamp() > $b->timestamp()) {
-				return -1;
-			}
-
-			return 1;
-		});
 		//TODO: sort hook
 
 		$cur_posts = array_slice($posts, ($page - 1) * $linage, $linage);
@@ -484,6 +472,19 @@ class QBSite {
 		}
 
 		$posts = $tags[$url];
+
+		// sort by time
+		uasort($posts, function($a, $b){
+			if ($a->timestamp() == $b->timestamp()) {
+				return 0;
+			}
+
+			if ($a->timestamp() > $b->timestamp()) {
+				return -1;
+			}
+
+			return 1;
+		});
 
 		return $this->prepare_list($request, $posts);
 	}
