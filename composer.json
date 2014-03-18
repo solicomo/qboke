@@ -1,30 +1,43 @@
 {
-    "name": "soli/qboke",
-    "description": "Blogging with markdown, git and other awesome stuff.",
-    "keywords": ["blog", "markdown", "git", "vcs"],
-    "homepage": "http://www.qboke.org",
-    "type": "project",
-    "license": "BSD-2-Clause",
-    "authors": [
-        {
-            "name": "Soli",
-            "email": "soli@cbug.org",
-            "homepage": "http://www.cbug.org/",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.0",
-        "klaussilveira/gitter": ">=0.2",
+	"name": "soli/qboke",
+	"description": "Blogging with markdown, git and other awesome stuff.",
+	"keywords": ["blog", "markdown", "git", "vcs"],
+	"homepage": "http://www.qboke.org",
+	"type": "project",
+	"license": "BSD-2-Clause",
+	"authors": [
+		{
+			"name": "Soli",
+			"email": "soli@cbug.org",
+			"homepage": "http://www.cbug.org/",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"klaussilveira/gitter": ">=0.2",
 		"michelf/php-markdown": ">=1.3",
 		"symfony/yaml": ">=2.3"
-    },
-    "require-dev": {
-    },
-    "minimum-stability": "stable",
-    "autoload": {
-        "psr-0": {
-            "QBoke": "include/"
-        }
-    }
+	},
+	"require-dev": {
+	},
+	"autoload": {
+		"psr-4": {
+			"QBoke\\": "include/",
+			"QBoke\\Convertors\\": "convertors/",
+			"QBoke\\Plugins\\": "plugins/",
+			"QBoke\\SCMs\\": "scms/",
+			"QBoke\\Themes\\": "themes/"
+		},
+		"classmap": [
+			"Installer.php"
+		]
+	},
+	"scripts": {
+		"post-create-project-cmd": "QBoke\\Installer::postCreateProject"
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "stable"
 }
