@@ -123,6 +123,10 @@ img {border: none;}
 	color: #000;
 }
 
+#blogname a:hover{
+	color: #0088cc;
+}
+
 #blogsub{
 	margin: 16px 5px 0px 20px;
 	font-size: 16px;
