@@ -28,13 +28,10 @@
 			"QBoke\\Plugins\\": "plugins/",
 			"QBoke\\SCMs\\": "scms/",
 			"QBoke\\Themes\\": "themes/"
-		},
-		"classmap": [
-			"Installer.php"
-		]
+		}
 	},
 	"scripts": {
-		"post-create-project-cmd": "QBoke\\Installer::postCreateProject"
+		"post-install-cmd": "QBoke\\Installer::postCreateProject"
 	},
 	"config": {
 		"preferred-install": "dist"
