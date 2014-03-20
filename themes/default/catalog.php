@@ -5,4 +5,3 @@
  * */
 
 require 'list.php';
-?>

@@ -315,7 +315,7 @@ class QBSite {
 		return $theme;
 	}
 
-	function get($uri) {
+	function get($uri, $return = false) {
 		global $g_request, $g_response, $g_theme;
 
 		$g_request  = $this->parse_uri($uri);
@@ -324,12 +324,53 @@ class QBSite {
 		$g_theme->render($g_response);
 	}
 
-	function dump() {
+	public function dump() {
 		// index
-		// catalog
-		// tag
-
+		$this->dump_index();
+		// catalogs
+		$this->dump_catalogs();
+		// tags
+		$this->dump_tags();
 		// files
+		$this->dump_files();
+		// posts
+		$this->dump_posts();
+		// pages
+		$this->dump_pages();
+	}
+
+	private function dump_index()
+	{
+		$url_suffix = $this->url_suffix();
+		$posts = $this->posts();
+		$linage= $this->linage();
+		$count = count($posts);
+		$page_max = ceil($count / $linage);
+
+		for ($i = 1; $i <= $page_max; $i++) {
+			global $g_request, $g_response, $g_theme;
+
+			$g_request  = new QBRequest(QBRequestType::Index, null, $i);
+			$g_response = $this->prepare($g_request);
+			$g_theme    = $this->theme();
+			$content    = $g_theme->render($g_response, true);
+
+			file_put_contents(PUBLIC_DIR . "/$i" . $url_suffix, $content);
+		}
+	}
+
+	private function dump_catalogs()
+	{
+
+	}
+
+	private function dump_tags()
+	{
+
+	}
+
+	private function dump_files()
+	{
 		$files = $this->files();
 
 		foreach ($files as $dst => $src) {
@@ -338,14 +379,19 @@ class QBSite {
 			echo "copy($src, $dst)\n";
 			real_copy($src, $dst);
 		}
-
-		// post
-		// page
 	}
-	/*************************************************/
 
-//	private
-	function load_config() {
+	private function dump_posts()
+	{
+
+	}
+
+	private function dump_pages()
+	{
+
+	}
+
+	private function load_config() {
 		$path = $this->path() . '/.site';
 
 		if( !is_readable($path) ) {

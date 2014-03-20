@@ -9,4 +9,3 @@ require_once INC_DIR . '/functions.php';
 $fullcontent = true;
 
 include __DIR__ . '/list.php';
-?>

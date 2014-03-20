@@ -40,7 +40,6 @@ class Theme {
 	}
 
 	function render($response, $return = false) {
-
 		if ($return) {
 			ob_start();
 		}

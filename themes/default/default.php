@@ -13,4 +13,4 @@ class DefaultTheme extends Theme {
 }
 
 set_theme('default', 'DefaultTheme');
-?>
+
