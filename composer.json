@@ -31,7 +31,7 @@
 		}
 	},
 	"scripts": {
-		"post-install-cmd": "QBoke\\Installer::postCreateProject"
+		"post-create-project-cmd": "QBoke\\Installer::postCreateProject"
 	},
 	"config": {
 		"preferred-install": "dist"
