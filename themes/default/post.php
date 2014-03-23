@@ -37,13 +37,7 @@ if ( $post !== false) {
 			</em>
 		</div>
 		<article class="post-content">
-			<?php
-			if ( isset($fullcontent) && $fullcontent) {
-				echo $post->content();
-			} else {
-				echo $post->excerpt() . '<span class="post-more"><a href="' . $post->url() . '">...</a></span>';
-			}
-			?>
+			<?php echo $post->content(); ?>
 		</article>
 		<div class="hl"></div>
 		<div class="post-footer">
