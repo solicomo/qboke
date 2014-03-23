@@ -547,9 +547,12 @@ class QBSite {
 
 		//find pre and next
 		reset($posts);
-		while(key($posts) !== $url) next($posts);
-		$prev_post = prev($posts);
-		next($posts);
+		$prev_post = false;
+		$next_post = false;
+		while(key($posts) !== $url) {
+			$prev_post = current($posts);
+			next($posts);
+		}
 		$next_post = next($posts);
 
 		$prev = false;
