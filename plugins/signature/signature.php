@@ -5,13 +5,16 @@
  * */
 
 function qb_signature($content) {
+	global $g_response;
 	$opts = qb_options('signature');
 
 	if (!isset($opts['enable']) ||
 		($opts['enable'] !== true && $opts['enable'] !== 'true') ||
 		!isset($opts['signature']) ||
-		is_null($opts['signature'])) {
-		return $content;;
+		is_null($opts['signature'])||
+		!$g_response->is_post()) {
+
+		return $content;
 	}
 
 	if (isset($opts['position']) && $opts['position'] === 'top') {
