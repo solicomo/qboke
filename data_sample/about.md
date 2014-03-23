@@ -1,7 +1,7 @@
 <!--
 date   : 2013-05-23 22:27:15
 title  : About QBoke
-lname  : about
+slug   : about
 author : Soli
 format : markdownex
 type   : page

@@ -60,7 +60,7 @@ class QBSite {
 	}
 
 	function url() {
-		$url  = $this->lname();
+		$url  = $this->slug();
 		return rtrim($url, '/\\') . '/';
 	}
 
@@ -84,9 +84,9 @@ class QBSite {
 		return array('.*');
 	}
 
-	function lname() {
-		if (isset($this->config) && isset($this->config['lname'])) {
-			return $this->config['lname'];
+	function slug() {
+		if (isset($this->config) && isset($this->config['slug'])) {
+			return $this->config['slug'];
 		}
 
 		return '/';

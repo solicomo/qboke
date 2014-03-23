@@ -88,7 +88,7 @@ class QBCatalog {
 
 	function url_path() {
 		$purl = $this->parent->url_path();
-		$url  = $purl . '/' . $this->lname();
+		$url  = $purl . '/' . $this->slug();
 		return rtrim($url, '/\\');
 	}
 
@@ -104,9 +104,9 @@ class QBCatalog {
 		return $url;
 	}
 
-	function lname() {
-		if (isset($this->config) && isset($this->config['lname'])) {
-			return $this->config['lname'];
+	function slug() {
+		if (isset($this->config) && isset($this->config['slug'])) {
+			return $this->config['slug'];
 		}
 
 		return $this->name;

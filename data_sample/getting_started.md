@@ -1,7 +1,7 @@
 <!--
 date   : 2013-11-06 23:04:24
 title  : 开始使用 QBoke
-lname  : getting-started
+slug   : getting-started
 author : Soli
 format : markdownex
 tags   : [QBoke, Documents]
