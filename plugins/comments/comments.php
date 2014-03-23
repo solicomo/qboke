@@ -18,10 +18,7 @@ class QBComments {
 
 		$disqus_shortname = $opts['disqus_shortname'];
 		$disqus_identifier = $post->options('disqus_identifier');
-		$disqus_title = $post->title();
-		$disqus_url = $post->url();
-		$disqus_category_id = $opts['disqus_category_id'];
-		$disqus_disable_mobile = $opts['disqus_disable_mobile'];
+		$disqus_disable_mobile = $opts['disqus_disable_mobile'] == true ? 'true' : 'false';
 
 		if ($disqus_identifier !== false || empty($disqus_identifier)) {
 			$disqus_identifier = md5($post->url_path());

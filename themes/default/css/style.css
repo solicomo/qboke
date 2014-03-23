@@ -91,12 +91,23 @@ img {border: none;}
 	max-width: 600px;
 }
 
+#main-nav{
+	margin-bottom: 20px;
+	background: url(../img/box-bgr2.gif) #eee repeat-x top;
+}
+
 #main-pre{
 	float: left;
+	padding-left: 10px;
+	margin-left: 10px;
+	background: url(../img/nav-left.gif) no-repeat left center;
 }
 
 #main-next{
 	float: right;
+	padding-right: 10px;
+	margin-right: 10px;
+	background: url(../img/nav-right.gif) no-repeat right center;
 }
 
 #sidebar{

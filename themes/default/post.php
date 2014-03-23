@@ -51,7 +51,7 @@ if ( $post !== false) {
 	</div>
 	<?php
 }/*foreach end*/ ?>
-<div id="main-nav">
+<div id="main-nav" class="rcbox">
 <?php
 if ($response->pre_url() && $response->pre_name()) {
 	?>
