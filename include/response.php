@@ -64,6 +64,11 @@ class QBResponse {
 		return ($this->type === QBRequestType::Page);
 	}
 
+	public function is_single() {
+		return ($this->type === QBRequestType::Post ||
+				$this->type === QBRequestType::Page);
+	}
+
 	function is_file() {
 		return ($this->type === QBRequestType::File);
 	}
@@ -80,6 +85,11 @@ class QBResponse {
 		return ($this->type === QBRequestType::Tag);
 	}
 
+	public function is_list() {
+		return ($this->type === QBRequestType::Index ||
+				$this->type === QBRequestType::Catalog ||
+				$this->type === QBRequestType::Tag);
+	}
 	function is_error() {
 		return ($this->type === QBRequestType::Error);
 	}

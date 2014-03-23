@@ -208,7 +208,7 @@ class QBSite {
 		return $this->files;
 	}
 
-	function option($name) {
+	function options($name) {
 		if ( !isset($this->config) ) {
 			return false;
 		}

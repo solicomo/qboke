@@ -130,7 +130,7 @@ function get_data_path() {
 
 function qb_options($name) {
 	global $g_site;
-	return $g_site->option($name);
+	return $g_site->options($name);
 }
 
 function qb_site_root() {

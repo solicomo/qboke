@@ -38,7 +38,7 @@
 			<div id="nav">
 			<ul id="menus">
 			<?php
-			$menus = $site->option('menu');
+			$menus = $site->options('menu');
 			$midx = 0;
 			if (is_array($menus)) {
 				foreach ($menus as $menu) {

@@ -11,3 +11,8 @@ function qb_header() {
 function qb_footer() {
 	call_hooks('qb_footer');
 }
+
+function qb_comments($post)
+{
+	call_hooks('qb_comments', $post);
+}

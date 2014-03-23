@@ -112,6 +112,20 @@ class QBCatalog {
 		return $this->name;
 	}
 
+	public function options($name) {
+		if ( !isset($this->config) ) {
+			return false;
+		}
+
+		$config = $this->config;
+
+		if (isset($config['opts']) && isset($config['opts'][$name])) {
+			return $config['opts'][$name];
+		}
+
+		return false;
+	}
+
 	function catalogs($recursive = true) {
 		if (!$recursive) {
 			return $this->subs;

@@ -70,6 +70,7 @@ if ($response->next_url() && $response->next_name()) {
 	<?php
 }
 ?>
+<div class="clear"></div>
 </div>
 </div>
 <!-- main end -->

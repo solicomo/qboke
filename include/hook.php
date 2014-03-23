@@ -12,6 +12,7 @@ if ( ! isset( $g_hooks ) ) {
 	$g_hooks['qb_header'] = array();
 	$g_hooks['qb_footer'] = array();
 	$g_hooks['qb_get_content'] = array();
+	$g_hooks['qb_comments'] = array();
 }
 
 function add_hook( $tag, $callback, $priority = 10 ) {

@@ -181,6 +181,20 @@ class QBPost {
 		return $this->content();
 	}
 
+	public function options($name) {
+		if ( !isset($this->config) ) {
+			return false;
+		}
+
+		$config = $this->config;
+
+		if (isset($config['opts']) && isset($config['opts'][$name])) {
+			return $config['opts'][$name];
+		}
+
+		return false;
+	}
+
 	function content() {
 		if ( isset($this->content) ) {
 			return $this->content;
