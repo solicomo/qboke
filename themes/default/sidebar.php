@@ -10,7 +10,7 @@ require_once __DIR__ . '/functions.php';
 <!-- sidebar start -->
 <div id="sidebar">
 <?php
-$sidebars = $site->option('sidebar');
+$sidebars = $site->options('sidebar');
 $sidx = 0;
 if (is_array($sidebars)) {
 	foreach ($sidebars as $sidebar) {

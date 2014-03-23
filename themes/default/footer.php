@@ -15,7 +15,7 @@
 				<span id="powered">
 				Proudly powered by <a href="http://www.qboke.org" target="_blank">QBoke</a>
 				</span>
-				<div id="custom_footer"><?php echo $site->option('footer'); ?></div>
+				<div id="custom_footer"><?php echo $site->options('footer'); ?></div>
 			</div>
 			<!-- footer end -->
 		</div>
