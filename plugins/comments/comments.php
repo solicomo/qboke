@@ -32,8 +32,6 @@ class QBComments {
 		<script type="text/javascript">
 			var disqus_shortname = '<?php echo $disqus_shortname; ?>';
 			var disqus_identifier = '<?php echo $disqus_identifier; ?>';
-			var disqus_title = '<?php echo $disqus_title; ?>';
-			var disqus_url = '<?php echo $disqus_url; ?>';
 			var disqus_disable_mobile = '<?php echo $disqus_disable_mobile; ?>';
 
 			(function() {
