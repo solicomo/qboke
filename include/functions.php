@@ -210,3 +210,11 @@ function real_copy($src, $dst) {
 	@copy($src, $dst);
 }
 
+function mkdir_p($dir)
+{
+	if (!is_dir($dir)) {
+		$oldumask = umask(0);
+		@mkdir($dir, 0777, true);
+		umask($oldumask);
+	}
+}

@@ -360,12 +360,57 @@ class QBSite {
 
 	private function dump_catalogs()
 	{
+		global $g;
 
+		$url_suffix = $this->url_suffix();
+		$linage     = $this->linage();
+		$catalogs   = $this->catalogs();
+
+		foreach ($catalogs as $cata_url => $cata) {
+			$posts = $cata->posts();
+			$count = count($posts);
+			$page_max = ceil($count / $linage);
+
+			for ($i = 1; $i <= $page_max; $i++) {
+				$g->request  = new QBRequest(QBRequestType::Catalog, $cata_url, $i);
+				$g->response = $this->prepare($g->request);
+				$g->theme    = $this->theme();
+				$content    = $g->theme->render($g->response, true);
+
+				$path = PUBLIC_DIR . "$cata_url/$i" . $url_suffix;
+				mkdir_p(dirname($path));
+
+				echo "dump $path\n";
+				file_put_contents($path, $content);
+			}
+		}
 	}
 
 	private function dump_tags()
 	{
+		global $g;
 
+		$url_suffix = $this->url_suffix();
+		$linage     = $this->linage();
+		$tags       = $this->tags();
+
+		foreach ($tags as $tag => $posts) {
+			$count = count($posts);
+			$page_max = ceil($count / $linage);
+
+			for ($i = 1; $i <= $page_max; $i++) {
+				$g->request  = new QBRequest(QBRequestType::Tag, $tag, $i);
+				$g->response = $this->prepare($g->request);
+				$g->theme    = $this->theme();
+				$content    = $g->theme->render($g->response, true);
+
+				$path = PUBLIC_DIR . "/tag/$tag/$i" . $url_suffix;
+				mkdir_p(dirname($path));
+
+				echo "dump $path\n";
+				file_put_contents($path, $content);
+			}
+		}
 	}
 
 	private function dump_files()
@@ -382,12 +427,44 @@ class QBSite {
 
 	private function dump_posts()
 	{
+		global $g;
 
+		$url_suffix = $this->url_suffix();
+		$posts      = $this->posts();
+
+		foreach ($posts as $url => $post) {
+			$g->request  = new QBRequest(QBRequestType::Post, $url);
+			$g->response = $this->prepare($g->request);
+			$g->theme    = $this->theme();
+			$content    = $g->theme->render($g->response, true);
+
+			$path = PUBLIC_DIR . "$url" . $url_suffix;
+			mkdir_p(dirname($path));
+
+			echo "dump $path\n";
+			file_put_contents($path, $content);
+		}
 	}
 
 	private function dump_pages()
 	{
+		global $g;
 
+		$url_suffix = $this->url_suffix();
+		$pages      = $this->pages();
+
+		foreach ($pages as $url => $page) {
+			$g->request  = new QBRequest(QBRequestType::Page, $url);
+			$g->response = $this->prepare($g->request);
+			$g->theme    = $this->theme();
+			$content    = $g->theme->render($g->response, true);
+
+			$path = PUBLIC_DIR . "$url" . $url_suffix;
+			mkdir_p(dirname($path));
+
+			echo "dump $path\n";
+			file_put_contents($path, $content);
+		}
 	}
 
 	private function load_config() {
