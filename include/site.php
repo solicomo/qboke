@@ -316,12 +316,12 @@ class QBSite {
 	}
 
 	function get($uri, $return = false) {
-		global $g_request, $g_response, $g_theme;
+		global $g;
 
-		$g_request  = $this->parse_uri($uri);
-		$g_response = $this->prepare($g_request);
-		$g_theme    = $this->theme();
-		$g_theme->render($g_response);
+		$g->request  = $this->parse_uri($uri);
+		$g->response = $this->prepare($g->request);
+		$g->theme    = $this->theme();
+		$g->theme->render($g->response);
 	}
 
 	public function dump() {
@@ -341,6 +341,7 @@ class QBSite {
 
 	private function dump_index()
 	{
+		global $g;
 		$url_suffix = $this->url_suffix();
 		$posts = $this->posts();
 		$linage= $this->linage();
@@ -348,12 +349,10 @@ class QBSite {
 		$page_max = ceil($count / $linage);
 
 		for ($i = 1; $i <= $page_max; $i++) {
-			global $g_request, $g_response, $g_theme;
-
-			$g_request  = new QBRequest(QBRequestType::Index, null, $i);
-			$g_response = $this->prepare($g_request);
-			$g_theme    = $this->theme();
-			$content    = $g_theme->render($g_response, true);
+			$g->request  = new QBRequest(QBRequestType::Index, null, $i);
+			$g->response = $this->prepare($g->request);
+			$g->theme    = $this->theme();
+			$content    = $g->theme->render($g->response, true);
 
 			file_put_contents(PUBLIC_DIR . "/$i" . $url_suffix, $content);
 		}

@@ -5,52 +5,52 @@
  * */
 
 // Initialize the hook globals.
-global $g_hooks;
+global $g;
 
-if ( ! isset( $g_hooks ) ) {
-	$g_hooks = array();
-	$g_hooks['qb_header'] = array();
-	$g_hooks['qb_footer'] = array();
-	$g_hooks['qb_get_content'] = array();
-	$g_hooks['qb_comments'] = array();
+if ( ! isset( $g->hooks ) ) {
+	$g->hooks = array();
+	$g->hooks['qb_header'] = array();
+	$g->hooks['qb_footer'] = array();
+	$g->hooks['qb_get_content'] = array();
+	$g->hooks['qb_comments'] = array();
 }
 
 function add_hook( $tag, $callback, $priority = 10 ) {
-	global $g_hooks;
+	global $g;
 	$idx = _build_hook_id($tag, $callback, $priority);
 
 	if ($idx === false) {
 		return false;
 	}
 
-	$g_hooks[$tag][$priority][$idx] = $callback;
+	$g->hooks[$tag][$priority][$idx] = $callback;
 	return true;
 }
 
 function del_hook( $tag, $callback, $priority = 10 ) {
-	global $g_hooks;
+	global $g;
 	$idx = _build_hook_id($tag, $callback, $priority);
 
 	if ($idx === false) {
 		return false;
 	}
 
-	unset($g_hooks[$tag][$priority][$idx]);
+	unset($g->hooks[$tag][$priority][$idx]);
 
-	if (empty($g_hooks[$tag][$priority])) {
-		unset($g_hooks[$tag][$priority]);
+	if (empty($g->hooks[$tag][$priority])) {
+		unset($g->hooks[$tag][$priority]);
 	}
 
 	return true;
 }
 
 function call_hooks( $tag, $value = '' ) {
-	global $g_hooks;
+	global $g;
 	$args = func_get_args();
 
-	ksort($g_hooks[$tag]);
+	ksort($g->hooks[$tag]);
 
-	foreach ($g_hooks[$tag] as $callbacks) {
+	foreach ($g->hooks[$tag] as $callbacks) {
 		foreach ($callbacks as $cb) {
 			if (!is_null($cb)) {
 				$args[1] = $value;

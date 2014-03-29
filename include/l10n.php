@@ -12,19 +12,18 @@ require_once __DIR__ . '/pomo/mo.php';
  * @return string The locale of the blog or from the 'locale' hook.
  */
 function get_locale() {
-	global $g_locale;
-	global $g_config;
+	global $g;
 
-	if( !isset( $g_locale ) ) {
+	if( !isset( $g->locale ) ) {
 
-		if( isset( $g_config ) and !empty( $g_config['lang'] ) ) {
-			$g_locale = $g_config['lang'];
+		if( isset( $g->config ) and !empty( $g->config['lang'] ) ) {
+			$g->locale = $g->config['lang'];
 		} else {
-			$g_locale = LANG;
+			$g->locale = LANG;
 		}
 	}
 
-	return $g_locale;
+	return $g->locale;
 }
 
 /**
@@ -35,11 +34,11 @@ function get_locale() {
  * @return object A Translation instance
  */
 function get_translations_for_domain( $domain ) {
-	global $g_l10n;
-	if ( !isset( $g_l10n[$domain] ) ) {
+	global $g;
+	if ( !isset( $g->l10n[$domain] ) ) {
 		return false;
 	}
-	return $g_l10n[$domain];
+	return $g->l10n[$domain];
 }
 
 /**
@@ -95,24 +94,24 @@ function _e( $text, $domain = 'default' ) {
  * On success, the .mo file will be placed in the $l10n global by $domain
  * and will be a MO object.
  *
- * @uses $g_l10n Gets list of domain translated string objects
+ * @uses $g->l10n Gets list of domain translated string objects
  *
  * @param string $domain Unique identifier for retrieving translated strings
  * @param string $mofile Path to the .mo file
  * @return bool True on success, false on failure
  */
 function load_textdomain( $domain, $mofile ) {
-	global $g_l10n;
+	global $g;
 
 	if ( !is_readable( $mofile ) ) return false;
 
 	$mo = new MO();
 	if ( !$mo->import_from_file( $mofile ) ) return false;
 
-	if ( isset( $g_l10n[$domain] ) )
-		$mo->merge_with( $g_l10n[$domain] );
+	if ( isset( $g->l10n[$domain] ) )
+		$mo->merge_with( $g->l10n[$domain] );
 
-	$g_l10n[$domain] = &$mo;
+	$g->l10n[$domain] = &$mo;
 
 	return true;
 }

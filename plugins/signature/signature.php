@@ -5,15 +5,21 @@
  * */
 
 function qb_signature($content) {
-	global $g_response;
+	global $g;
+
 	$opts = qb_options('signature');
 
 	if (!isset($opts['enable']) ||
-		($opts['enable'] !== true && $opts['enable'] !== 'true') ||
-		!isset($opts['signature']) ||
-		is_null($opts['signature'])||
-		!$g_response->is_post()) {
+		($opts['enable'] !== true && $opts['enable'] !== 'true')
+		) {
+		return $content;
+	}
 
+	if (!isset($opts['signature']) || is_null($opts['signature'])) {
+		return $content;;
+	}
+
+	if (!$g->response->is_post()) {
 		return $content;
 	}
 

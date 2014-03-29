@@ -10,11 +10,11 @@ require_once INC_DIR . '/site.php';
 require_once INC_DIR . '/post.php';
 
 function load_config() {
-	global $g_config;
+	global $g;
 	$path = ABSPATH . '/config.php';
 	if( is_readable($path) ) {
-		$g_config = include_once $path;
-		if ( $g_config === null) {
+		$g->config = include_once $path;
+		if ( $g->config === null) {
 			return false;
 		}
 		return true;
@@ -22,8 +22,8 @@ function load_config() {
 
 	$path = ABSPATH . '/config_sample.php';
 	if( is_readable($path) ) {
-		$g_config = include_once $path;
-		if ( $g_config === null) {
+		$g->config = include_once $path;
+		if ( $g->config === null) {
 			return false;
 		}
 		return true;
@@ -57,10 +57,10 @@ function load_convertors() {
 }
 
 function set_debug_mode() {
-	global $g_config;
+	global $g;
 	error_reporting( E_ALL );
 
-	if ($g_config['debug'] === 'on') {
+	if ($g->config['debug'] === 'on') {
 		ini_set( 'display_errors', 1 );
 	} else {
 		ini_set( 'display_errors', 0 );
@@ -71,17 +71,17 @@ function set_debug_mode() {
 }
 
 function authorize() {
-	global $g_config;
-	if ($_GET['key'] === $g_config['key']) {
+	global $g;
+	if ($_GET['key'] === $g->config['key']) {
 		return true;
 	}
 	return false;
 }
 
 function sync_content() {
-	global $g_config;
+	global $g;
 
-	$repo = $g_config['repo'];
+	$repo = $g->config['repo'];
 	$name = $repo['type'];
 	$path = get_data_path();
 
@@ -99,13 +99,13 @@ function sync_content() {
 }
 
 function load_site() {
-	global $g_site;
+	global $g;
 
 	$path = get_data_path();
-	$g_site = new QBSite($path);
+	$g->site = new QBSite($path);
 
-	if ($g_site->load()) {
-		return $g_site;
+	if ($g->site->load()) {
+		return $g->site;
 	}
 
 	return false;
@@ -129,20 +129,18 @@ function get_data_path() {
 }
 
 function qb_options($name) {
-	global $g_site;
-	return $g_site->options($name);
+	global $g;
+	return $g->site->options($name);
 }
 
 function qb_site_root() {
-	global $g_site;
-
-	return $g_site->root();
+	global $g;
+	return $g->site->root();
 }
 
 function qb_site_url() {
-	global $g_site;
-
-	return $g_site->url();
+	global $g;
+	return $g->site->url();
 }
 
 function get_subdirs($path) {
