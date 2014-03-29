@@ -3,7 +3,7 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-22
  * */
-require_once INC_DIR . '/vars.php';
+require_once INC_DIR . '/global.php';
 
 class QBPost {
 	private $site;

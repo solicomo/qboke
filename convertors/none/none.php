@@ -4,7 +4,7 @@
  * date  : 2013-06-12
  * */
 
-include_once INC_DIR . '/vars.php';
+include_once INC_DIR . '/global.php';
 include_once CONVERTORS_DIR . '/convertor.php';
 
 /**

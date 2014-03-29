@@ -10,7 +10,7 @@ require 'vendor/autoload.php';
 define( 'ABSPATH', dirname(__FILE__) );
 
 require_once __DIR__ . '/include/def.php';
-require_once INC_DIR . '/vars.php';
+require_once INC_DIR . '/global.php';
 require_once INC_DIR . '/functions.php';
 require_once INC_DIR . '/l10n.php';
 

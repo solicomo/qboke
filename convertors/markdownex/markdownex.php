@@ -4,7 +4,7 @@
  * date  : 2013-04-17
  * */
 
-include_once INC_DIR . '/vars.php';
+include_once INC_DIR . '/global.php';
 include_once CONVERTORS_DIR . '/convertor.php';
 
 # Get Markdown class
