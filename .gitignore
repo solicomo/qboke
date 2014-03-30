@@ -2,3 +2,6 @@
 vendor
 .buildpath
 .settings
+config.php
+data
+public
