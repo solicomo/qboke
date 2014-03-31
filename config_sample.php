@@ -9,11 +9,9 @@ $config_json = <<<EOF
 	"debug": "on",
 	"repo": {
 		"type"  : "git",
-		"remote": "https://soli@bitbucket.org/soli/qboke.org.git",
+		"remote": "https://bitbucket.org/soli/qboke.org.git",
 		"branch": "",
-		"user"  : "",
-		"pass"  : "",
-		"email" : ""
+		"pkey"  : "./id_rsa"
 	}
 }
 EOF;

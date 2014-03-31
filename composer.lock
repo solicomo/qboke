@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5bbdf53e69912a2732bb38b93ebbef63",
+    "hash": "3d780d72ce58ddf0318199816547d606",
     "packages": [
         {
             "name": "klaussilveira/gitter",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/klaussilveira/gitter.git",
-                "reference": "0.2.0"
+                "reference": "910a3d324caf53d8d21b55fb80a9a6735974a80c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/klaussilveira/gitter/zipball/0.2.0",
-                "reference": "0.2.0",
+                "url": "https://api.github.com/repos/klaussilveira/gitter/zipball/910a3d324caf53d8d21b55fb80a9a6735974a80c",
+                "reference": "910a3d324caf53d8d21b55fb80a9a6735974a80c",
                 "shasum": ""
             },
             "require": {
