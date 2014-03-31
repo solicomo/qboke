@@ -10,7 +10,7 @@ $config_json = <<<EOF
 	"repo": {
 		"type"  : "git",
 		"remote": "https://bitbucket.org/soli/qboke.org.git",
-		"branch": "",
+		"branch": "master",
 		"pkey"  : "./id_rsa"
 	}
 }
