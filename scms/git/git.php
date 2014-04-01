@@ -17,7 +17,8 @@ class GitSCM extends SCM {
 	}
 
 	function init($path, $opts) {
-		if (in_array('pkey', $opts) && !empty($opts['pkey'])) {
+		$git = null;
+		if (array_key_exists('pkey', $opts) && strlen($opts['pkey']) > 0) {
 			$pkey = $opts['pkey'];
 			if (substr($pkey, 0, 1) != '/') {
 				$pkey = ABSPATH . "/$pkey";
@@ -25,12 +26,11 @@ class GitSCM extends SCM {
 
 			$pkey = realpath($pkey);
 			$git  = realpath(__DIR__ . '/git.sh');
-			chmod($git, 0755);
 
-			$this->cli = new Client("$git -i $pkey ");
-		} else {
-			$this->cli = new Client();
+			$git = "$git -i $pkey";
 		}
+
+		$this->cli = new Client($git);
 
 		try {
 			$this->repo = $this->cli->getRepository($path);

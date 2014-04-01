@@ -11,6 +11,7 @@ class Installer
 		$root = dirname(dirname(__FILE__));
 		$pub  = $root . '/public';
 
+		// 1. ln -s plugins public/plugins
 		$target = $root . '/plugins';
 		$link   = $pub  . '/plugins';
 		if (!symlink($target, $link)) {
@@ -19,6 +20,7 @@ class Installer
 			echo "[ OK ] ln -s $target $link\n";
 		}
 
+		// 2. ln -s themes public/themes
 		$target = $root . '/themes';
 		$link   = $pub  . '/themes';
 		if (!symlink($target, $link)) {
@@ -26,5 +28,8 @@ class Installer
 		} else {
 			echo "[ OK ] ln -s $target $link\n";
 		}
+
+		// 3. chmod +x scms/git/git.sh
+		chmod($root . '/scms/git/git.sh', 0755);
 	}
 }
