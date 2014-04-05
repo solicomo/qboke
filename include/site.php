@@ -354,7 +354,15 @@ class QBSite {
 			$g->theme    = $this->theme();
 			$content    = $g->theme->render($g->response, true);
 
-			file_put_contents(PUBLIC_DIR . "/$i" . $url_suffix, $content);
+			$path = PUBLIC_DIR . "/$i" . $url_suffix;
+			echo "dump $path\n";
+			file_put_contents($path, $content);
+
+			if ($i === 1) {
+				$path = PUBLIC_DIR . "/index" . $url_suffix;
+				echo "dump $path\n";
+				file_put_contents($path, $content);
+			}
 		}
 	}
 
@@ -382,6 +390,12 @@ class QBSite {
 
 				echo "dump $path\n";
 				file_put_contents($path, $content);
+
+				if ($i === 1) {
+					$path = PUBLIC_DIR . "$cata_url/index" . $url_suffix;
+					echo "dump $path\n";
+					file_put_contents($path, $content);
+				}
 			}
 		}
 	}
@@ -409,6 +423,12 @@ class QBSite {
 
 				echo "dump $path\n";
 				file_put_contents($path, $content);
+
+				if ($i === 1) {
+					$path = PUBLIC_DIR . "/tag/$tag/index" . $url_suffix;
+					echo "dump $path\n";
+					file_put_contents($path, $content);
+				}
 			}
 		}
 	}
