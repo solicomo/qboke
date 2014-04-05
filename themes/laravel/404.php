@@ -26,6 +26,5 @@ include __DIR__ . '/header.php';
 <!-- main end -->
 
 <?php
-include __DIR__ . '/sidebar.php';
 include __DIR__ . '/footer.php';
 ?>

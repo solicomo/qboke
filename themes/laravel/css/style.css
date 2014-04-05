@@ -1,0 +1,235 @@
+/**
+ * author: Soli <soli@cbug.org>
+ * date  : 2013-04-30
+ * */
+/** global start */
+body{
+	color:#333333;
+	margin: 0px;
+	padding: 0px;
+	line-height:18px;
+	font-size:12px;
+	font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+}
+
+h1, h2{
+	font-family: Myriad Pro, "Lucida Grande","Lucida Sans Unicode",Trebuchet MS,Arial;
+}
+
+h3, h4, h5{
+	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+}
+
+a, a:visited {text-decoration: none; color: #f4645f;}
+a:hover {text-decoration: none;}
+
+img {border: none;}
+
+.center, .textcenter {text-align: center;}
+.left {float: left;}
+.textleft {text-align: left;}
+
+.right {float: right;}
+.textright {text-align:right;}
+.clear {clear:both;}
+.block {display:block;}
+
+.hl {
+	background: url(../img/hl-dot.gif) repeat-x top;
+	height: 2px;
+	overflow: hidden;
+	width: 100%;
+}
+
+.rcbox{
+	/** round corners */
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	margin-bottom: 20px;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	background: #FFF;
+}
+
+/** global end */
+/** main frame start */
+#wrap{
+	width: 100%;
+	margin: 0px;
+	position: relative;
+}
+
+#sidebar{
+	position: fixed;
+	z-index: 100;
+	bottom: 0px;
+	left: 0px;
+	top: 0px;
+	width: 30%;
+	float: left;
+	color: #ad4844;
+	background: #f4726d url("../img/sidebar.jpg") no-repeat;
+	background-size:cover;
+}
+
+#content{
+	position: relative;
+	z-index: 50;
+	padding-left: 30%;
+}
+
+#container{
+	margin: 0px 50px 20px 50px;
+}
+
+/** main frame end */
+/** subitems start */
+#sidebar a{
+	color: #ad4844;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#header{
+	padding: 10px 0 3px;
+	position: relative;
+	text-align: center;
+}
+
+#blogname{
+	margin-top: 50px;
+	font-size: 39px;
+	line-height: 47px;
+}
+
+#blogname a{
+	text-decoration: none;
+	color: #fff;
+}
+
+#blogsub{
+	margin: 16px 5px 0px 20px;
+	font-size: 16px;
+}
+
+.widget{
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.wtitle{
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 0px 0px 5px 0px;
+}
+
+.wcontent{
+}
+
+#footer{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	padding: 10px;
+	border-top: 1px dotted #ad4844;
+}
+
+#main{
+}
+
+#main img{
+	max-width: 600px;
+}
+
+#main-nav{
+	margin-top: 20px;
+	background: #eee;
+	border: 0px;
+}
+
+#main-pre{
+	float: left;
+	padding-left: 10px;
+	margin-left: 10px;
+	background: url(../img/nav-left.gif) no-repeat left center;
+}
+
+#main-next{
+	float: right;
+	padding-right: 10px;
+	margin-right: 10px;
+	background: url(../img/nav-right.gif) no-repeat right center;
+}
+
+.post-wrap{
+
+}
+
+.post{
+	padding: 0px;
+}
+
+.post-header{
+	margin: 20px 0px;
+}
+
+.post-title{
+	font-size: 30px;
+	letter-spacing: -1px;
+	line-height: normal;
+	margin: 0 0 .45em;
+	color: #393939;
+	font-weight: 600;
+	text-shadow: #B5B5B5 1px 1px 2px;
+	text-decoration: none;
+}
+
+.post-meta{
+	background: #eee;
+	border: 0px;
+	color: #ccc;
+	font-size: .9em;
+	font-style: normal;
+	padding: 0px 5px;
+	margin: 0px;
+	line-height: 2.4em;
+	float: right;
+}
+
+.post-content{
+	margin: 20px 0px;
+}
+
+.post-more{
+	margin: 0px 10px;
+}
+
+.post-footer{
+}
+
+.post-tags{
+	float: right;
+}
+
+.post-tags ul{
+	list-style: none;
+	margin: 0px;
+}
+
+.post-tags li{
+	margin-left: 6px;
+}
+
+.post-tags a {
+	font-weight: bold;
+	color: #ccc;
+	text-decoration: none;
+}
+/** subitems end */

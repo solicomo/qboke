@@ -11,6 +11,3 @@ class DefaultTheme extends Theme {
 	protected $full_name = 'QBoke Default Theme';
 	protected $version = '0.0.2';
 }
-
-set_theme('default', 'DefaultTheme');
-
