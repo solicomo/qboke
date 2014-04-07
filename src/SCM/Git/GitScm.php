@@ -3,20 +3,23 @@
  * author: Soli <soli@qq.com>
  * date  : 2013-06-04
  */
-
-include_once SCMS_DIR . '/scm.php';
+namespace QBoke\SCM\Git;
 
 use Gitter\Client;
 use Gitter\Repository;
+use QBoke\SCM\QBScm;
 
-class GitSCM extends SCM {
+class GitScm extends QBScm
+{
 	private $cli  = null;
 	private $repo = null;
 
-	function __construct() {
+	public function __construct()
+	{
 	}
 
-	function init($path, $opts) {
+	public function init($path, $opts)
+	{
 		$git = null;
 		if (array_key_exists('pkey', $opts) && strlen($opts['pkey']) > 0) {
 			$pkey = $opts['pkey'];
@@ -54,7 +57,8 @@ class GitSCM extends SCM {
 		return false;
 	}
 
-	function pull() {
+	public function pull()
+	{
 		if ($this->repo === null) {
 			return false;
 		}
@@ -68,7 +72,8 @@ class GitSCM extends SCM {
 		return false;
 	}
 
-	function add($param) {
+	public function add($param)
+	{
 		if ($this->repo === null) {
 			return false;
 		}
@@ -87,7 +92,8 @@ class GitSCM extends SCM {
 		return false;
 	}
 
-	function del($param) {
+	public function del($param)
+	{
 		if ($this->repo === null) {
 			return false;
 		}
@@ -107,7 +113,8 @@ class GitSCM extends SCM {
 		return false;
 	}
 
-	function push() {
+	public function push()
+	{
 		if ($this->repo === null) {
 			return false;
 		}
@@ -120,4 +127,4 @@ class GitSCM extends SCM {
 		return false;
 	}
 }
-?>
+

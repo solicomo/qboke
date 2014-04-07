@@ -3,7 +3,7 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-17
  * */
-namespace \QBoke\Parser;
+namespace QBoke\Parser;
 
 /**
  * base parser.

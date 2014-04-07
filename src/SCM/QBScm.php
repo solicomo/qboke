@@ -3,31 +3,39 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-06-04
  * */
+namespace QBoke\SCM;
 
-class SCM {
+class QBScm
+{
 
-	function __construct() {
+	public function __construct()
+	{
 		//TODO:
 	}
 
-	function init($path, $opts) {
+	public function init($path, $opts)
+	{
 		//TODO:
 		return false;
 	}
 
-	function pull() {
+	public function pull()
+	{
 		//TODO: ;
 	}
 
-	function add($param) {
+	public function add($param)
+	{
 		//TODO: ;
 	}
 
-	function del($param) {
+	public function del($param)
+	{
 		//TODO: ;
 	}
 
-	function push() {
+	public function push()
+	{
 		//TODO: ;
 	}
 }

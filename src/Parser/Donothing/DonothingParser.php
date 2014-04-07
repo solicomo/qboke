@@ -3,9 +3,9 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-06-12
  * */
-namespace \QBoke\Parser\Donothing;
+namespace QBoke\Parser\Donothing;
 
-use \QBoke\Parser\QBParser;
+use QBoke\Parser\QBParser;
 
 /**
  * donothing parser.

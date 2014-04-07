@@ -3,9 +3,7 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-06-12
  * */
+namespace QBoke\SCM\Git;
 
-include_once __DIR__ . '/git.php';
+set_scm('git', __NAMESPACE__ . '\GitScm');
 
-set_scm('git', 'GitSCM');
-
-?>
