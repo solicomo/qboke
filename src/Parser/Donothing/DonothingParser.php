@@ -3,20 +3,17 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-06-12
  * */
+use \QBoke\Parser\QBParser;
 
-include_once INC_DIR . '/global.php';
-include_once CONVERTORS_DIR . '/convertor.php';
-
+namespace \QBoke\Parser\Donothing;
 /**
- * none convertor.
+ * donothing parser.
  * do nothing with the content.
  * */
-class NoneConvertor extends Convertor
+class DonothingParser extends QBParser
 {
 	public function go(&$content)
 	{
 		return $content;
 	}
 }
-
-?>

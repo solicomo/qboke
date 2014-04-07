@@ -5,14 +5,14 @@
  * */
 
 /**
- * base convertor.
+ * base parser.
  * do nothing with the content.
  * */
-class Convertor
+class QBParser
 {
 	public function go(&$content)
 	{
 		return $content;
 	}
 }
-?>
+
