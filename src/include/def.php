@@ -5,16 +5,19 @@
  * */
 
 /** Define VERSION */
-define( 'VERSION', '4' );
+define( 'VERSION', '9' );
 
 /** Define VER_STR */
-define( 'VER_STR', '0.0.4' );
+define( 'VER_STR', '0.0.9' );
+
+/** Define SRC_DIR */
+define( 'SRC_DIR', ABSPATH . '/src' );
 
 /** Define INC_DIR */
-define( 'INC_DIR', ABSPATH . '/include' );
+define( 'INC_DIR', SRC_DIR . '/include' );
 
 /** Define LANG_DIR */
-define( 'LANG_DIR', ABSPATH . '/lang' );
+define( 'LANG_DIR', INC_DIR . '/lang' );
 
 /** Define DATA_DIR */
 define( 'DATA_DIR', ABSPATH . '/data' );
@@ -23,16 +26,16 @@ define( 'DATA_DIR', ABSPATH . '/data' );
 define( 'DATA_SAMPLE_DIR', ABSPATH . '/data_sample' );
 
 /** Define PLUGINS_DIR */
-define( 'PLUGINS_DIR', ABSPATH . '/plugins' );
+define( 'PLUGINS_DIR', SRC_DIR . '/Plugin' );
 
 /** Define THEMES_DIR */
-define( 'THEMES_DIR', ABSPATH . '/themes' );
+define( 'THEMES_DIR', SRC_DIR . '/Theme' );
 
-/** Define CONVERTORS_DIR */
-define( 'CONVERTORS_DIR', ABSPATH . '/convertors' );
+/** Define PARSERS_DIR */
+define( 'PARSERS_DIR', SRC_DIR . '/Parser' );
 
 /** Define SCMS_DIR */
-define( 'SCMS_DIR', ABSPATH . '/scms' );
+define( 'SCMS_DIR', SRC_DIR . '/SCM' );
 
 /** Define CACHE_DIR */
 define( 'CACHE_DIR', ABSPATH . '/cache' );

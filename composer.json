@@ -23,11 +23,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"QBoke\\": "include/",
-			"QBoke\\Convertors\\": "convertors/",
-			"QBoke\\Plugins\\": "plugins/",
-			"QBoke\\SCMs\\": "scms/",
-			"QBoke\\Themes\\": "themes/"
+			"QBoke\\": "src/"
 		}
 	},
 	"scripts": {
