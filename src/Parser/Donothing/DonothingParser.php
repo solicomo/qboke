@@ -6,6 +6,7 @@
 use \QBoke\Parser\QBParser;
 
 namespace \QBoke\Parser\Donothing;
+
 /**
  * donothing parser.
  * do nothing with the content.

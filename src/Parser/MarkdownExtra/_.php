@@ -4,5 +4,6 @@
  * date  : 2013-06-12
  * */
 
-set_convertor('markdownex', '\QBoke\Parser\Default\MarkdownExtraParser');
+set_convertor('markdownextra', '\QBoke\Parser\MarkdownExtra\MarkdownExtraParser');
+set_convertor('markdownex', '\QBoke\Parser\MarkdownExtra\MarkdownExtraParser');
 

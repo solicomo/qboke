@@ -3,14 +3,13 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-17
  * */
-
-include_once INC_DIR . '/global.php';
-include_once CONVERTORS_DIR . '/convertor.php';
-
 # Get Markdown class
 use \Michelf\MarkdownExtra;
+use \QBoke\Parser\QBParser;
 
-class MarkdownExConvertor extends Convertor
+namespace \QBoke\Parser\MarkdownExtra;
+
+class MarkdownExtraParser extends QBParser
 {
 	public function go(&$content)
 	{
@@ -20,4 +19,3 @@ class MarkdownExConvertor extends Convertor
 	}
 }
 
-?>

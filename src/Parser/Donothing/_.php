@@ -4,4 +4,4 @@
  * date  : 2013-06-12
  * */
 
-set_convertor('donothing', '\QBoke\Parser\Default\DonothingParser');
+set_convertor('donothing', '\QBoke\Parser\Donothing\DonothingParser');
