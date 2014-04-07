@@ -3,9 +3,12 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-22
  * */
+namespace QBoke\Site;
+
 require_once INC_DIR . '/global.php';
 
-class QBPost {
+class QBPost
+{
 	private $site;
 	private $parent;
 	private $name;
@@ -15,17 +18,20 @@ class QBPost {
 	private $tags;
 	private $content;
 
-	function __construct($parent, $name) {
+	public function __construct($parent, $name)
+	{
 		$this->parent = $parent;
 		$this->name = $name;
 	}
 
-	function load() {
+	public function load()
+	{
 		$this->load_config();
 		return true;
 	}
 
-	function site() {
+	public function site()
+	{
 		if (!isset($this->site)) {
 			$this->site = $this->parent->site();
 		}
@@ -33,30 +39,35 @@ class QBPost {
 		return $this->site;
 	}
 
-	function catalog() {
+	public function catalog()
+	{
 		return $this->parent;
 	}
 
-	function path() {
+	public function path()
+	{
 		$ppath = $this->parent->path();
 		$path  = $ppath . '/' . $this->name;
 		return rtrim($path, '/\\');
 	}
 
-	function url_path() {
+	public function url_path()
+	{
 		$purl = $this->parent->url_path();
 		$url  = $purl . '/' . $this->slug();
 		return rtrim($url, '/\\');
 	}
 
-	function url() {
+	public function url()
+	{
 		$site = $this->site();
 		$url = $site->root() . $this->url_path() . $site->url_suffix();
 
 		return $url;
 	}
 
-	function slug() {
+	public function slug()
+	{
 		if (isset($this->config) && isset($this->config['slug'])) {
 			return $this->config['slug'];
 		}
@@ -64,7 +75,8 @@ class QBPost {
 		return $this->name;
 	}
 
-	function title() {
+	public function title()
+	{
 		if (isset($this->title)) {
 			return $this->title;
 		}
@@ -90,7 +102,8 @@ class QBPost {
 		return $this->title;
 	}
 
-	function author() {
+	public function author()
+	{
 		if (isset($this->config) && isset($this->config['author'])) {
 			return $this->config['author'];
 		}
@@ -98,7 +111,8 @@ class QBPost {
 		return false;
 	}
 
-	function date() {
+	public function date()
+	{
 		if (isset($this->date)) {
 			return $this->date;
 		}
@@ -128,12 +142,14 @@ class QBPost {
 		return $this->date;
 	}
 
-	function timestamp() {
+	public function timestamp()
+	{
 		$datetime = new DateTime($this->date());
 		return $datetime->getTimestamp();
 	}
 
-	function tags() {
+	public function tags()
+	{
 		if (isset($this->tags)) {
 			return $this->tags;
 		}
@@ -157,7 +173,8 @@ class QBPost {
 		return $this->tags;
 	}
 
-	function format() {
+	public function format()
+	{
 		if (isset($this->config) && isset($this->config['format'])) {
 			return $this->config['format'];
 		}
@@ -165,7 +182,8 @@ class QBPost {
 		return 'none';
 	}
 
-	function type() {
+	public function type()
+	{
 		if (isset($this->config) && isset($this->config['type'])) {
 			return $this->config['type'];
 		}
@@ -173,7 +191,8 @@ class QBPost {
 		return 'post';
 	}
 
-	function excerpt() {
+	public function excerpt()
+	{
 		if (isset($this->config) && isset($this->config['excerpt'])) {
 			return $this->config['excerpt'];
 		}
@@ -181,7 +200,8 @@ class QBPost {
 		return $this->content();
 	}
 
-	public function options($name) {
+	public function options($name)
+	{
 		if ( !isset($this->config) ) {
 			return false;
 		}
@@ -195,7 +215,8 @@ class QBPost {
 		return false;
 	}
 
-	function content() {
+	public function content()
+	{
 		if ( isset($this->content) ) {
 			return $this->content;
 		}
@@ -244,7 +265,8 @@ class QBPost {
 
 	/*************************************************/
 
-	private function load_config() {
+	private function load_config()
+	{
 		$path = $this->path();
 
 		if( !is_readable($path) ) {

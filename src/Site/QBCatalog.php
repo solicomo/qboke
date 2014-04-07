@@ -3,7 +3,10 @@
  * @author: Soli <soli@cbug.org>
  * @date  : 2013-06-05
  * */
-class QBCatalog {
+namespace QBoke\Site;
+
+class QBCatalog
+{
 	private $site;
 	private $parent;
 	private $name	= '';
@@ -15,12 +18,14 @@ class QBCatalog {
 	private $files	= array();
 	private $tags;
 
-	function __construct($parent, $name) {
+	public function __construct($parent, $name)
+	{
 		$this->parent = $parent;
 		$this->name   = $name;
 	}
 
-	function load() {
+	public function load()
+	{
 		$this->load_config();
 
 		$path = $this->path();
@@ -72,7 +77,8 @@ class QBCatalog {
 		return true;
 	}
 
-	function site() {
+	public function site()
+	{
 		if (!isset($this->site)) {
 			$this->site = $this->parent->site();
 		}
@@ -80,19 +86,22 @@ class QBCatalog {
 		return $this->site;
 	}
 
-	function path() {
+	public function path()
+	{
 		$ppath = $this->parent->path();
 		$path  = $ppath . '/' . $this->name;
 		return rtrim($path, '/\\');
 	}
 
-	function url_path() {
+	public function url_path()
+	{
 		$purl = $this->parent->url_path();
 		$url  = $purl . '/' . $this->slug();
 		return rtrim($url, '/\\');
 	}
 
-	function url($page = '') {
+	public function url($page = '')
+	{
 		$site = $this->site();
 
 		if (intval($page) > 0) {
@@ -104,7 +113,8 @@ class QBCatalog {
 		return $url;
 	}
 
-	function slug() {
+	public function slug()
+	{
 		if (isset($this->config) && isset($this->config['slug'])) {
 			return $this->config['slug'];
 		}
@@ -112,7 +122,8 @@ class QBCatalog {
 		return $this->name;
 	}
 
-	public function options($name) {
+	public function options($name)
+	{
 		if ( !isset($this->config) ) {
 			return false;
 		}
@@ -126,7 +137,8 @@ class QBCatalog {
 		return false;
 	}
 
-	function catalogs($recursive = true) {
+	public function catalogs($recursive = true)
+	{
 		if (!$recursive) {
 			return $this->subs;
 		}
@@ -140,7 +152,8 @@ class QBCatalog {
 		return $subs;
 	}
 
-	function tags($recursive = true) {
+	public function tags($recursive = true)
+	{
 		if (!$recursive && isset($this->tags)) {
 			return $this->tags;
 		}
@@ -170,7 +183,8 @@ class QBCatalog {
 		return $tags;
 	}
 
-	function posts($recursive = true) {
+	public function posts($recursive = true)
+	{
 		$posts = $this->posts;
 
 		if ($recursive) {
@@ -195,7 +209,8 @@ class QBCatalog {
 		return $posts;
 	}
 
-	function pages($recursive = true) {
+	public function pages($recursive = true)
+	{
 		if (!$recursive) {
 			return $this->pages;
 		}
@@ -209,7 +224,8 @@ class QBCatalog {
 		return $pages;
 	}
 
-	function files($recursive = true) {
+	public function files($recursive = true)
+	{
 		if (!$recursive) {
 			return $this->files;
 		}
@@ -225,7 +241,8 @@ class QBCatalog {
 
 	/*************************************************/
 
-	private function load_config() {
+	private function load_config()
+	{
 		$path = $this->path() . '/.meta';
 
 		if( !is_readable($path) ) {
@@ -248,4 +265,3 @@ class QBCatalog {
 	}
 
 }
-?>

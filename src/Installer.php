@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @author Soli
+ * @date   2014-04-08
+ */
 namespace QBoke;
 
 use Composer\Script\Event;

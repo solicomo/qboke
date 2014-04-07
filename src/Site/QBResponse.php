@@ -3,9 +3,10 @@
  * @author: Soli <soli@cbug.org>
 * @date  : 2013-07-19
 * */
-require_once INC_DIR. '/request.php';
+namespace QBoke\Site;
 
-class QBResponse {
+class QBResponse
+{
 	private $request;
 	private $type;
 	private $url;
@@ -17,7 +18,8 @@ class QBResponse {
 	private $next_url;
 	private $path;
 
-	function __construct($request, $type, $url) {
+	public function __construct($request, $type, $url)
+	{
 		$this->request = $request;
 		$this->type = $type;
 		$this->url = $url;
@@ -36,15 +38,18 @@ class QBResponse {
 		$this->path      = false;
 	}
 
-	function set_posts($posts) {
+	public function set_posts($posts)
+	{
 		$this->posts = $posts;
 	}
 
-	function set_path($path) {
+	public function set_path($path)
+	{
 		$this->path = $path;
 	}
 
-	function set_nav($pre, $next) {
+	public function set_nav($pre, $next)
+	{
 		if ($pre) {
 			$this->pre_name  = $pre['name'];
 			$this->pre_url   = $pre['url'];
@@ -56,20 +61,24 @@ class QBResponse {
 		}
 	}
 
-	function is_post() {
+	public function is_post()
+	{
 		return ($this->type === QBRequestType::Post);
 	}
 
-	function is_page() {
+	public function is_page()
+	{
 		return ($this->type === QBRequestType::Page);
 	}
 
-	public function is_single() {
+	public function is_single()
+	{
 		return ($this->type === QBRequestType::Post ||
 				$this->type === QBRequestType::Page);
 	}
 
-	function is_file() {
+	public function is_file()
+	{
 		return ($this->type === QBRequestType::File);
 	}
 
@@ -77,44 +86,55 @@ class QBResponse {
 		return ($this->type === QBRequestType::Index);
 	}
 
-	function is_catalog() {
+	public function is_catalog()
+	{
 		return ($this->type === QBRequestType::Catalog);
 	}
 
-	function is_tag() {
+	public function is_tag()
+	{
 		return ($this->type === QBRequestType::Tag);
 	}
 
-	public function is_list() {
+	public function is_list()
+	{
 		return ($this->type === QBRequestType::Index ||
 				$this->type === QBRequestType::Catalog ||
 				$this->type === QBRequestType::Tag);
 	}
-	function is_error() {
+
+	public function is_error()
+	{
 		return ($this->type === QBRequestType::Error);
 	}
 
-	function posts() {
+	public function posts()
+	{
 		return $this->posts;
 	}
 
-	function path() {
+	public function path()
+	{
 		return $this->path;
 	}
 
-	function pre_name() {
+	public function pre_name()
+	{
 		return $this->pre_name;
 	}
 
-	function pre_url() {
+	public function pre_url()
+	{
 		return $this->pre_url;
 	}
 
-	function next_name() {
+	public function next_name()
+	{
 		return $this->next_name;
 	}
 
-	function next_url() {
+	public function next_url()
+	{
 		return $this->next_url;
 	}
 }

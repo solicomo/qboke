@@ -3,7 +3,10 @@
  * @author: Soli <soli@cbug.org>
  * @date  : 2013-07-19
  * */
-class QBRequestType {
+namespace QBoke\Site;
+
+class QBRequestType
+{
 	const Error = 0;
 	const Index = 1;
 	const Catalog = 2;
@@ -12,19 +15,22 @@ class QBRequestType {
 	const Post  = 5;
 	const Page  = 6;
 
-	private function __construct() {
+	private function __construct()
+	{
 		//Nonthing to do
 		;
 	}
 }
 
-class QBRequest {
+class QBRequest
+{
 	private $type;
 	private $url;
 	private $page;
 	private $http_code;
 
-	function __construct($type, $url, $page = 1) {
+	public function __construct($type, $url, $page = 1)
+	{
 		$this->type = $type;
 		$this->url = $url;
 		$this->page = $page;
@@ -36,19 +42,23 @@ class QBRequest {
 		}
 	}
 
-	function type() {
+	public function type()
+	{
 		return $this->type;
 	}
 
-	function url() {
+	public function url()
+	{
 		return $this->url;
 	}
 
-	function page() {
+	public function page()
+	{
 		return $this->page;
 	}
 
-	function http_code() {
+	public function http_code()
+	{
 		return $this->http_code;
 	}
 }

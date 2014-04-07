@@ -3,12 +3,10 @@
  * @author: Soli <soli@cbug.org>
  * @date  : 2013-06-04
  * */
-require_once INC_DIR. '/catalog.php';
-require_once INC_DIR. '/post.php';
-require_once INC_DIR. '/request.php';
-require_once INC_DIR. '/response.php';
+namespace QBoke\Site;
 
-class QBSite {
+class QBSite
+{
 	private $path	= '';
 	private $config	= array();
 	private $catalog;
@@ -22,11 +20,13 @@ class QBSite {
 	private $status;
 	private $theme;
 
-	function __construct($path) {
+	public function __construct($path)
+	{
 		$this->path = $path;
 	}
 
-	function load() {
+	public function load()
+	{
 		if (!$this->load_config()) {
 			return false;
 		}
@@ -47,28 +47,34 @@ class QBSite {
 		return $ret;
 	}
 
-	function site() {
+	public function site()
+	{
 		return $this;
 	}
 
-	function path() {
+	public function path()
+	{
 		return rtrim($this->path, '/\\');
 	}
 
-	function url_path() {
+	public function url_path()
+	{
 		return '';
 	}
 
-	function url() {
+	public function url()
+	{
 		$url  = $this->slug();
 		return rtrim($url, '/\\') . '/';
 	}
 
-	function root() {
+	public function root()
+	{
 		return rtrim($this->url(), '/\\');
 	}
 
-	function id() {
+	public function id()
+	{
 		if (isset($this->config) && isset($this->config['id'])) {
 			return $this->config['id'];
 		}
@@ -76,7 +82,8 @@ class QBSite {
 		return false;
 	}
 
-	function domains() {
+	public function domains()
+	{
 		if (isset($this->config) && isset($this->config['domains'])) {
 			return $this->config['domains'];
 		}
@@ -84,7 +91,8 @@ class QBSite {
 		return array('.*');
 	}
 
-	function slug() {
+	public function slug()
+	{
 		if (isset($this->config) && isset($this->config['slug'])) {
 			return $this->config['slug'];
 		}
@@ -92,7 +100,8 @@ class QBSite {
 		return '/';
 	}
 
-	function url_suffix() {
+	public function url_suffix()
+	{
 		if (isset($this->config) && isset($this->config['url_suffix'])) {
 			return $this->config['url_suffix'];
 		}
@@ -100,14 +109,16 @@ class QBSite {
 		return '.html';
 	}
 
-	function name() {
+	public function name()
+	{
 		if (isset($this->config) && isset($this->config['name'])) {
 			return $this->config['name'];
 		}
 		return false;
 	}
 
-	function subhead() {
+	public function subhead()
+	{
 		if (isset($this->config) && isset($this->config['subhead'])) {
 			return $this->config['subhead'];
 		}
@@ -115,21 +126,24 @@ class QBSite {
 
 	}
 
-	function keywords() {
+	public function keywords()
+	{
 		if (isset($this->config) && isset($this->config['keywords'])) {
 			return $this->config['keywords'];
 		}
 		return false;
 	}
 
-	function description() {
+	public function description()
+	{
 		if (isset($this->config) && isset($this->config['description'])) {
 			return $this->config['description'];
 		}
 		return false;
 	}
 
-	function linage() {
+	public function linage()
+	{
 		if (!isset($this->config) || !isset($this->config['linage'])) {
 			return 1;
 		}
@@ -143,7 +157,8 @@ class QBSite {
 		return $linage;
 	}
 
-	function catalogs() {
+	public function catalogs()
+	{
 		if (isset($this->catalogs)) {
 			return $this->catalogs;
 		}
@@ -156,7 +171,8 @@ class QBSite {
 		return $this->catalogs;
 	}
 
-	function tags() {
+	public function tags()
+	{
 		if (isset($this->tags)) {
 			return $this->tags;
 		}
@@ -169,7 +185,8 @@ class QBSite {
 		return $this->tags;
 	}
 
-	function posts() {
+	public function posts()
+	{
 		if (isset($this->posts)) {
 			return $this->posts;
 		}
@@ -182,7 +199,8 @@ class QBSite {
 		return $this->posts;
 	}
 
-	function pages() {
+	public function pages()
+	{
 		if (isset($this->pages)) {
 			return $this->pages;
 		}
@@ -195,7 +213,8 @@ class QBSite {
 		return $this->pages;
 	}
 
-	function files() {
+	public function files()
+	{
 		if (isset($this->files)) {
 			return $this->files;
 		}
@@ -208,7 +227,8 @@ class QBSite {
 		return $this->files;
 	}
 
-	function options($name) {
+	public function options($name)
+	{
 		if ( !isset($this->config) ) {
 			return false;
 		}
@@ -245,7 +265,8 @@ class QBSite {
 	 * /tag/fish/2.html
 	 *
 	 * */
-	function parse_uri($uri) {
+	private function parse_uri($uri)
+	{
 		$url_prefix = $this->root();
 		$url_suffix = $this->url_suffix();
 
@@ -299,7 +320,8 @@ class QBSite {
 		return new QBRequest( QBRequestType::Error, 404 );
 	}
 
-	function theme() {
+	public function theme()
+	{
 		if (isset($this->theme)) {
 			return $this->theme;
 		}
@@ -315,7 +337,8 @@ class QBSite {
 		return $theme;
 	}
 
-	function get($uri, $return = false) {
+	public function get($uri, $return = false)
+	{
 		global $g;
 
 		$g->request  = $this->parse_uri($uri);
@@ -324,7 +347,8 @@ class QBSite {
 		$g->theme->render($g->response);
 	}
 
-	public function dump() {
+	public function dump()
+	{
 		// index
 		$this->dump_index();
 		// catalogs
@@ -487,7 +511,8 @@ class QBSite {
 		}
 	}
 
-	private function load_config() {
+	private function load_config()
+	{
 		$path = $this->path() . '/.site';
 
 		if( !is_readable($path) ) {
@@ -509,7 +534,8 @@ class QBSite {
 		return true;
 	}
 
-	private function prepare($request) {
+	private function prepare($request)
+	{
 		if ($request->type() === QBRequestType::Index) {
 			return $this->prepare_index($request);
 		}
@@ -537,7 +563,8 @@ class QBSite {
 		return $this->prepare_error($request);
 	}
 
-	private function prepare_list($request, $posts) {
+	private function prepare_list($request, $posts)
+	{
 		if (intval($request->page()) < 1) {
 			return new QBResponse($request, QBRequestType::Error, 404);
 		}
@@ -586,12 +613,14 @@ class QBSite {
 		return $response;
 	}
 
-	private function prepare_index($request) {
+	private function prepare_index($request)
+	{
 		$posts = $this->posts();
 		return $this->prepare_list($request, $posts);
 	}
 
-	private function prepare_catalog($request) {
+	private function prepare_catalog($request)
+	{
 		$catalogs = $this->catalogs();
 		$url = $request->url();
 
@@ -605,7 +634,8 @@ class QBSite {
 		return $this->prepare_list($request, $posts);
 	}
 
-	private function prepare_tag($request) {
+	private function prepare_tag($request)
+	{
 		$tags = $this->tags();
 		$url = $request->url();
 
@@ -631,7 +661,8 @@ class QBSite {
 		return $this->prepare_list($request, $posts);
 	}
 
-	private function prepare_post($request) {
+	private function prepare_post($request)
+	{
 		$posts = $this->posts();
 		$url = $request->url();
 
@@ -672,7 +703,8 @@ class QBSite {
 		return $response;
 	}
 
-	private function prepare_page($request) {
+	private function prepare_page($request)
+	{
 		$pages = $this->pages();
 		$url = $request->url();
 
@@ -684,7 +716,8 @@ class QBSite {
 		return $response;
 	}
 
-	private function prepare_file($request) {
+	private function prepare_file($request)
+	{
 		$files = $this->files();
 		$url = $request->url();
 
@@ -696,7 +729,8 @@ class QBSite {
 		return $response;
 	}
 
-	private function prepare_error($request) {
+	private function prepare_error($request)
+	{
 		return new QBResponse($request, QBRequestType::Error, $request->http_code());
 	}
 
