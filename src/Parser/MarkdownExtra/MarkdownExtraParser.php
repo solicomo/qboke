@@ -4,10 +4,11 @@
  * date  : 2013-04-17
  * */
 # Get Markdown class
+namespace \QBoke\Parser\MarkdownExtra;
+
 use \Michelf\MarkdownExtra;
 use \QBoke\Parser\QBParser;
 
-namespace \QBoke\Parser\MarkdownExtra;
 
 class MarkdownExtraParser extends QBParser
 {
