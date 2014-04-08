@@ -3,11 +3,13 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-20
  * */
+namespace QBoke\Theme\iBlog;
 
-require_once THEMES_DIR . '/theme.php';
+use QBoke\Theme\QBTheme;
 
-class DefaultTheme extends Theme {
-	protected $name = 'default';
-	protected $full_name = 'QBoke Default Theme';
-	protected $version = '0.0.2';
+class iBlogTheme extends QBTheme
+{
+	protected $name = 'iblog';
+	protected $full_name = 'QBoke Default Theme, based on iBlog for Wordpress.';
+	protected $version = '0.0.3';
 }

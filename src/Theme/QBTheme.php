@@ -3,43 +3,52 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-20
  * */
+namespace QBoke\Theme;
 
 require_once INC_DIR. '/functions.php';
 
-class Theme {
+class QBTheme
+{
 	protected $site;
 	protected $name = 'default';
 	protected $full_name = 'QBoke Theme Interface';
 	protected $version = '0.0.2';
 
-	function __construct($site) {
+	public function __construct($site)
+	{
 		$this->site = $site;
 	}
 
-	function name() {
+	public function name()
+	{
 		return $this->name;
 	}
 
-	function full_name() {
+	public function full_name()
+	{
 		return $this->full_name;
 	}
 
-	function version() {
+	public function version()
+	{
 		return $this->version;
 	}
 
-	function dir() {
+	public function dir()
+	{
 		$ref = new ReflectionClass($this);
 		$dir = dirname($ref->getFileName());
 		return $dir;
 	}
 
-	function url() {
-		$url = $this->site->url() . 'themes' . substr($this->dir(), strlen(THEMES_DIR));
+	public function url()
+	{
+		$url = $this->site->url() . 'Theme' . substr($this->dir(), strlen(THEME_DIR));
 		return $url;
 	}
 
-	function render($response, $return = false) {
+	public function render($response, $return = false)
+	{
 		if ($return) {
 			ob_start();
 		}
@@ -51,7 +60,8 @@ class Theme {
 		}
 	}
 
-	function do_render($response) {
+	protected function do_render($response)
+	{
 		$theme_path  = $this->dir();
 		$theme = $this;
 		$site  = $this->site;

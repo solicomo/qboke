@@ -3,7 +3,7 @@
  * @author: Soli <soli@cbug.org>
  * @date  : 2013-04-05
  * */
-
+use QBoke;
 require_once INC_DIR . '/hook.php';
 require_once INC_DIR . '/plugin.php';
 require_once INC_DIR . '/site.php';
@@ -33,26 +33,26 @@ function load_config() {
 }
 
 function load_themes() {
-	foreach( get_subdirs( THEMES_DIR ) as $theme ) {
-		include_once THEMES_DIR . "/$theme/_.php";
+	foreach( get_subdirs( THEMESDIR ) as $theme ) {
+		include_once THEME_DIR . "/$theme/_.php";
 	}
 }
 
 function load_plugins() {
-	foreach( get_subdirs( PLUGINS_DIR ) as $plugin ) {
-		include_once PLUGINS_DIR . "/$plugin/_.php";
+	foreach( get_subdirs( PLUGIN_DIR ) as $plugin ) {
+		include_once PLUGIN_DIR . "/$plugin/_.php";
 	}
 }
 
 function load_scms() {
-	foreach( get_subdirs( SCMS_DIR ) as $scm ) {
-		include_once SCMS_DIR . "/$scm/_.php";
+	foreach( get_subdirs( SCM_DIR ) as $scm ) {
+		include_once SCM_DIR . "/$scm/_.php";
 	}
 }
 
-function load_convertors() {
-	foreach( get_subdirs( CONVERTORS_DIR ) as $cvt ) {
-		include_once CONVERTORS_DIR . "/$cvt/_.php";
+function load_parsers() {
+	foreach( get_subdirs( PARSER_DIR ) as $cvt ) {
+		include_once PARSER_DIR . "/$cvt/_.php";
 	}
 }
 

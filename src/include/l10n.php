@@ -136,7 +136,7 @@ function load_default_textdomain() {
 function load_plugin_textdomain( $plugin ) {
 	$locale = get_locale();
 
-	$mofile = PLUGINS_DIR . "/$plugin/lang/$locale.mo";
+	$mofile = PLUGIN_DIR . "/$plugin/lang/$locale.mo";
 	load_textdomain( "plugin_$plugin", $mofile );
 }
 
@@ -148,7 +148,7 @@ function load_plugin_textdomain( $plugin ) {
 function load_theme_textdomain( $theme ) {
 	$locale = get_locale();
 
-	$mofile = THEMES_DIR . "/$theme/lang/$locale.mo";
+	$mofile = THEME_DIR . "/$theme/lang/$locale.mo";
 	load_textdomain( "theme_$theme", $mofile );
 }
 
@@ -160,6 +160,6 @@ function load_theme_textdomain( $theme ) {
 function load_convertor_textdomain( $convertor ) {
 	$locale = get_locale();
 
-	$mofile = CONVERTORS_DIR . "/$convertor/lang/$locale.mo";
+	$mofile = PARSER_DIR . "/$convertor/lang/$locale.mo";
 	load_textdomain( "convertor_$convertor", $mofile );
 }

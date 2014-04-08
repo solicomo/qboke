@@ -4,8 +4,6 @@
  * date  : 2013-04-18
  * */
 
-//require_once CONVERTORS_DIR . '/convertor.php';
-
 class QBGlobal
 {
 	/** declare */
