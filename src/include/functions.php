@@ -3,11 +3,10 @@
  * @author: Soli <soli@cbug.org>
  * @date  : 2013-04-05
  * */
-use QBoke;
+use QBoke\Site\QBSite;
+
 require_once INC_DIR . '/hook.php';
 require_once INC_DIR . '/plugin.php';
-require_once INC_DIR . '/site.php';
-require_once INC_DIR . '/post.php';
 
 function load_config() {
 	global $g;
@@ -33,7 +32,7 @@ function load_config() {
 }
 
 function load_themes() {
-	foreach( get_subdirs( THEMESDIR ) as $theme ) {
+	foreach( get_subdirs( THEME_DIR ) as $theme ) {
 		include_once THEME_DIR . "/$theme/_.php";
 	}
 }

@@ -5,6 +5,8 @@
  * */
 namespace QBoke\Theme;
 
+use \ReflectionClass;
+
 require_once INC_DIR. '/functions.php';
 
 class QBTheme

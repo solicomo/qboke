@@ -11,7 +11,7 @@ load_scms();
 load_default_textdomain();
 load_plugins();
 load_themes();
-load_convertors();
+load_parsers();
 
 $site = load_site();
 

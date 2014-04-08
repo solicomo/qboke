@@ -5,6 +5,8 @@
  * */
 namespace QBoke\Site;
 
+use \DateTime;
+
 require_once INC_DIR . '/global.php';
 
 class QBPost

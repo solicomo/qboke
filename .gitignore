@@ -5,3 +5,4 @@ vendor
 config.php
 data
 public
+cache
