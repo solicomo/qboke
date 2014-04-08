@@ -4,8 +4,6 @@
  * date  : 2013-04-29
  * */
 
-require_once INC_DIR . '/functions.php';
-
 include __DIR__ . '/header.php';
 ?>
 <!-- main start -->
