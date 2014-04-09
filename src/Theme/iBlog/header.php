@@ -9,7 +9,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title><?php echo $site->name(); ?></title>
-	<meta name="keywords" content="<?php echo $site->keywords(); ?>" />
+	<meta name="keywords" content="<?php echo implode(",", $site->keywords()); ?>" />
 	<meta name="description" content="<?php echo $site->description(); ?>" />
 	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $theme->url(); ?>/css/style.css" />
