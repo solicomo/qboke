@@ -3,5 +3,7 @@
  * author: Soli <soli@cbug.org>
  * date  : 2014-03-16
  * */
+namespace QBoke\Plugin\Signature;
 
-include_once __DIR__ . '/signature.php';
+$sig_plugin = new SignaturePlugin();
+add_hook('qb_get_content', array(&$sig_plugin, 'signature'));

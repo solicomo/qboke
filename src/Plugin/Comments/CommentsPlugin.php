@@ -3,10 +3,12 @@
  * author: Soli <soli@cbug.org>
  * date  : 2014-03-23
  * */
+namespace QBoke\Plugin\Comments;
 
-if(!class_exists('QBComments')) {
-class QBComments {
-	function qb_comments($post) {
+class CommentsPlugin
+{
+	public function comments($post)
+	{
 		$opts = qb_options('comments');
 
 		if (!isset($opts['enable']) ||
@@ -41,10 +43,4 @@ class QBComments {
 		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 		<?php
 	}
-}
-}
-
-if(class_exists('QBComments')) {
-	$qb_comments = new QBComments();
-	add_hook('qb_comments', array(&$qb_comments, 'qb_comments'));
 }

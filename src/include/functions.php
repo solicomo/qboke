@@ -142,6 +142,16 @@ function qb_site_url() {
 	return $g->site->url();
 }
 
+function qb_theme_url() {
+	global $g;
+	return $g->site->url() . 'Theme';
+}
+
+function qb_plugin_url() {
+	global $g;
+	return $g->site->url() . 'Plugin';
+}
+
 function get_subdirs($path) {
 	$subs = array();
 	if( !is_dir( $path ) ) {

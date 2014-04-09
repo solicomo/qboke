@@ -3,21 +3,23 @@
  * author: Soli <soli@cbug.org>
  * date  : 2014-03-16
  * */
+namespace QBoke\Plugin\CodePrettify;
 
-if(!class_exists('CodePrettify')) {
-class CodePrettify {
-	function qb_header() {
+class CodePrettifyPlugin
+{
+	public function header()
+	{
 		$opts = qb_options('code-prettify');
 
 		if (!isset($opts['enable']) || ($opts['enable'] !== true && $opts['enable'] !== 'true')) {
 			return;
 		}
 
-		$css_url = qb_site_url() . 'plugins/code-prettify/google-code-prettify/prettify.css';
+		$css_url = $this->gcp_url() . '/prettify.css';
 		$custom_css = '';
 
 		if (isset($opts['skin']) && $opts['skin'] !== 'default') {
-			$css_url = qb_site_url() . 'plugins/code-prettify/google-code-prettify/' . $opts['skin'] . '.css';
+			$css_url = $this->gcp_url() . '/' . $opts['skin'] . '.css';
 		}
 
 		if (isset($opts['custom_css']) && $opts['custom_css'] !== '') {
@@ -38,11 +40,11 @@ class CodePrettify {
 			return;
 		}
 
-		$js_url  = qb_site_url() . 'plugins/code-prettify/google-code-prettify/prettify.js';
-		$lang_url   = '';
+		$js_url  = $this->gcp_url() . '/prettify.js';
+		$lang_url= '';
 
 		if (isset($opts['lang']) && $opts['lang'] !== 'auto') {
-			$lang_url = qb_site_url() . 'plugins/code-prettify/google-code-prettify/lang-' . $opts['lang'] . '.js';
+			$lang_url = $this->gcp_url() . '/lang-' . $opts['lang'] . '.js';
 		}
 
 		if(!empty($lang_url)) { ?>
@@ -67,7 +69,8 @@ class CodePrettify {
 		<?php
 	}
 
-	function qb_footer() {
+	public function footer()
+	{
 		$opts = qb_options('code-prettify');
 
 		if (!isset($opts['enable']) || ($opts['enable'] !== true && $opts['enable'] !== 'true')) {
@@ -78,11 +81,11 @@ class CodePrettify {
 			return;
 		}
 
-		$js_url  = qb_site_url() . 'plugins/code-prettify/google-code-prettify/prettify.js';
-		$lang_url   = '';
+		$js_url  = $this->gcp_url() . '/prettify.js';
+		$lang_url= '';
 
 		if (isset($opts['lang']) && $opts['lang'] !== 'auto') {
-			$lang_url = qb_site_url() . 'plugins/code-prettify/google-code-prettify/lang-' . $opts['lang'] . '.js';
+			$lang_url = $this->gcp_url() . '/lang-' . $opts['lang'] . '.js';
 		}
 		?>
 
@@ -108,11 +111,9 @@ class CodePrettify {
 		<!--//wp code prettify-->
 		<?php
 	}
-}
-}
 
-if(class_exists('CodePrettify')) {
-	$code_prettify = new CodePrettify();
-	add_hook('qb_header', array(&$code_prettify, 'qb_header'));
-	add_hook('qb_footer', array(&$code_prettify, 'qb_footer'));
+	private function gcp_url()
+	{
+		return qb_plugin_url() . substr(__DIR__, strlen(PLUGIN_DIR)) . '/google-code-prettify';
+	}
 }

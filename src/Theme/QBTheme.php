@@ -45,7 +45,7 @@ class QBTheme
 
 	public function url()
 	{
-		$url = $this->site->url() . 'Theme' . substr($this->dir(), strlen(THEME_DIR));
+		$url = qb_theme_url() . substr($this->dir(), strlen(THEME_DIR));
 		return $url;
 	}
 
