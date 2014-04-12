@@ -7,15 +7,15 @@ body{
 	color:#333333;
 	line-height:18px;
 	font-size:12px;
-	font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+	font-family:"Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;
 }
 
 h1, h2{
-	font-family: Myriad Pro, "Lucida Grande","Lucida Sans Unicode",Trebuchet MS,Arial;
+	font-family: Myriad Pro, "Lucida Grande","Lucida Sans Unicode",Trebuchet MS,Helvetica,Arial;
 }
 
 h3, h4, h5{
-	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+	font-family: "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;
 }
 
 a, a:visited {text-decoration: none; color: #0088cc;}
@@ -214,6 +214,9 @@ img {border: none;}
 
 .post-content{
 	margin: 18px;
+	font-size: 14px;
+	line-height: 1.5;
+	font-family: Helvetica,Arial,Verdana,Sans-serif;
 }
 
 .post-more{
