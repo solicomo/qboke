@@ -33,7 +33,7 @@ class Installer
 		}
 
 		// 2. ln -s src/Theme public/Theme
-		$target = THEMESDIR;
+		$target = THEME_DIR;
 		$link   = PUBLIC_DIR . '/Theme';
 		if (!symlink($target, $link)) {
 			echo "[Fail] ln -s $target $link\n";
