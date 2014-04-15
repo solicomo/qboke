@@ -46,12 +46,30 @@ class Installer
 
 		// 4. chmod
 		$oldumask = umask(0);
-		mkdir(DATA_DIR, 0777, true);
-		chmod(CACHE_DIR, 0777);
-		chmod(PUBLIC_DIR, 0777);
+		if (@mkdir(DATA_DIR, 0777, true)) {
+			echo '[Fail] mkdir ' . DATA_DIR . "\n";
+		} else {
+			echo '[ OK ] mkdir ' . DATA_DIR . "\n";
+		}
+
+		if (chmod(CACHE_DIR, 0777)) {
+			echo '[Fail] chmod go+w ' . CACHE_DIR . "\n";
+		} else {
+			echo '[ OK ] chmod go+w ' . CACHE_DIR . "\n";
+		}
+
+		if (chmod(PUBLIC_DIR, 0777)) {
+			echo '[Fail] chmod go+w ' . PUBLIC_DIR . "\n";
+		} else {
+			echo '[ OK ] chmod go+w ' . PUBLIC_DIR . "\n";
+		}
 		umask($oldumask);
 
 		// 5. cp config_sample.php config.php
-		@copy(ABSPATH . '/config_sample.php', ABSPATH . '/config.php');
+		if (@copy(ABSPATH . '/config_sample.php', ABSPATH . '/config.php')) {
+			echo "[Fail] cp config_sample.php config.php\n";
+		} else {
+			echo "[ OK ] cp config_sample.php config.php\n";
+		}
 	}
 }
