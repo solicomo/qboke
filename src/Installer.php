@@ -50,5 +50,8 @@ class Installer
 		chmod(CACHE_DIR, 0777);
 		chmod(PUBLIC_DIR, 0777);
 		umask($oldumask);
+
+		// 5. cp config_sample.php config.php
+		@copy(ABSPATH . '/config_sample.php', ABSPATH . '/config.php');
 	}
 }
