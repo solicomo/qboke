@@ -5,7 +5,7 @@ description : Keep Writing, Don't Bother Anything Else.
 timezone    : Asia/Shanghai
 lang   : zh_CN
 rss    :
-theme  : default
+theme  : iblog
 linage : 20
 opts   :
     menu :
