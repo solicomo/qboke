@@ -6,12 +6,12 @@
 $config_json = <<<EOF
 {
 	"key": "your_secret_key_for_sync",
-	"debug": "on",
+	"debug": "off",
 	"repo": {
 		"type"  : "git",
 		"remote": "https://bitbucket.org/soli/qboke.org.git",
 		"branch": "master",
-		"pkey"  : "./id_rsa"
+		"pkey"  : ""
 	}
 }
 EOF;

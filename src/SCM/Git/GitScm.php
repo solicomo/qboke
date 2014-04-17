@@ -38,7 +38,7 @@ class GitScm extends QBScm
 		try {
 			$this->repo = $this->cli->getRepository($path);
 			return true;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			trigger_error( print_r($e), E_USER_WARNING );
 		}
 
@@ -50,7 +50,7 @@ class GitScm extends QBScm
 			$this->repo->checkout($opts['branch']);
 
 			return true;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			trigger_error( print_r($e), E_USER_ERROR );
 		}
 
@@ -66,7 +66,7 @@ class GitScm extends QBScm
 		try {
 			$this->repo->pull();
 			return true;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			trigger_error( print_r($e), E_USER_ERROR );
 		}
 		return false;
@@ -86,7 +86,7 @@ class GitScm extends QBScm
 
 			$this->repo->add($param);
 			return true;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			trigger_error( print_r($e), E_USER_ERROR );
 		}
 		return false;
@@ -107,7 +107,7 @@ class GitScm extends QBScm
 
 			$this->cli->run($this->repo, "rm $files");
 			return true;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			trigger_error( print_r($e), E_USER_ERROR );
 		}
 		return false;
@@ -121,7 +121,7 @@ class GitScm extends QBScm
 		try {
 			$this->repo->push();
 			return true;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			trigger_error( print_r($e), E_USER_ERROR );
 		}
 		return false;
