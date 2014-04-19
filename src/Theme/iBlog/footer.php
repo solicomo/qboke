@@ -17,10 +17,9 @@
 				?> <a href="<?php echo $site->url(); ?>"><?php echo $site->name(); ?></a>
 				</span>
 				<span id="powered">
-				Proudly powered by <a href="http://www.qboke.org" target="_blank">QBoke</a>.<br />
-				You are appreciated to <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FJEEDWPYTCNBC" target="_blank">help us</a>!
+				Proudly powered by <a href="http://www.qboke.org" target="_blank">QBoke</a>.
 				</span>
-				<div id="custom_footer"><?php echo $site->options('footer'); ?></div>
+				<?php echo $site->options('footer'); ?>
 			</div>
 			<!-- footer end -->
 		</div>
