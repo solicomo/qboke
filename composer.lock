@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b7bc839a8ee4e1acb4051508f9fee33c",
+    "hash": "65e1c8c2d9ce519366a40745dfab0e95",
     "packages": [
         {
             "name": "klaussilveira/gitter",
