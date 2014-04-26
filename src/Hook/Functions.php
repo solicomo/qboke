@@ -99,3 +99,4 @@ function _build_hook_id($tag, $function, $priority) {
 
 	return false;
 }
+

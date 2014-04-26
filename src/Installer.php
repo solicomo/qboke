@@ -5,18 +5,17 @@
  */
 namespace QBoke;
 
+use QBoke\Common\Defines;
 use Composer\Script\Event;
 
 
 class Installer
 {
-	private static function load()
+	public static function run(Event $event)
 	{
-		/** Define ABSPATH */
-		define( 'ABSPATH', dirname(dirname(__FILE__)) );
-
-		require_once ABSPATH . '/vendor/autoload.php';
-		require_once ABSPATH . '/src/include/def.php';
+		if ($event->getName() === 'post-create-project-cmd') {
+			$this->postCreateProject($event);
+		}
 	}
 
 	public static function postCreateProject(Event $event)

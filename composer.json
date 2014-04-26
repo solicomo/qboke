@@ -24,6 +24,9 @@
 			"QBoke\\": "src/"
 		}
 	},
+	"scripts": {
+		"post-create-project-cmd": "QBoke\\Installer::post-create-project-cmd"
+	},
 	"config": {
 		"preferred-install": "dist"
 	},
