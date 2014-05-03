@@ -63,11 +63,11 @@ class Start
 			exit('500 Internal Server Error');
 		}
 
-//TODO:		if (!$scm->pull()) {
-//			trigger_error("scm [$name] pull failed", E_USER_WARNING);
-//			header('Status: 500 Internal Server Error');
-//			exit('500 Internal Server Error');
-//		}
+		if (!$scm->pull()) {
+			trigger_error("scm [$name] pull failed", E_USER_WARNING);
+			header('Status: 500 Internal Server Error');
+			exit('500 Internal Server Error');
+		}
 
 		$site = new QBSite();
 

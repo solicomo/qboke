@@ -13,9 +13,9 @@ class Installer
 {
 	public function run(Event $event)
 	{
-		//if ($event->getName() === 'post-create-project-cmd') {
+		if ($event->getName() === 'post-create-project-cmd') {
 			$this->postCreateProject($event);
-		//}
+		}
 	}
 
 	public function postCreateProject(Event $event)
