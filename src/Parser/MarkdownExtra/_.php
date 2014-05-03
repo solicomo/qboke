@@ -5,6 +5,9 @@
  * */
 namespace QBoke\Parser\MarkdownExtra;
 
-set_convertor('markdownextra', __NAMESPACE__ . '\MarkdownExtraParser');
-set_convertor('markdownex', __NAMESPACE__ . '\MarkdownExtraParser');
+use QBoke\Common\QBGlobal;
+
+$g = QBGlobal::getInstance();
+$g->set_parser('markdownextra', __NAMESPACE__ . '\MarkdownExtraParser');
+$g->set_parser('markdownex', __NAMESPACE__ . '\MarkdownExtraParser');
 

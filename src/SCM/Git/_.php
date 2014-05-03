@@ -5,5 +5,8 @@
  * */
 namespace QBoke\SCM\Git;
 
-set_scm('git', __NAMESPACE__ . '\GitScm');
+use QBoke\Common\QBGlobal;
+
+$g = QBGlobal::getInstance();
+$g->set_scm('git', __NAMESPACE__ . '\GitScm');
 

@@ -5,4 +5,7 @@
  * */
 namespace QBoke\Theme\Laravel;
 
-set_theme('laravel', __NAMESPACE__ . '\LaravelTheme');
+use QBoke\Common\QBGlobal;
+
+$g = QBGlobal::getInstance();
+$g->set_theme('laravel', __NAMESPACE__ . '\LaravelTheme');

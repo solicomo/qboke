@@ -5,4 +5,7 @@
  * */
 namespace QBoke\Parser\Donothing;
 
-set_convertor('donothing', __NAMESPACE__ . '\DonothingParser');
+use QBoke\Common\QBGlobal;
+
+$g = QBGlobal::getInstance();
+$g->set_parser('donothing', __NAMESPACE__ . '\DonothingParser');

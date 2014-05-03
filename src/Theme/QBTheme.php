@@ -6,6 +6,7 @@
 namespace QBoke\Theme;
 
 use \ReflectionClass;
+use QBoke\Hook\Hooks;
 
 require_once INC_DIR. '/functions.php';
 

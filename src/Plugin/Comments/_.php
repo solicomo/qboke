@@ -5,6 +5,8 @@
  * */
 namespace QBoke\Plugin\Comments;
 
+use QBoke\Hook\Functions;
+
 $comments_plugin = new CommentsPlugin();
-add_hook('qb_comments', array(&$comments_plugin, 'comments'));
+Functions\add_hook('qb_comments', array(&$comments_plugin, 'comments'));
 

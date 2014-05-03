@@ -5,5 +5,7 @@
  * */
 namespace QBoke\Plugin\Signature;
 
+use QBoke\Hook\Functions;
+
 $sig_plugin = new SignaturePlugin();
-add_hook('qb_get_content', array(&$sig_plugin, 'signature'));
+Functions\add_hook('qb_get_content', array(&$sig_plugin, 'signature'));

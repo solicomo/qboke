@@ -3,7 +3,7 @@
  * @author Soli
  * @date   2014-04-08
  */
-namespace QBoke;
+namespace QBoke\Common;
 
 use QBoke\Common\Defines;
 use Composer\Script\Event;
@@ -20,11 +20,9 @@ class Installer
 
 	public static function postCreateProject(Event $event)
 	{
-		self::load();
-
 		// 1. ln -s src/Plugin public/Plugin
 		$target = PLUGIN_DIR;
-		$link   = PUBLIC_DIR . '/Plugin';
+		$link   = PUBLIC_DIR . '/' . basename($target);
 		if (symlink($target, $link)) {
 			echo "[ OK ] ln -s $target $link\n";
 		} else {
@@ -33,7 +31,7 @@ class Installer
 
 		// 2. ln -s src/Theme public/Theme
 		$target = THEME_DIR;
-		$link   = PUBLIC_DIR . '/Theme';
+		$link   = PUBLIC_DIR . '/' . basename($target);
 		if (symlink($target, $link)) {
 			echo "[ OK ] ln -s $target $link\n";
 		} else {
@@ -67,12 +65,5 @@ class Installer
 			echo '[Fail] chmod go+w ' . PUBLIC_DIR . "\n";
 		}
 		umask($oldumask);
-
-		// 5. cp config_sample.php config.php
-		if (@copy(ABSPATH . '/config_sample.php', ABSPATH . '/config.php')) {
-			echo "[ OK ] cp config_sample.php config.php\n";
-		} else {
-			echo "[Fail] cp config_sample.php config.php\n";
-		}
 	}
 }

@@ -5,6 +5,12 @@
  * */
 namespace QBoke\Site;
 
+use QBoke\Common\Defines;
+use QBoke\Site\QBCatalog;
+use QBoke\Site\QBPost;
+use QBoke\Site\QBRequest;
+use QBoke\Site\QBResponse;
+
 class QBSite
 {
 	private $path	= '';
@@ -20,9 +26,15 @@ class QBSite
 	private $status;
 	private $theme;
 
-	public function __construct($path)
+	public function __construct()
 	{
-		$this->path = $path;
+	}
+
+	public function init()
+	{
+		$this->path = DATA_DIR;
+
+		return $this->load();
 	}
 
 	public function load()

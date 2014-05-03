@@ -3,6 +3,7 @@
  * author: Soli <soli@cbug.org>
  * date  : 2013-04-18
  * */
+namespace QBoke\Common\Defines;
 
 /** Define VERSION */
 define( 'VERSION', '9' );

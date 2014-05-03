@@ -5,5 +5,8 @@
  * */
 namespace QBoke\Theme\iBlog;
 
-set_theme('default', __NAMESPACE__ . '\iBlogTheme');
-set_theme('iblog', __NAMESPACE__ . '\iBlogTheme');
+use QBoke\Common\QBGlobal;
+
+$g = QBGlobal::getInstance();
+$g->set_theme('default', __NAMESPACE__ . '\iBlogTheme');
+$g->set_theme('iblog', __NAMESPACE__ . '\iBlogTheme');

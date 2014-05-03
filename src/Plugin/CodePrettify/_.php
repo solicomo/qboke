@@ -5,6 +5,8 @@
  * */
 namespace QBoke\Plugin\CodePrettify;
 
+use QBoke\Hook\Functions;
+
 $code_prettify = new CodePrettifyPlugin();
-add_hook('qb_header', array(&$code_prettify, 'header'));
-add_hook('qb_footer', array(&$code_prettify, 'footer'));
+Functions\add_hook('qb_header', array(&$code_prettify, 'header'));
+Functions\add_hook('qb_footer', array(&$code_prettify, 'footer'));

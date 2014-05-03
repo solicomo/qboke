@@ -4,15 +4,17 @@
  * date  : 2014-03-16
  * */
 
+use QBoke\Hook\Functions;
+
 function qb_header() {
-	call_hooks('qb_header');
+	Functions\call_hooks('qb_header');
 }
 
 function qb_footer() {
-	call_hooks('qb_footer');
+	Functions\call_hooks('qb_footer');
 }
 
 function qb_comments($post)
 {
-	call_hooks('qb_comments', $post);
+	Functions\call_hooks('qb_comments', $post);
 }

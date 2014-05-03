@@ -7,14 +7,6 @@
 // Initialize the hook globals.
 global $g;
 
-if ( ! isset( $g->hooks ) ) {
-	$g->hooks = array();
-	$g->hooks['qb_header'] = array();
-	$g->hooks['qb_footer'] = array();
-	$g->hooks['qb_get_content'] = array();
-	$g->hooks['qb_comments'] = array();
-}
-
 function add_hook( $tag, $callback, $priority = 10 ) {
 	global $g;
 	$idx = _build_hook_id($tag, $callback, $priority);
