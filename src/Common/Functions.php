@@ -3,14 +3,15 @@
  * @author: Soli <soli@cbug.org>
  * @date  : 2013-04-05
  * */
-namespace QBoke\Common\Functions;
+//namespace QBoke\Common\Functions;
 
 use QBoke\Common\QBGlobal;
 
-function set_debug_mode() {
+function qb_set_debug_mode()
+{
 	$g = QBGlobal::getInstance();
 	error_reporting( E_ALL );
-
+var_dump($g);
 	if ($g->config['debug'] === 'on') {
 		ini_set( 'display_errors', 1 );
 	} else {
@@ -21,29 +22,52 @@ function set_debug_mode() {
 	ini_set( 'error_log', CACHE_DIR . '/qboke.log' );
 }
 
-function qb_options($name) {
+function qb_options($name)
+{
 	$g = QBGlobal::getInstance();
 	return $g->site->options($name);
 }
 
-function qb_site_root() {
+function qb_site_root()
+{
 	$g = QBGlobal::getInstance();
 	return $g->site->root();
 }
 
-function qb_site_url() {
+function qb_site_url()
+{
 	$g = QBGlobal::getInstance();
 	return $g->site->url();
 }
 
-function qb_theme_url() {
+function qb_theme_url()
+{
 	$g = QBGlobal::getInstance();
 	return $g->site->url() . 'Theme';
 }
 
-function qb_plugin_url() {
+function qb_plugin_url()
+{
 	$g = QBGlobal::getInstance();
 	return $g->site->url() . 'Plugin';
+}
+
+function qb_header()
+{
+	$g = QBGlobal::getInstance();
+	$g->call_hooks('qb_header');
+}
+
+function qb_footer()
+{
+	$g = QBGlobal::getInstance();
+	$g->call_hooks('qb_footer');
+}
+
+function qb_comments($post)
+{
+	$g = QBGlobal::getInstance();
+	$g->call_hooks('qb_comments', $post);
 }
 
 function get_subdirs($path) {

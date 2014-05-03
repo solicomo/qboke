@@ -5,50 +5,24 @@
  * */
 namespace QBoke\Common\Defines;
 
-/** Define VERSION */
-define( 'VERSION', '9' );
 
-/** Define VER_STR */
+define( 'VERSION', '10' );
 define( 'VER_STR', '0.0.9' );
 
-/** Define SRC_DIR */
-define( 'SRC_DIR', ABSPATH . '/src' );
-
-/** Define INC_DIR */
-define( 'INC_DIR', SRC_DIR . '/include' );
-
-/** Define LANG_DIR */
-define( 'LANG_DIR', INC_DIR . '/lang' );
-
-/** Define DATA_DIR */
-define( 'DATA_DIR', ABSPATH . '/data' );
-
-/** Define DATA_SAMPLE_DIR */
-define( 'DATA_SAMPLE_DIR', ABSPATH . '/data_sample' );
-
-/** Define PLUGIN_DIR */
-define( 'PLUGIN_DIR', SRC_DIR . '/Plugin' );
-
-/** Define THEME_DIR */
-define( 'THEME_DIR', SRC_DIR . '/Theme' );
-
-/** Define PARSER_DIR */
-define( 'PARSER_DIR', SRC_DIR . '/Parser' );
-
-/** Define SCM_DIR */
-define( 'SCM_DIR', SRC_DIR . '/SCM' );
-
-/** Define CACHE_DIR */
 define( 'CACHE_DIR', ABSPATH . '/cache' );
-
-/** Define PUBLIC_DIR */
+define( 'DATA_DIR', ABSPATH . '/data' );
 define( 'PUBLIC_DIR', ABSPATH . '/public' );
 
-/** Define LANG */
-define('LANG', 'en_US');
+define( 'QB_ROOT', dirname(dirname(__DIR__)));
 
-/** Define TZ */
+define( 'QB_SRC_DIR', QB_ROOT . '/src');
+define( 'LANG_DIR', QB_SRC_DIR . '/L10N/lang' );
+define( 'PLUGIN_DIR', QB_SRC_DIR . '/Plugin' );
+define( 'THEME_DIR', QB_SRC_DIR . '/Theme' );
+define( 'PARSER_DIR', QB_SRC_DIR . '/Parser' );
+define( 'SCM_DIR', QB_SRC_DIR . '/SCM' );
+
+define('LANG', 'en_US');
 define('TZ', 'UTC');
 
 date_default_timezone_set(TZ);
-

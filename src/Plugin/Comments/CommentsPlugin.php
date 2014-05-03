@@ -5,8 +5,17 @@
  * */
 namespace QBoke\Plugin\Comments;
 
+use QBoke\Common\QBGlobal;
+
 class CommentsPlugin
 {
+	public function init()
+	{
+		$g = QBGlobal::getInstance();
+
+		$g->add_hook('qb_comments', array(&$this, 'comments'));
+	}
+
 	public function comments($post)
 	{
 		$opts = qb_options('comments');

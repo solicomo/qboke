@@ -5,8 +5,18 @@
  * */
 namespace QBoke\Plugin\CodePrettify;
 
+use QBoke\Common\QBGlobal;
+
 class CodePrettifyPlugin
 {
+	public function init()
+	{
+		$g = QBGlobal::getInstance();
+
+		$g->add_hook('qb_header', array(&$this, 'header'));
+		$g->add_hook('qb_footer', array(&$this, 'footer'));
+	}
+
 	public function header()
 	{
 		$opts = qb_options('code-prettify');

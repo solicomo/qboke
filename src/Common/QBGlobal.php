@@ -12,7 +12,7 @@ class QBGlobal
 	/** declare */
 	public $scms;
 	public $themes;
-	public $convertors;
+	public $parsers;
 	public $hooks;
 
 	public $config;
@@ -35,7 +35,7 @@ class QBGlobal
 
 	public static function getInstance()
 	{
-		if (!is_null(self::$g)) {
+		if (is_null(self::$g)) {
 			self::$g = new QBGlobal();
 			self::$g->load();
 		}
@@ -67,7 +67,7 @@ class QBGlobal
 		if (is_array($this->themes) && array_key_exists($name, $this->themes) && isset($this->themes[$name])) {
 			return new $this->themes[$name]($site);
 		}
-		return new $g->themes['default']($site);
+		return new $this->themes['default']($site);
 	}
 
 	public function set_parser($format, $parser)
@@ -84,6 +84,88 @@ class QBGlobal
 		return new $this->parsers['none'];
 	}
 
+	public function add_hook( $tag, $callback, $priority = 10 ) {
+		$idx = _build_hook_id($tag, $callback, $priority);
+
+		if ($idx === false) {
+			return false;
+		}
+
+		$this->hooks[$tag][$priority][$idx] = $callback;
+		return true;
+	}
+
+	public function del_hook( $tag, $callback, $priority = 10 ) {
+		$idx = _build_hook_id($tag, $callback, $priority);
+
+		if ($idx === false) {
+			return false;
+		}
+
+		unset($this->hooks[$tag][$priority][$idx]);
+
+		if (empty($this->hooks[$tag][$priority])) {
+			unset($this->hooks[$tag][$priority]);
+		}
+
+		return true;
+	}
+
+	public function call_hooks( $tag, $value = '' ) {
+		$args = func_get_args();
+
+		ksort($this->hooks[$tag]);
+
+		foreach ($this->hooks[$tag] as $callbacks) {
+			foreach ($callbacks as $cb) {
+				if (!is_null($cb)) {
+					$args[1] = $value;
+					$value = call_user_func_array($cb, array_slice($args, 1));
+				}
+			}
+		}
+
+		return $value;
+	}
+
+	private function _build_hook_id($tag, $function, $priority) {
+		static $hook_id_count = 0;
+
+		if ( is_string($function) )
+			return $function;
+
+		if ( is_object($function) ) {
+			// Closures are currently implemented as objects
+			$function = array( $function, '' );
+		} else {
+			$function = (array) $function;
+		}
+
+		if (is_object($function[0]) ) {
+			// Object Class Calling
+			if ( function_exists('spl_object_hash') ) {
+				return spl_object_hash($function[0]) . $function[1];
+			}
+
+			$obj_idx = get_class($function[0]).$function[1];
+
+			if ( !isset($function[0]->qb_filter_id) ) {
+				$obj_idx .= $hook_id_count;
+				++$hook_id_count;
+			} else {
+				$obj_idx .= $function[0]->qb_filter_id;
+			}
+
+			return $obj_idx;
+
+		} else if ( is_string($function[0]) ) {
+			// Static Calling
+			return $function[0] . '::' . $function[1];
+		}
+
+		return false;
+	}
+
 	private function load()
 	{
 		if (!$this->load_config()) {
@@ -91,11 +173,8 @@ class QBGlobal
 			exit('invalid config.php');
 		}
 
-		$this->load_scms();
 		//load_default_textdomain();
 		$this->load_plugins();
-		$this->load_themes();
-		$this->load_parsers();
 	}
 
 	private function load_config()
@@ -104,7 +183,7 @@ class QBGlobal
 
 		if( is_readable($path) ) {
 			$this->config = include_once $path;
-			if ( $g->config === null) {
+			if ( $this->config === null) {
 				return false;
 			}
 			return true;
@@ -113,31 +192,10 @@ class QBGlobal
 		return false;
 	}
 
-	private function load_themes()
-	{
-		foreach( get_subdirs( THEME_DIR ) as $theme ) {
-			include_once THEME_DIR . "/$theme/_.php";
-		}
-	}
-
 	private function load_plugins()
 	{
-		foreach( get_subdirs( PLUGIN_DIR ) as $plugin ) {
+		foreach( \get_subdirs( PLUGIN_DIR ) as $plugin ) {
 			include_once PLUGIN_DIR . "/$plugin/_.php";
-		}
-	}
-
-	private function load_scms()
-	{
-		foreach( get_subdirs( SCM_DIR ) as $scm ) {
-			include_once SCM_DIR . "/$scm/_.php";
-		}
-	}
-
-	private function load_parsers()
-	{
-		foreach( get_subdirs( PARSER_DIR ) as $cvt ) {
-			include_once PARSER_DIR . "/$cvt/_.php";
 		}
 	}
 }

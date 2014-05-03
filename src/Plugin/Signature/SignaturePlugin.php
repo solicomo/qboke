@@ -5,8 +5,17 @@
  * */
 namespace QBoke\Plugin\Signature;
 
+use QBoke\Common\QBGlobal;
+
 class SignaturePlugin
 {
+	public function init()
+	{
+		$g = QBGlobal::getInstance();
+
+		$g->add_hook('qb_get_content', array(&$this, 'signature'));
+	}
+
 	public function signature($content)
 	{
 		global $g;
