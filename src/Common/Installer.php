@@ -15,6 +15,8 @@ class Installer
 	{
 		if ($event->getName() === 'post-create-project-cmd') {
 			$this->postCreateProject($event);
+		} elseif ($event->getName() === 'post-update-cmd') {
+			$this->postCreateProject($event);
 		}
 	}
 
