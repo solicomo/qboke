@@ -11,7 +11,7 @@ function qb_set_debug_mode()
 {
 	$g = QBGlobal::getInstance();
 	error_reporting( E_ALL );
-var_dump($g);
+
 	if ($g->config['debug'] === 'on') {
 		ini_set( 'display_errors', 1 );
 	} else {

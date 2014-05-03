@@ -5,25 +5,16 @@
  * */
 namespace QBoke\Site;
 
-class QBRequestType
-{
-	const Error = 0;
-	const Index = 1;
-	const Catalog = 2;
-	const Tag   = 3;
-	const File  = 4;
-	const Post  = 5;
-	const Page  = 6;
-
-	private function __construct()
-	{
-		//Nonthing to do
-		;
-	}
-}
-
 class QBRequest
 {
+	const TYPE_ERROR = 0;
+	const TYPE_INDEX = 1;
+	const TYPE_CATALOG = 2;
+	const TYPE_TAG   = 3;
+	const TYPE_FILE  = 4;
+	const TYPE_POST  = 5;
+	const TYPE_PAGE  = 6;
+
 	private $type;
 	private $url;
 	private $page;
@@ -35,7 +26,7 @@ class QBRequest
 		$this->url = $url;
 		$this->page = $page;
 
-		if ($type === QBRequestType::Error) {
+		if ($type === self::TYPE_ERROR) {
 			$this->http_code = intval($url);
 		} else {
 			$this->http_code = 200;

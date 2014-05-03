@@ -6,8 +6,7 @@
 namespace QBoke\Site;
 
 use \DateTime;
-
-require_once INC_DIR . '/global.php';
+use QBoke\Common\QBGlobal;
 
 class QBPost
 {
@@ -219,6 +218,8 @@ class QBPost
 
 	public function content()
 	{
+		$g = QBGlobal::getInstance();
+
 		if ( isset($this->content) ) {
 			return $this->content;
 		}
@@ -258,10 +259,19 @@ class QBPost
 			return $err;
 		}
 
-		$convertor = get_convertor( $this->format() );
-		$this->content = $convertor->go( $this->content );
+		$parser_type = $this->format();
+		$parser_cls = "\\QBoke\\Parser\\$parser_type\\$parser_type" . 'Parser';
 
-		$this->content = call_hooks('qb_get_content', $this->content);
+		if (class_exists($parser_cls)) {
+			$parer = new $parser_cls;
+		} else {
+			$parser_cls = '\QBoke\Parser\Donothing\DonothingParser';
+			$parer = new $parser_cls;
+		}
+
+		$this->content = $parer->go( $this->content );
+
+		$this->content = $g->call_hooks('qb_get_content', $this->content);
 		return $this->content;
 	}
 

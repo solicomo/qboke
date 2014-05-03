@@ -24,7 +24,7 @@ class QBResponse
 		$this->type = $type;
 		$this->url = $url;
 
-		if ($type === QBRequestType::Error) {
+		if ($type === QBRequest::TYPE_ERROR) {
 			$this->http_code = intval($url);
 		} else {
 			$this->http_code = 200;
@@ -63,49 +63,49 @@ class QBResponse
 
 	public function is_post()
 	{
-		return ($this->type === QBRequestType::Post);
+		return ($this->type === QBRequest::TYPE_POST);
 	}
 
 	public function is_page()
 	{
-		return ($this->type === QBRequestType::Page);
+		return ($this->type === QBRequest::TYPE_PAGE);
 	}
 
 	public function is_single()
 	{
-		return ($this->type === QBRequestType::Post ||
-				$this->type === QBRequestType::Page);
+		return ($this->type === QBRequest::TYPE_POST ||
+				$this->type === QBRequest::TYPE_PAGE);
 	}
 
 	public function is_file()
 	{
-		return ($this->type === QBRequestType::File);
+		return ($this->type === QBRequest::TYPE_FILE);
 	}
 
 	function is_index() {
-		return ($this->type === QBRequestType::Index);
+		return ($this->type === QBRequest::TYPE_INDEX);
 	}
 
 	public function is_catalog()
 	{
-		return ($this->type === QBRequestType::Catalog);
+		return ($this->type === QBRequest::TYPE_CATALOG);
 	}
 
 	public function is_tag()
 	{
-		return ($this->type === QBRequestType::Tag);
+		return ($this->type === QBRequest::TYPE_TAG);
 	}
 
 	public function is_list()
 	{
-		return ($this->type === QBRequestType::Index ||
-				$this->type === QBRequestType::Catalog ||
-				$this->type === QBRequestType::Tag);
+		return ($this->type === QBRequest::TYPE_INDEX ||
+				$this->type === QBRequest::TYPE_CATALOG ||
+				$this->type === QBRequest::TYPE_TAG);
 	}
 
 	public function is_error()
 	{
-		return ($this->type === QBRequestType::Error);
+		return ($this->type === QBRequest::TYPE_ERROR);
 	}
 
 	public function posts()

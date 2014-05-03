@@ -10,9 +10,6 @@ class QBGlobal
 	private static $g = null;
 
 	/** declare */
-	public $scms;
-	public $themes;
-	public $parsers;
 	public $hooks;
 
 	public $config;
@@ -43,49 +40,8 @@ class QBGlobal
 		return self::$g;
 	}
 
-	public function set_scm($name, $scm)
-	{
-		$this->scms[$name] = $scm;
-	}
-
-	public function get_scm($name)
-	{
-		if (array_key_exists($name, $this->scms) && isset($this->scms[$name])) {
-			return new $this->scms[$name];
-		}
-
-		return false;
-	}
-
-	public function set_theme($name, $theme)
-	{
-		$this->themes[$name] = $theme;
-	}
-
-	public function get_theme($name, $site)
-	{
-		if (is_array($this->themes) && array_key_exists($name, $this->themes) && isset($this->themes[$name])) {
-			return new $this->themes[$name]($site);
-		}
-		return new $this->themes['default']($site);
-	}
-
-	public function set_parser($format, $parser)
-	{
-		$this->parsers[$format] = $parser;
-	}
-
-	public function get_parser($format)
-	{
-		if (is_array($this->parsers) && array_key_exists($format, $this->parsers) && isset($this->parsers[$format]) ) {
-			return new $this->parsers[$format];
-		}
-
-		return new $this->parsers['none'];
-	}
-
 	public function add_hook( $tag, $callback, $priority = 10 ) {
-		$idx = _build_hook_id($tag, $callback, $priority);
+		$idx = $this->_build_hook_id($tag, $callback, $priority);
 
 		if ($idx === false) {
 			return false;
@@ -96,7 +52,7 @@ class QBGlobal
 	}
 
 	public function del_hook( $tag, $callback, $priority = 10 ) {
-		$idx = _build_hook_id($tag, $callback, $priority);
+		$idx = $this->_build_hook_id($tag, $callback, $priority);
 
 		if ($idx === false) {
 			return false;
@@ -174,7 +130,6 @@ class QBGlobal
 		}
 
 		//load_default_textdomain();
-		$this->load_plugins();
 	}
 
 	private function load_config()
@@ -190,12 +145,5 @@ class QBGlobal
 		}
 
 		return false;
-	}
-
-	private function load_plugins()
-	{
-		foreach( \get_subdirs( PLUGIN_DIR ) as $plugin ) {
-			include_once PLUGIN_DIR . "/$plugin/_.php";
-		}
 	}
 }

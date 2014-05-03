@@ -18,7 +18,7 @@ class SignaturePlugin
 
 	public function signature($content)
 	{
-		global $g;
+		$g = QBGlobal::getInstance();
 
 		$opts = qb_options('signature');
 

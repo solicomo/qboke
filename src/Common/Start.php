@@ -26,11 +26,7 @@ class Start
 			exit('load site failed.');
 		}
 
-		if ($site->dump() === false) {
-			trigger_error('dump site failed.', E_USER_WARNING);
-			header("Status: 500 Internal Server Error");
-			exit('dump site failed.');
-		}
+		$site->get(urldecode($_SERVER['REQUEST_URI']));
 	}
 
 	public static function sync()
@@ -38,7 +34,7 @@ class Start
 		qb_set_debug_mode();
 
 		trigger_error("got sync request from {$_SERVER['REMOTE_ADDR']}:{$_SERVER['REMOTE_PORT']}", E_USER_NOTICE);
-	exit(0);
+
 		$g = QBGlobal::getInstance();
 		$repo = $g->config['repo'];
 		$name = $repo['type'];
@@ -50,13 +46,16 @@ class Start
 			exit('403 Forbidden');
 		}
 
-		$scm = $g->get_scm($name);
+		$scm_type = $repo['type'];
+		$scm_cls = "\\QBoke\\SCM\\$scm_type\\$scm_type" . 'SCM';
 
-		if ($scm === false) {
+		if (!class_exists($scm_cls)) {
 			trigger_error("no scm [$name]", E_USER_WARNING);
 			header('Status: 500 Internal Server Error');
 			exit('500 Internal Server Error');
 		}
+
+		$scm = new $scm_cls;
 
 		if (!$scm->init($path, $repo)) {
 			trigger_error("scm [$name] init failed.", E_USER_WARNING);
@@ -64,11 +63,11 @@ class Start
 			exit('500 Internal Server Error');
 		}
 
-		if (!$scm->pull()) {
-			trigger_error("scm [$name] pull failed", E_USER_WARNING);
-			header('Status: 500 Internal Server Error');
-			exit('500 Internal Server Error');
-		}
+//TODO:		if (!$scm->pull()) {
+//			trigger_error("scm [$name] pull failed", E_USER_WARNING);
+//			header('Status: 500 Internal Server Error');
+//			exit('500 Internal Server Error');
+//		}
 
 		$site = new QBSite();
 

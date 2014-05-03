@@ -5,11 +5,11 @@
  * */
 namespace QBoke\Site;
 
-use QBoke\Common\Defines;
 use QBoke\Site\QBCatalog;
 use QBoke\Site\QBPost;
 use QBoke\Site\QBRequest;
 use QBoke\Site\QBResponse;
+use QBoke\Common\QBGlobal;
 
 class QBSite
 {
@@ -28,21 +28,60 @@ class QBSite
 
 	public function __construct()
 	{
+		$this->path = DATA_DIR;
 	}
 
 	public function init()
 	{
-		$this->path = DATA_DIR;
+		$g = QBGlobal::getInstance();
+		$g->site = $this;
 
-		return $this->load();
-	}
-
-	public function load()
-	{
 		if (!$this->load_config()) {
 			return false;
 		}
 
+		$this->load_plugins();
+
+		return $this->load();
+	}
+
+	private function load_config()
+	{
+		$path = $this->path() . '/.site';
+
+		if( !is_readable($path) ) {
+			return false;
+		}
+
+		$config = file_get_contents( $path );
+		if( false === $config ) {
+			return false;
+		}
+
+		$this->config = yaml_parse( $config );
+
+		if( is_null( $this->config ) ) {
+			$this->config = array();
+			return false;
+		}
+
+		return true;
+	}
+
+	private function load_plugins()
+	{
+		foreach( $this->config['plugins'] as $plugin ) {
+			$c = "\\QBoke\\Plugin\\$plugin\\$plugin" . "Plugin";
+
+			if (class_exists($c)) {
+				$p = new $c;
+				$p->init();
+			}
+		}
+	}
+
+	private function load()
+	{
 		$path = $this->path();
 
 		if( !is_dir( $path ) ) {
@@ -283,53 +322,53 @@ class QBSite
 		$url_suffix = $this->url_suffix();
 
 		if (!preg_match("@^{$url_prefix}/(.*)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Error, 404 );
+			return new QBRequest( QBRequest::TYPE_ERROR, 404 );
 		}
 
 		$uri = '/' . $matches[1];
 
 		$files = $this->files();
 		if (array_key_exists($uri, $files)) {
-			return new QBRequest(QBRequestType::File, $uri);
+			return new QBRequest(QBRequest::TYPE_FILE, $uri);
 		}
 
 		if ($uri === '/') {
-			return new QBRequest( QBRequestType::Index, null );
+			return new QBRequest( QBRequest::TYPE_INDEX, null );
 		}
 
 		if (!preg_match("@^(.*){$url_suffix}$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Error, 404 );
+			return new QBRequest( QBRequest::TYPE_ERROR, 404 );
 		}
 
 		$uri = $matches[1];
 
 		$pages = $this->pages();
 		if (array_key_exists($uri, $pages)) {
-			return new QBRequest(QBRequestType::Page, $uri);
+			return new QBRequest(QBRequest::TYPE_PAGE, $uri);
 		}
 
 		$posts = $this->posts();
 		if (array_key_exists($uri, $posts)) {
-			return new QBRequest(QBRequestType::Post, $uri);
+			return new QBRequest(QBRequest::TYPE_POST, $uri);
 		}
 
 		if (preg_match("@^/([\d]+)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Index, null, $matches[1] );
+			return new QBRequest( QBRequest::TYPE_INDEX, null, $matches[1] );
 		}
 
 		if (preg_match("@^/tag/(.*)/([\d]+)$@", $uri, $matches)) {
 			$tags = $this->tags();
 			$tag  = $matches[1];
 			if (array_key_exists($tag, $tags)) {
-				return new QBRequest(QBRequestType::Tag, $tag, $matches[2]);
+				return new QBRequest(QBRequest::TYPE_TAG, $tag, $matches[2]);
 			}
 		}
 
 		if (preg_match("@^(.*)/([\d]+)$@", $uri, $matches)) {
-			return new QBRequest( QBRequestType::Catalog, '/' . $matches[1], $matches[2] );
+			return new QBRequest( QBRequest::TYPE_CATALOG, '/' . $matches[1], $matches[2] );
 		}
 
-		return new QBRequest( QBRequestType::Error, 404 );
+		return new QBRequest( QBRequest::TYPE_ERROR, 404 );
 	}
 
 	public function theme()
@@ -338,20 +377,26 @@ class QBSite
 			return $this->theme;
 		}
 
-		$name = 'default';
+		$name = 'Laravel';
 		if (isset($this->config) && isset($this->config['theme'])) {
 			$name = $this->config['theme'];
 		}
 
-		$theme = get_theme($name, $this);
-		load_theme_textdomain( $theme->name() );
+		$theme_cls = "\\QBoke\\Theme\\$name\\$name" . 'Theme';
+
+		if (!class_exists($theme_cls)) {
+			return null;
+		}
+
+		$theme = new $theme_cls($this);
+		//load_theme_textdomain( $theme->name() );
 
 		return $theme;
 	}
 
 	public function get($uri, $return = false)
 	{
-		global $g;
+		$g = QBGlobal::getInstance();
 
 		$g->request  = $this->parse_uri($uri);
 		$g->response = $this->prepare($g->request);
@@ -377,7 +422,7 @@ class QBSite
 
 	private function dump_index()
 	{
-		global $g;
+		$g = QBGlobal::getInstance();
 		$url_suffix = $this->url_suffix();
 		$posts = $this->posts();
 		$linage= $this->linage();
@@ -385,7 +430,7 @@ class QBSite
 		$page_max = ceil($count / $linage);
 
 		for ($i = 1; $i <= $page_max; $i++) {
-			$g->request  = new QBRequest(QBRequestType::Index, null, $i);
+			$g->request  = new QBRequest(QBRequest::TYPE_INDEX, null, $i);
 			$g->response = $this->prepare($g->request);
 			$g->theme    = $this->theme();
 			$content    = $g->theme->render($g->response, true);
@@ -404,7 +449,7 @@ class QBSite
 
 	private function dump_catalogs()
 	{
-		global $g;
+		$g = QBGlobal::getInstance();
 
 		$url_suffix = $this->url_suffix();
 		$linage     = $this->linage();
@@ -416,7 +461,7 @@ class QBSite
 			$page_max = ceil($count / $linage);
 
 			for ($i = 1; $i <= $page_max; $i++) {
-				$g->request  = new QBRequest(QBRequestType::Catalog, $cata_url, $i);
+				$g->request  = new QBRequest(QBRequest::TYPE_CATALOG, $cata_url, $i);
 				$g->response = $this->prepare($g->request);
 				$g->theme    = $this->theme();
 				$content    = $g->theme->render($g->response, true);
@@ -438,7 +483,7 @@ class QBSite
 
 	private function dump_tags()
 	{
-		global $g;
+		$g = QBGlobal::getInstance();
 
 		$url_suffix = $this->url_suffix();
 		$linage     = $this->linage();
@@ -449,7 +494,7 @@ class QBSite
 			$page_max = ceil($count / $linage);
 
 			for ($i = 1; $i <= $page_max; $i++) {
-				$g->request  = new QBRequest(QBRequestType::Tag, $tag, $i);
+				$g->request  = new QBRequest(QBRequest::TYPE_TAG, $tag, $i);
 				$g->response = $this->prepare($g->request);
 				$g->theme    = $this->theme();
 				$content    = $g->theme->render($g->response, true);
@@ -483,13 +528,13 @@ class QBSite
 
 	private function dump_posts()
 	{
-		global $g;
+		$g = QBGlobal::getInstance();
 
 		$url_suffix = $this->url_suffix();
 		$posts      = $this->posts();
 
 		foreach ($posts as $url => $post) {
-			$g->request  = new QBRequest(QBRequestType::Post, $url);
+			$g->request  = new QBRequest(QBRequest::TYPE_POST, $url);
 			$g->response = $this->prepare($g->request);
 			$g->theme    = $this->theme();
 			$content    = $g->theme->render($g->response, true);
@@ -504,13 +549,13 @@ class QBSite
 
 	private function dump_pages()
 	{
-		global $g;
+		$g = QBGlobal::getInstance();
 
 		$url_suffix = $this->url_suffix();
 		$pages      = $this->pages();
 
 		foreach ($pages as $url => $page) {
-			$g->request  = new QBRequest(QBRequestType::Page, $url);
+			$g->request  = new QBRequest(QBRequest::TYPE_PAGE, $url);
 			$g->response = $this->prepare($g->request);
 			$g->theme    = $this->theme();
 			$content    = $g->theme->render($g->response, true);
@@ -523,52 +568,29 @@ class QBSite
 		}
 	}
 
-	private function load_config()
-	{
-		$path = $this->path() . '/.site';
-
-		if( !is_readable($path) ) {
-			return false;
-		}
-
-		$config = file_get_contents( $path );
-		if( false === $config ) {
-			return false;
-		}
-
-		$this->config = yaml_parse( $config );
-
-		if( is_null( $this->config ) ) {
-			$this->config = array();
-			return false;
-		}
-
-		return true;
-	}
-
 	private function prepare($request)
 	{
-		if ($request->type() === QBRequestType::Index) {
+		if ($request->type() === QBRequest::TYPE_INDEX) {
 			return $this->prepare_index($request);
 		}
 
-		if ($request->type() === QBRequestType::Post) {
+		if ($request->type() === QBRequest::TYPE_POST) {
 			return $this->prepare_post($request);
 		}
 
-		if ($request->type() === QBRequestType::Page) {
+		if ($request->type() === QBRequest::TYPE_PAGE) {
 			return $this->prepare_page($request);
 		}
 
-		if ($request->type() === QBRequestType::File) {
+		if ($request->type() === QBRequest::TYPE_FILE) {
 			return $this->prepare_file($request);
 		}
 
-		if ($request->type() === QBRequestType::Tag) {
+		if ($request->type() === QBRequest::TYPE_TAG) {
 			return $this->prepare_tag($request);
 		}
 
-		if ($request->type() === QBRequestType::Catalog) {
+		if ($request->type() === QBRequest::TYPE_CATALOG) {
 			return $this->prepare_catalog($request);
 		}
 
@@ -578,7 +600,7 @@ class QBSite
 	private function prepare_list($request, $posts)
 	{
 		if (intval($request->page()) < 1) {
-			return new QBResponse($request, QBRequestType::Error, 404);
+			return new QBResponse($request, QBRequest::TYPE_ERROR, 404);
 		}
 
 		$linage= $this->linage();
@@ -587,7 +609,7 @@ class QBSite
 		$page_max = ceil($count / $linage);
 
 		if ($page > $page_max) {
-			return new QBResponse($request, QBRequestType::Error, 404);
+			return new QBResponse($request, QBRequest::TYPE_ERROR, 404);
 		}
 
 		//TODO: sort hook
@@ -599,9 +621,9 @@ class QBSite
 		$url_suffix = $this->url_suffix();
 		$url_prefix = $this->root();
 
-		if ($request->type() === QBRequestType::Tag) {
+		if ($request->type() === QBRequest::TYPE_TAG) {
 			$url_prefix .= '/tag/' . $request->url();
-		} elseif ($request->type() !== QBRequestType::Index) {
+		} elseif ($request->type() !== QBRequest::TYPE_INDEX) {
 			$url_prefix .= '/' . $request->url();
 		}
 
@@ -637,7 +659,7 @@ class QBSite
 		$url = $request->url();
 
 		if (!array_key_exists($url, $catalogs)) {
-			return new QBResponse($request, QBRequestType::Error, 404);
+			return new QBResponse($request, QBRequest::TYPE_ERROR, 404);
 		}
 
 		$catalog = $catalogs[$url];
@@ -652,7 +674,7 @@ class QBSite
 		$url = $request->url();
 
 		if (!array_key_exists($url, $tags)) {
-			return new QBResponse($request, QBRequestType::Error, 404);
+			return new QBResponse($request, QBRequest::TYPE_ERROR, 404);
 		}
 
 		$posts = $tags[$url];
@@ -679,7 +701,7 @@ class QBSite
 		$url = $request->url();
 
 		if (!array_key_exists($url, $posts)) {
-			return new QBResponse($request, QBRequestType::Error, 404);
+			return new QBResponse($request, QBRequest::TYPE_ERROR, 404);
 		}
 
 		$cur_posts[$url] = $posts[$url];
@@ -743,7 +765,7 @@ class QBSite
 
 	private function prepare_error($request)
 	{
-		return new QBResponse($request, QBRequestType::Error, $request->http_code());
+		return new QBResponse($request, QBRequest::TYPE_ERROR, $request->http_code());
 	}
 
 }
