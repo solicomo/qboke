@@ -47,7 +47,7 @@ class Start
 		}
 
 		$scm_type = $repo['type'];
-		$scm_cls = "\\QBoke\\SCM\\$scm_type\\$scm_type" . 'SCM';
+		$scm_cls = "\\QBoke\\SCM\\$scm_type\\$scm_type" . 'Scm';
 
 		if (!class_exists($scm_cls)) {
 			trigger_error("no scm [$name]", E_USER_WARNING);
