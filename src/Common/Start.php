@@ -83,7 +83,6 @@ class Start
 			exit('dump site failed.');
 		}
 
-		echo 'done';
 		trigger_error('sync done.', E_USER_NOTICE);
 	}
 

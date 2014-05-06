@@ -436,12 +436,12 @@ class QBSite
 			$content    = $g->theme->render($g->response, true);
 
 			$path = PUBLIC_DIR . "/$i" . $url_suffix;
-			echo "dump $path\n";
+			echo "dump $path <br />\n";
 			file_put_contents($path, $content);
 
 			if ($i === 1) {
 				$path = PUBLIC_DIR . "/index" . $url_suffix;
-				echo "dump $path\n";
+				echo "dump $path <br />\n";
 				file_put_contents($path, $content);
 			}
 		}
@@ -469,12 +469,12 @@ class QBSite
 				$path = PUBLIC_DIR . "$cata_url/$i" . $url_suffix;
 				mkdir_p(dirname($path));
 
-				echo "dump $path\n";
+				echo "dump $path <br />\n";
 				file_put_contents($path, $content);
 
 				if ($i === 1) {
 					$path = PUBLIC_DIR . "$cata_url/index" . $url_suffix;
-					echo "dump $path\n";
+					echo "dump $path <br />\n";
 					file_put_contents($path, $content);
 				}
 			}
@@ -502,12 +502,12 @@ class QBSite
 				$path = PUBLIC_DIR . "/tag/$tag/$i" . $url_suffix;
 				mkdir_p(dirname($path));
 
-				echo "dump $path\n";
+				echo "dump $path <br />\n";
 				file_put_contents($path, $content);
 
 				if ($i === 1) {
 					$path = PUBLIC_DIR . "/tag/$tag/index" . $url_suffix;
-					echo "dump $path\n";
+					echo "dump $path <br />\n";
 					file_put_contents($path, $content);
 				}
 			}
@@ -521,7 +521,7 @@ class QBSite
 		foreach ($files as $dst => $src) {
 			$dst = PUBLIC_DIR . $dst;
 
-			echo "copy($src, $dst)\n";
+			echo "copy($src, $dst) <br />\n";
 			real_copy($src, $dst);
 		}
 	}
@@ -542,7 +542,7 @@ class QBSite
 			$path = PUBLIC_DIR . "$url" . $url_suffix;
 			mkdir_p(dirname($path));
 
-			echo "dump $path\n";
+			echo "dump $path <br />\n";
 			file_put_contents($path, $content);
 		}
 	}
@@ -563,7 +563,7 @@ class QBSite
 			$path = PUBLIC_DIR . "$url" . $url_suffix;
 			mkdir_p(dirname($path));
 
-			echo "dump $path\n";
+			echo "dump $path <br />\n";
 			file_put_contents($path, $content);
 		}
 	}
