@@ -35,16 +35,16 @@ if (is_array($sidebars)) {
 
 <!-- footer start -->
 <div id="footer" class="center">
-	<span id="copyright">
+	<div id="copyright">
 	Copyright &copy; <?php
 		$copyYear = 2013;
 		$curYear = date('Y');
 		echo $copyYear . (($copyYear != $curYear) ? ' - ' . $curYear : '');
 	?> <a href="<?php echo $site->url(); ?>"><?php echo $site->name(); ?></a>
-	</span>
-	<span id="powered">
+	</div>
+	<div id="powered">
 	Proudly powered by <a href="http://www.qboke.org" target="_blank">QBoke</a>.
-	</span>
+	</div>
 	<?php echo qb_options('footer'); ?>
 </div>
 <!-- footer end -->
