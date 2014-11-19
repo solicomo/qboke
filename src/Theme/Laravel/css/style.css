@@ -25,6 +25,10 @@ a:hover {text-decoration: none;}
 
 img {border: none;}
 
+blockquote{margin:15px 0; border-left:4px solid #DDD;padding:0 15px;color:#777;}
+blockquote>:first-child{margin-top:0;}
+blockquote>:last-child{margin-bottom:0;}
+
 .center, .textcenter {text-align: center;}
 .left {float: left;}
 .textleft {text-align: left;}
