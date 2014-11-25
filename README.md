@@ -50,7 +50,7 @@ git 是怎么自动通知 QBoke 最新更新的呢？答案是 POST 钩子。你
 更多内容
 -------
 
-如何安装 QBoke？可以参考这篇[快速安装说明](getting-started.html)。
+如何安装 QBoke？可以参考这篇[快速安装说明](http://qboke.org/getting-started.html)。
 
 如果想更详细的了解 QBoke ，欢迎查看本站的其他文章。
 
