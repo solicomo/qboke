@@ -28,7 +28,7 @@ class CommentsPlugin
 		}
 
 		$disqus_shortname = $opts['disqus_shortname'];
-		$disqus_pageurl = $post->url_path();
+		$disqus_pageurl = $post->url();
 		$disqus_identifier = $post->options('disqus_identifier');
 
 		if ($disqus_identifier === false || empty($disqus_identifier)) {
@@ -44,7 +44,7 @@ class CommentsPlugin
 			};
 			(function() {
 				var d = document, s = d.createElement('script');
-				s.src = '//' + $disqus_shortname + '.disqus.com/embed.js';
+				s.src = '//<?php echo $disqus_shortname; ?>.disqus.com/embed.js';
 				s.setAttribute('data-timestamp', +new Date());
 				(d.head || d.body).appendChild(s);
 			})();
