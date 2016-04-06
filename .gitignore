@@ -6,3 +6,4 @@ config.php
 data
 public
 cache
+*.sublime-*
