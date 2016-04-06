@@ -31,8 +31,8 @@ class CommentsPlugin
 		$disqus_pageurl = $post->url();
 		$disqus_identifier = $post->options('disqus_identifier');
 
-		if (isset($opt['disqus_urlbase'])) {
-			$disqus_pageurl = $opt['disqus_urlbase'] + $disqus_pageurl;
+		if (isset($opts['disqus_urlbase'])) {
+			$disqus_pageurl = $opts['disqus_urlbase'] + $disqus_pageurl;
 		}
 		
 		if ($disqus_identifier === false || empty($disqus_identifier)) {
